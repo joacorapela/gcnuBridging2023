@@ -1,0 +1,14 @@
+# files
+*~
+*.out
+*.aux
+*.log
+*.swp
+toRsync
+fromRsync
+
+# directories
+old/
+notes/
+figures/
+results/
