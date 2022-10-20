@@ -38,6 +38,9 @@ def main(argv):
     parser.add_argument("--size_samples",
                         help="size for samples",
                         type=int, default=5)
+    parser.add_argument("--ylim",
+                        help="y-axes limits",
+                        type=str, default="[0.0, 4.5]")
     parser.add_argument("--y_info_filename_pattern",
                         help="pattern of filename to save samples, mean and "
                         "covariance of y", type=str,
@@ -60,6 +63,7 @@ def main(argv):
     marker_samples = args.marker_samples
     size_mean = args.size_mean
     size_samples = args.size_samples
+    ylim = [float(str) for str in args.ylim[1:-1].split(",")]
     y_info_filename = args.y_info_filename_pattern.format(n_samples)
     y_metadata_filename = args.y_metadata_filename_pattern.format(n_samples)
     fig_filename_pattern = args.fig_filename_pattern
@@ -97,7 +101,7 @@ def main(argv):
                          marker_symbol=marker_samples,
                          marker_size=size_samples,
                          marker_color=color_submarine,
-                         name="z")
+                         name=r"$\mathbf{z}_1$")
     trace_mean = go.Scatter(x=[pos_mean_z[0]], y=[pos_mean_z[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
@@ -106,7 +110,7 @@ def main(argv):
                             name="posterior mean")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_submarine,
-                               name="{:.0f}% quantile".format(
+                               name="{:.0f}% CE".format(
                                    ellipse_quantile*100))
     trace_yBar = go.Scatter(x=[sample_mean_y[0]], y=[sample_mean_y[1]],
                             mode="markers",
@@ -121,7 +125,8 @@ def main(argv):
     fig.update_layout(
         xaxis_title="x",
         yaxis_title="y",
-        yaxis=dict(scaleanchor="x", scaleratio=1),
+        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": ylim},
+    font={"size": 18},
     )
 
     fig.show()
