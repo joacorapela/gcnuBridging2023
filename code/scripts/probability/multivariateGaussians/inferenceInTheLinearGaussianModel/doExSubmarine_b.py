@@ -20,15 +20,6 @@ def main(argv):
     parser.add_argument("--ellipse_quantile",
                         help="percentage of samples included in the ellipse",
                         type=float, default=0.95)
-    parser.add_argument("--sigma_yx",
-                        help="measurements noise standard deviation along the "
-                             "x axis", type=float, default=1.0)
-    parser.add_argument("--sigma_yy",
-                        help="measurements noise standard deviation along the "
-                             "y axis", type=float, default=1.0)
-    parser.add_argument("--rho_y",
-                        help="measurements noise correlation coefficient",
-                        type=float, default=0.0)
     parser.add_argument("--color_submarine",
                         help="color of submarine samples",
                         type=str, default="rgba(255, 0, 0, 1.0)")
@@ -64,9 +55,6 @@ def main(argv):
     n_samples = args.n_samples
     n_points_ellipse = args.n_points_ellipse
     ellipse_quantile = args.ellipse_quantile
-    sigma_yx = args.sigma_yx
-    sigma_yy = args.sigma_yy
-    rho_y = args.rho_y
     color_submarine = args.color_submarine
     color_measurements = args.color_measurements
     marker_mean = args.marker_mean
@@ -80,19 +68,20 @@ def main(argv):
 
     # Please replace x.xx by appropriate values based on the exercise
     # description
+    sigma_y_x = x.xx
+    sigma_y_y = x.xx
+    rho_y = x.xx
     cov_y_11 = x.xx
     cov_y_12 = x.xx
     cov_y_21 = x.xx
     cov_y_22 = x.xx
     #
-
     cov_y = np.array([[cov_y_11, cov_y_12],
                       [cov_y_21, cov_y_22]])
 
     load_res = np.load(z_info_filename)
     samples_z = load_res["samples_z"]
-    random_index = np.random.randint(low=0, high=len(samples_z), size=1).item()
-    mean_y = samples_z[random_index, :]
+    mean_y = samples_z[0, :]
     samples_y = np.random.multivariate_normal(mean=mean_y, cov=cov_y,
                                               size=n_samples)
 
@@ -124,7 +113,7 @@ def main(argv):
                             name="mean")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_measurements,
-                               name="{:.0f}% quantile".format(
+                               name="{:.0f}% CE".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
@@ -132,7 +121,8 @@ def main(argv):
     fig.update_layout(
         xaxis_title=r"$y_x$",
         yaxis_title=r"$y_y$",
-        yaxis=dict(scaleanchor="x", scaleratio=1),
+        yaxis={"scaleanchor": "x", "scaleratio": 1},
+        font={"size": 18},
     )
 
     fig.show()

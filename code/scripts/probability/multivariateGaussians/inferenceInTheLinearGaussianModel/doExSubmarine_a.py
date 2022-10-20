@@ -22,15 +22,6 @@ def main(argv):
     parser.add_argument("--mean_z",
                         help="submarine location mean",
                         type=str, default="2.0 3.0")
-    parser.add_argument("--sigma_zx",
-                        help="submarine location standard deviation along the "
-                             "x axis", type=float, default=1.0)
-    parser.add_argument("--sigma_zy",
-                        help="submarine location standard deviation along the "
-                             "y axis", type=float, default=2.0)
-    parser.add_argument("--rho_z",
-                        help="submarine location correlation coefficient",
-                        type=float, default=0.7)
     parser.add_argument("--color_submarine",
                         help="color of submarine samples",
                         type=str, default="rgba(255, 0, 0, 1.0)")
@@ -58,9 +49,6 @@ def main(argv):
     n_points_ellipse = args.n_points_ellipse
     ellipse_quantile = args.ellipse_quantile
     mean_z = np.fromstring(args.mean_z, dtype=float, sep=" ")
-    sigma_zx = args.sigma_zx
-    sigma_zy = args.sigma_zy
-    rho_z = args.rho_z
     color_submarine = args.color_submarine
     marker_mean = args.marker_mean
     marker_samples = args.marker_samples
@@ -71,6 +59,9 @@ def main(argv):
 
     # Please replace x.xx by appropriate values based on the exercise
     # description
+    sigma_z_x = x.xx
+    sigma_z_y = x.xx
+    rho_z = x.xx
     cov_z_11 = x.xx
     cov_z_12 = x.xx
     cov_z_21 = x.xx
@@ -105,7 +96,7 @@ def main(argv):
                             name="mean")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_submarine,
-                               name="{:.0f}% quantile".format(
+                               name="{:.0f}% CE".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
@@ -113,7 +104,8 @@ def main(argv):
     fig.update_layout(
         xaxis_title=r"$z_x$",
         yaxis_title=r"$z_y$",
-        yaxis=dict(scaleanchor="x", scaleratio=1),
+        yaxis={"scaleanchor": "x", "scaleratio": 1},
+        font={"size": 18},
     )
     fig.show()
 

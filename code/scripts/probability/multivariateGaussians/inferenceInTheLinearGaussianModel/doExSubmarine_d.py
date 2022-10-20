@@ -114,7 +114,7 @@ def main(argv):
                             name="posterior mean")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_submarine,
-                               name="{:.0f}% quantile".format(
+                               name="{:.0f}% CE".format(
                                    ellipse_quantile*100))
     trace_yBar = go.Scatter(x=[sample_mean_y[0]], y=[sample_mean_y[1]],
                             mode="markers",
@@ -129,7 +129,8 @@ def main(argv):
     fig.update_layout(
         xaxis_title="x",
         yaxis_title="y",
-        yaxis=dict(scaleanchor="x", scaleratio=1),
+        yaxis={"scaleanchor": "x", "scaleratio": 1},
+        font={"size": 18},
     )
 
     fig.show()
