@@ -1,0 +1,10 @@
+# files
+*~
+toRsync
+
+notes/*
+lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/*
+!lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/Makefile
+!lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/exercises.tex
+!lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/exercises.pdf
+code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/results/*
