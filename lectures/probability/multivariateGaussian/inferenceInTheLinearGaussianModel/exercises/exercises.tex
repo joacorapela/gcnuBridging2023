@@ -44,9 +44,9 @@ with
         and a correlation coefficient between the vertical and horizontal
         directions $\rho_{\mathbf{z}}=0.7$.
 
-        Plot $\mu_z$, the 95\% confidence ellipse for $\mathbf{z}$, and
-        verify that approximately 95\% of the samples lie inside the 95\%
-        confidence ellipse.
+        Plot $\mu_z$, the 95\% confidence ellipse for $\mathbf{z}$, the samples
+        of the a-priori submarine location and verify that approximately 95\%
+        of these samples lie inside the 95\% confidence ellipse.
 
         You may want to complete the script
         \href{http://github.com/joacorapela/gcnu\_bridging2023}{doExSubmarine\_a.py}
@@ -62,9 +62,9 @@ with
         directions.
 
         Plot $\mathbf{z}_1$, the 95\% confidence ellipse for the sonar
-        measurements given that the submarine located at $\mathbf{z}_1$,
-        and verify that approximately 95\% of the samples lie inside the
-        95\% confidence band.
+        measurements given that the submarine located at $\mathbf{z}_1$, the
+        sonar measruments samples, and verify that approximately 95\% of these
+        samples lie inside the 95\% confidence band.
 
         You may want to complete the script
         \href{http://github.com/joacorapela/gcnu\_bridging2023}{doExSubmarine\_b.py}
@@ -113,17 +113,18 @@ with
 
         \end{itemize}
 
-    \item plot the sample mean of the measurements, the mean of the posterior,
-        its 95\% confidence ellipse, and check if $\mathbf{z}_1$, lies within
-        this ellipse.
+    \item plot the sample mean of the measurements, its 95\% confidence
+        ellipse, the mean of the posterior, its 95\% confidence ellipse, and
+        check if the population mean of the measurments, $\mathbf{z}_1$, lies
+        within this ellipse.
 
         You may want to complete the script
         \href{http://github.com/joacorapela/gcnu\_bridging2023}{doExSubmarine\_d.py}
         to address this item.
 
-    \item repeat (b) and (d) with $N\in\{3,10,50,100,1000\}$ measurements, and
-        show the plots generated in (d).  How do the posterior estimates change
-        as $N$ increases?
+    \item repeat (b) and (d) with $N\in\{3,10,50,100,1000\}$ measurements, and show
+        the plots generated in (d).  How do the posterior and sample mean
+        estimates change as $N$ increases?
 
     \item write the expressions of the posterior mean and covariances to
         see that:
