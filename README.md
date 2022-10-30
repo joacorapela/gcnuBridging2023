@@ -1,3 +1,4 @@
+Repository for the 2023 edition of the GCNU Mathematics Bridgning Program
+=========================================================================
 
-Repository for  the 2023 GCNU Bridging Mathematics Summer School
-================================================================
+

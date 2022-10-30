@@ -20,6 +20,15 @@ def main(argv):
     parser.add_argument("--ellipse_quantile",
                         help="percentage of samples included in the ellipse",
                         type=float, default=0.95)
+    parser.add_argument("--sigma_y_x",
+                        help="measurements noise standard deviation along the "
+                             "x axis", type=float, default=1.0)
+    parser.add_argument("--sigma_y_y",
+                        help="measurements noise standard deviation along the "
+                             "y axis", type=float, default=1.0)
+    parser.add_argument("--rho_y",
+                        help="measurements noise correlation coefficient",
+                        type=float, default=0.0)
     parser.add_argument("--color_submarine",
                         help="color of submarine samples",
                         type=str, default="rgba(255, 0, 0, 1.0)")
@@ -68,13 +77,13 @@ def main(argv):
 
     # Please replace x.xx by appropriate values based on the exercise
     # description
-    sigma_y_x = x.xx
-    sigma_y_y = x.xx
-    rho_y = x.xx
-    cov_y_11 = x.xx
-    cov_y_12 = x.xx
-    cov_y_21 = x.xx
-    cov_y_22 = x.xx
+    sigma_y_x = 1.0
+    sigma_y_y = 1.0
+    rho_y = 0.0
+    cov_y_11 = sigma_y_x**2
+    cov_y_12 = rho_y*sigma_y_x*sigma_y_y
+    cov_y_21 = rho_y*sigma_y_x*sigma_y_y
+    cov_y_22 = sigma_y_y**2
     #
     cov_y = np.array([[cov_y_11, cov_y_12],
                       [cov_y_21, cov_y_22]])

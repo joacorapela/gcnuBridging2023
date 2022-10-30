@@ -38,6 +38,9 @@ def main(argv):
     parser.add_argument("--size_samples",
                         help="size for samples",
                         type=int, default=5)
+    parser.add_argument("--ylim",
+                        help="y-axes limits",
+                        type=str, default="[0.0, 4.5]")
     parser.add_argument("--y_info_filename_pattern",
                         help="pattern of filename to save samples, mean and "
                         "covariance of y", type=str,
@@ -60,6 +63,7 @@ def main(argv):
     marker_samples = args.marker_samples
     size_mean = args.size_mean
     size_samples = args.size_samples
+    ylim = [float(str) for str in args.ylim[1:-1].split(",")]
     y_info_filename = args.y_info_filename_pattern.format(n_samples)
     y_metadata_filename = args.y_metadata_filename_pattern.format(n_samples)
     fig_filename_pattern = args.fig_filename_pattern
@@ -78,22 +82,15 @@ def main(argv):
     mean_z = z_info["mean_z"]
     cov_z = z_info["cov_z"]
 
-    # Please set the following variables with the posterior mean and covariance
-    # Tips:
-    #     1. to calculate the inverse of matrix A with numpy use
-    #        A_inv = np.linalg.inv(A)
-    #     2. to multiply matrix A with vector b with numpy use
-    #        A_b = np.matmul(A, b)
-    #     3. to solve the system of equations A x = b with numpy use
-    #        x = np.solve(A, b)
-    #     4. to sum two matrices or vectors A1 and A2 with numpy use
-    #        A_sum = A1 + A2
-    #     5. to multipy scalar a with matrix or vector A with numpy use
-    #        aA = a * A
-    post_mean_z = ...
-    post_cov_z = ...
-    yBar_mean = ...
-    yBar_cov = ...
+    cov_y_inv = np.linalg.inv(cov_y)
+    cov_z_inv = np.linalg.inv(cov_z)
+    tmp1 = N * cov_y_inv + cov_z_inv
+    tmp2 = N * np.matmul(cov_y_inv, sample_mean_y) + \
+        np.matmul(cov_z_inv, mean_z)
+    post_mean_z = np.linalg.solve(tmp1, tmp2)
+    post_cov_z = np.linalg.inv(tmp1)
+    yBar_mean = z
+    yBar_cov = 1.0/N*cov_y
     #
 
     post_ellipse_x, post_ellipse_y = \
@@ -102,7 +99,7 @@ def main(argv):
             N=n_points_ellipse)
     yBar_ellipse_x, yBar_ellipse_y = \
         joacorapela_common.utils.probability.quantileEllipse(
-            mean=yBar_mean_z, cov=yBar_cov_z, quantile=ellipse_quantile,
+            mean=yBar_mean, cov=yBar_cov, quantile=ellipse_quantile,
             N=n_points_ellipse)
 
     # plot data
@@ -111,13 +108,13 @@ def main(argv):
                          marker_symbol=marker_samples,
                          marker_size=size_samples,
                          marker_color=color_submarine,
-                         name="z")
-    trace_mean = go.Scatter(x=[pos_mean_z[0]], y=[pos_mean_z[1]],
+                         name=r"$\text{submarine location}\ \mathbf{z}_1$")
+    trace_mean = go.Scatter(x=[post_mean_z[0]], y=[post_mean_z[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_submarine,
-                            name="posterior mean")
+                            name=r"posterior mean")
     trace_post_ellipse = go.Scatter(x=post_ellipse_x, y=post_ellipse_y,
                                     mode="lines", marker_color=color_submarine,
                                     name="{:.0f}% posterior CE".format(
@@ -127,20 +124,21 @@ def main(argv):
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_measurements,
-                            name=r"$\bar{y}$")
+                            name="sample mean")
     trace_yBar_ellipse = go.Scatter(x=yBar_ellipse_x, y=yBar_ellipse_y,
                                     mode="lines",
                                     marker_color=color_measurements,
-                                    name=r"{:.0f}% $\bar{y}$ CE".format(
-                                        ellipse_quantile*100))
+                                    name="95% sample mean CE"
+                                   )
     fig.add_trace(trace_z)
     fig.add_trace(trace_mean)
-    fig.add_trace(trace_ellipse)
+    fig.add_trace(trace_post_ellipse)
     fig.add_trace(trace_yBar)
+    fig.add_trace(trace_yBar_ellipse)
     fig.update_layout(
         xaxis_title="x",
         yaxis_title="y",
-        yaxis={"scaleanchor": "x", "scaleratio": 1},
+        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": (0, 5.5)},
         font={"size": 18},
     )
 
@@ -150,8 +148,6 @@ def main(argv):
     html_fig_filename = fig_filename_pattern.format(n_samples, "html")
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
-
-    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":
