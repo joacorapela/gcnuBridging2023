@@ -87,12 +87,19 @@ def main(argv):
     tmp1 = N * cov_y_inv + cov_z_inv
     tmp2 = N * np.matmul(cov_y_inv, sample_mean_y) + \
         np.matmul(cov_z_inv, mean_z)
-    pos_mean_z = np.linalg.solve(tmp1, tmp2)
-    pos_cov_z = np.linalg.inv(tmp1)
+    post_mean_z = np.linalg.solve(tmp1, tmp2)
+    post_cov_z = np.linalg.inv(tmp1)
+    yBar_mean = z
+    yBar_cov = 1.0/N*cov_y
+    #
 
-    ellipse_x, ellipse_y = \
+    post_ellipse_x, post_ellipse_y = \
         joacorapela_common.utils.probability.quantileEllipse(
-            mean=pos_mean_z, cov=pos_cov_z, quantile=ellipse_quantile,
+            mean=post_mean_z, cov=post_cov_z, quantile=ellipse_quantile,
+            N=n_points_ellipse)
+    yBar_ellipse_x, yBar_ellipse_y = \
+        joacorapela_common.utils.probability.quantileEllipse(
+            mean=yBar_mean, cov=yBar_cov, quantile=ellipse_quantile,
             N=n_points_ellipse)
 
     # plot data
@@ -101,32 +108,38 @@ def main(argv):
                          marker_symbol=marker_samples,
                          marker_size=size_samples,
                          marker_color=color_submarine,
-                         name=r"$\mathbf{z}_1$")
-    trace_mean = go.Scatter(x=[pos_mean_z[0]], y=[pos_mean_z[1]],
+                         name=r"$\text{submarine location}\ \mathbf{z}_1$")
+    trace_mean = go.Scatter(x=[post_mean_z[0]], y=[post_mean_z[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_submarine,
-                            name="posterior mean")
-    trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
-                               marker_color=color_submarine,
-                               name="{:.0f}% CE".format(
-                                   ellipse_quantile*100))
+                            name=r"posterior mean")
+    trace_post_ellipse = go.Scatter(x=post_ellipse_x, y=post_ellipse_y,
+                                    mode="lines", marker_color=color_submarine,
+                                    name="{:.0f}% posterior CE".format(
+                                        ellipse_quantile*100))
     trace_yBar = go.Scatter(x=[sample_mean_y[0]], y=[sample_mean_y[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_measurements,
-                            name=r"$\bar{y}$")
+                            name="sample mean")
+    trace_yBar_ellipse = go.Scatter(x=yBar_ellipse_x, y=yBar_ellipse_y,
+                                    mode="lines",
+                                    marker_color=color_measurements,
+                                    name="95% sample mean CE"
+                                   )
     fig.add_trace(trace_z)
     fig.add_trace(trace_mean)
-    fig.add_trace(trace_ellipse)
+    fig.add_trace(trace_post_ellipse)
     fig.add_trace(trace_yBar)
+    fig.add_trace(trace_yBar_ellipse)
     fig.update_layout(
         xaxis_title="x",
         yaxis_title="y",
-        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": ylim},
-    font={"size": 18},
+        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": (0, 5.5)},
+        font={"size": 18},
     )
 
     fig.show()
@@ -135,8 +148,6 @@ def main(argv):
     html_fig_filename = fig_filename_pattern.format(n_samples, "html")
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
-
-    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":
