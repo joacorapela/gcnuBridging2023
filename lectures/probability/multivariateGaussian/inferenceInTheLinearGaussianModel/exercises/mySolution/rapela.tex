@@ -13,8 +13,8 @@
 
 \def\figsdir{../../../../../../code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/figures/}
 
-\newcommand\nSamples{{3,10,50,100}}
-\def\nNSamples{4}
+\newcommand\nSamples{{3,10,50,100,1000}}
+\def\nNSamples{5}
 
 \begin{document}
 
@@ -43,9 +43,11 @@ of the samples probability density function.
 \begin{center}
     \begin{figure}[H]
         \includegraphics[width=6in]{\figsdir /submarine_samples_N100.png}
-        \caption{100 a-priori samples of the submarine location, and the mean
-        and 95\% confidence ellipse of the samples probability density
-        function.}
+
+        \caption{100 a-priori samples of the submarine location (dots), and the
+        mean (cross) and 95\% confidence ellipse (line) of the samples
+        probability density function.}
+
         \label{fig:a}
     \end{figure}
 \end{center}
@@ -67,9 +69,11 @@ ellipse of the samples probability density function.
 \begin{center}
     \begin{figure}[H]
         \includegraphics[width=6in]{\figsdir /measurements_samples_N5.png}
-        \caption{5 noisy measurements of of the submarine location, and the mean
-        and 95\% confidence ellipse of the measurements probability density
-        function.}
+
+        \caption{5 noisy measurements of of the submarine location (dots), and
+        the mean ($\mathbf{z}_1$, cross) and 95\% confidence ellipse (line) of
+        the measurements probability density function.}
+
         \label{fig:b}
     \end{figure}
 \end{center}
@@ -92,15 +96,19 @@ confidence ellipse.
     tmp1 = N * cov_y_inv + cov_z_inv
     tmp2 = N * np.matmul(cov_y_inv, sample_mean_y) + \
         np.matmul(cov_z_inv, mean_z)
-    pos_mean_z = np.linalg.solve(tmp1, tmp2)
-    pos_cov_z = np.linalg.inv(tmp1)
+    post_mean_z = np.linalg.solve(tmp1, tmp2)
+    post_cov_z = np.linalg.inv(tmp1)
+    yBar_mean = z
+    yBar_cov = 1.0/N*cov_y
 \end{lstlisting}
 
 \begin{center}
     \begin{figure}[H]
         \includegraphics[width=6in]{\figsdir /estimates_samples_N5.png}
-        \caption{Mean of 5 noisy measurements (blue cross), mean of the posterior
-        distribution and its 95\% confidence ellipse.}
+        \caption{Sample average of 5 noisy measurements (blue cross), 95\%
+        confidence ellipse of this average (blue line), mean of the posterior
+        distribution (red cross), its 95\% confidence ellipse (red line), and
+        submarine location ($\mathbf{z}_1$, red dot)}
         \label{fig:d}
     \end{figure}
 \end{center}
@@ -136,8 +144,11 @@ In these figures we observe that:
         \begin{figure}[H]
             \includegraphics[width=6in]{\figsdir /estimates_samples_N\nSamplesL.png}
 
-            \caption{Mean of \nSamplesL\ noisy measurements (blue cross), mean
-            of the posterior distribution and its 95\% confidence ellipse.}
+            \caption{Sample average of \nSamplesL\ noisy measurements (blue
+            cross), 95\% confidence ellipse of this average (blue line), mean
+            of the posterior distribution (red cross), its 95\% confidence
+            ellipse (red line), and submarine location
+            ($\mathbf{z}_1$, red dot)}
 
             \label{fig:e_\nSamplesL}
         \end{figure}
