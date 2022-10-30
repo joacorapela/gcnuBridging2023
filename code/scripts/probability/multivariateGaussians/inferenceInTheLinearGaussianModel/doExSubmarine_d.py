@@ -90,13 +90,19 @@ def main(argv):
     #        A_sum = A1 + A2
     #     5. to multipy scalar a with matrix or vector A with numpy use
     #        aA = a * A
-    pos_mean_z = ...
-    pos_cov_z = ...
+    post_mean_z = ...
+    post_cov_z = ...
+    yBar_mean = ...
+    yBar_cov = ...
     #
 
-    ellipse_x, ellipse_y = \
+    post_ellipse_x, post_ellipse_y = \
         joacorapela_common.utils.probability.quantileEllipse(
-            mean=pos_mean_z, cov=pos_cov_z, quantile=ellipse_quantile,
+            mean=post_mean_z, cov=post_cov_z, quantile=ellipse_quantile,
+            N=n_points_ellipse)
+    yBar_ellipse_x, yBar_ellipse_y = \
+        joacorapela_common.utils.probability.quantileEllipse(
+            mean=yBar_mean_z, cov=yBar_cov_z, quantile=ellipse_quantile,
             N=n_points_ellipse)
 
     # plot data
@@ -112,16 +118,21 @@ def main(argv):
                             marker_size=size_mean,
                             marker_color=color_submarine,
                             name="posterior mean")
-    trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
-                               marker_color=color_submarine,
-                               name="{:.0f}% CE".format(
-                                   ellipse_quantile*100))
+    trace_post_ellipse = go.Scatter(x=post_ellipse_x, y=post_ellipse_y,
+                                    mode="lines", marker_color=color_submarine,
+                                    name="{:.0f}% posterior CE".format(
+                                        ellipse_quantile*100))
     trace_yBar = go.Scatter(x=[sample_mean_y[0]], y=[sample_mean_y[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_measurements,
                             name=r"$\bar{y}$")
+    trace_yBar_ellipse = go.Scatter(x=yBar_ellipse_x, y=yBar_ellipse_y,
+                                    mode="lines",
+                                    marker_color=color_measurements,
+                                    name=r"{:.0f}% $\bar{y}$ CE".format(
+                                        ellipse_quantile*100))
     fig.add_trace(trace_z)
     fig.add_trace(trace_mean)
     fig.add_trace(trace_ellipse)
