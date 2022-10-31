@@ -10,6 +10,8 @@
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{listings}
 \usepackage{tikz}
+\usepackage{natbib}
+\usepackage{apalike}
 
 \def\figsdir{../../../../../../code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/figures/}
 
@@ -80,11 +82,36 @@ ellipse of the samples probability density function.
 
 \subsection*{(c)} 
 
-\begin{align*}
-    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=\mathcal{N}(\mathbf{z}|\hat{\mu},\hat{\Sigma})\\
-    \hat{\mu}&=\left(N\Sigma_y^{-1}+\Sigma_z^{-1}\right)^{-1}\left(N\Sigma_y^{-1}\bar{\mathbf{y}}+\Sigma_z^{-1}\mu_z\right)\\
-    \hat{\Sigma}&=\frac{1}{N}\left(\Sigma_y^{-1}+\frac{1}{N}\Sigma_z^{-1}\right)^{-1}
-\end{align*}
+\begin{align}
+    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=K_1\ p(\mathbf{z},\mathbf{y}_1,\ldots,\mathbf{y}_N)\nonumber\\
+                                                  &=K_1\ p(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})\ p(\mathbf{z})\nonumber\\
+                                                  &=K_2\
+                                                  \mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\Sigma_y\right.\right)\mathcal{N}\left(\mathbf{z}|\mu_z,\Sigma_z\right)\label{eq:posZLine3}
+%                                                   &=K_2\ p(\bar{\mathbf{y}}|\mathbf{z})\ p(\mathbf{z})
+\end{align}
+
+\noindent where $K_1$ is a constant that does not depend on $\mathbf{z}$ and
+Eq.~\ref{eq:posZLine3} follows from Claim~1 in the exercise statement. In the
+right-hand side of Eq.~\ref{eq:posZLine3} we recognize a linear Gaussian model
+(i.e., $\bar{\mathbf{y}}$ and $\mathbf{z}$ are Gaussian random variables and
+the mean of $\bar{\mathbf{y}}$ depends linearly on $\mathbf{z}$).
+
+Defining
+$p(\bar{\mathbf{y}}|\mathbf{z})=\mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\Sigma_y\right.\right)$
+and $p(\mathbf{z})=\mathcal{N}\left(\mathbf{z}|\mu_z,\Sigma_z\right)$, because
+the right-hand side of Eq.~\ref{eq:posZLine3} equals a probability density
+function on $\mathbf{z}$, this right-hand side should be
+$p(\mathbf{z}|\bar{\mathbf{y}})$. To derive a mathematical expression for
+$p(\mathbf{z}|\bar{\mathbf{y}})$, we use Eq.~3.37 from~\citet{murphyIntro22}
+with $\mathbf{y}=\bar{\mathbf{y}}$, $\mathbf{W}=I$, $\mathbf{b}=\mathbf{0}$,
+$\Sigma_y=\frac{1}{N}\Sigma_y$, yielding
+
+
+\begin{align}
+    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=p(\mathbf{z}|\bar{\mathbf{y}})=\mathcal{N}(\mathbf{z}|\mu_{z|\bar{y}},\Sigma_{z|\bar{y}})\nonumber\\
+    \Sigma^{-1}_{z|\bar{y}}&=\Sigma_z^{-1}+N\Sigma_y^{-1}\label{eq:postCov}\\
+    \mu_{z|\bar{y}}&=\Sigma_{z|\bar{y}}\left[N\Sigma_y^{-1}\bar{\mathbf{y}}+\Sigma_z^{-1}\mu_z\right]\label{eq:postMean}
+\end{align}
 
 \subsection*{(d)} The modified code lines appear below and Fig.~\ref{fig:d}
 plots the mean of the measurements, the mean of the posterior and its 95\%
@@ -120,17 +147,17 @@ In these figures we observe that:
 
 \begin{enumerate}
 
-    \item as the number of measurements increase, the posterior mean approaches
-        the sample mean, and the sample mean approaches the true value,
+    \item as the number of measurements increases, the posterior mean approaches
+        the sample mean, and the sample mean approaches the submarine location
         $\mathbf{z}_1$,
 
-    \item as the number of measurements increase, the 95\% confidence ellipses
+    \item as the number of measurements increases, the 95\% confidence ellipses
         become smaller,
 
     \item for three measurements (Fig.~\ref{fig:e_3}) the posterior 95\%
         confidence ellipse is tilted, as that of the prior (Fig.~\ref{fig:a},
         $\Sigma_z$ in Eq.~1 of the exercise statement).
-        As the number of measurments increase, the posterior 95\% confidence
+        As the number of measurments increases, the posterior 95\% confidence
         ellipses become more and more spherical, as the 95\% confidence ellipse
         of the measurements likelihood (Fig.~\ref{fig:b},
         $\Sigma_y$ in Eq.~2 of the exercise statement).
@@ -154,5 +181,44 @@ In these figures we observe that:
         \end{figure}
     \end{center}
 }
+
+\subsection*{(f)} Eqs~\ref{eq:postMeanRewritten} and~\ref{eq:postCovRewritten}
+were obtained by re-arrenging Eqs.~\ref{eq:postMean} and~\ref{eq:postCov} to
+more clearly show the behavior of the posterior mean and covariance as $N$
+increases to infinity.
+
+\begin{align}
+    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=\mathcal{N}(\mathbf{z}|\mu_{z|\bar{y}}(N),\Sigma_{z|\bar{y}}(N))\nonumber\\
+    \Sigma_{z|\bar{y}}(N)&=\frac{1}{N}\left(\Sigma_y^{-1}+\frac{1}{N}\Sigma_z^{-1}\right)^{-1}\label{eq:postCovRewritten}\\
+    \mu_{z|\bar{y}}(N)&=\left(\Sigma_y^{-1}+\frac{1}{N}\Sigma_z^{-1}\right)^{-1}\left[\Sigma_y^{-1}\bar{\mathbf{y}}_N+\frac{1}{N}\Sigma_z^{-1}\mu_z\right]\label{eq:postMeanRewritten}
+\end{align}
+
+From Eq.~\ref{eq:postCovRewritten} we observe that as $N$ increases the
+contributions of the prior covariance, $\Sigma_z$, to the posterior covariance,
+$\Sigma_{z|\bar{y}}(N)$, becomes smaller and smaller, in comparison to the
+contribution from the likelihood covariance, $\frac{1}{N}\Sigma_y$. When $N$ is
+very large, the contribution of the prior covariance dissapears, the posterior
+covariance converges to the likelihood covariance, which becomes zero.
+
+From Eq.~\ref{eq:postMeanRewritten} we observe 
+
+\begin{align}
+    \lim_{N\rightarrow\infty}\mu_{z|\bar{y}}(N)&=\Sigma_y\left[\Sigma_y^{-1}\bar{\mathbf{y}}_N\right]=\lim_{N\rightarrow\infty}\bar{\mathbf{y}}_N\label{eq:postMeanAtInfty}
+\end{align}
+
+It can be shown that 
+
+\begin{align}
+    \bar{\mathbf{y}}_N\sim\mathcal{N}(\bar{\mathbf{y}}_N|\mathbf{z}_1,\frac{1}{N}\Sigma_y)\nonumber
+\end{align}
+
+\noindent Thus, as $N$ approaches infinity, the variance of $\bar{\mathbf{y}}_N$
+becomes zero, and $\bar{\mathbf{y}}_N$ collapses to its mean $\mathbf{z}_1$.
+Therefore, as $N$ approaches infinity, both the posterior mean,
+Eq.~\ref{eq:postMeanAtInfty}, and sample the mean, become deterministic and
+converge to the population mean of the observatons; i.e., $\mathbf{z}_1$.
+
+\bibliographystyle{apalike}
+\bibliography{machineLearning}
 
 \end{document}
