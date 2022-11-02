@@ -5,7 +5,6 @@ import configparser
 import numpy as np
 import plotly.graph_objects as go
 
-sys.path.append(os.path.expanduser("~/dev/research/programs/repos/python"))
 import joacorapela_common.utils.probability
 
 
@@ -140,8 +139,6 @@ def main(argv):
     html_fig_filename = fig_filename_pattern.format(n_samples, "html")
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
-
-    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":

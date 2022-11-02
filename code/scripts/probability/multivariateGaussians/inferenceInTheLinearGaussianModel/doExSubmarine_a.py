@@ -4,7 +4,6 @@ import argparse
 import numpy as np
 import plotly.graph_objects as go
 
-sys.path.append(os.path.expanduser("~/dev/research/programs/repos/python"))
 import joacorapela_common.utils.probability
 
 
