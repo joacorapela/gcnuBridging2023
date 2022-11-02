@@ -1,2 +1,5 @@
 numpy
+scipy
 plotly
+joacorapela-common
+kaleido
