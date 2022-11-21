@@ -1,13 +1,17 @@
 Repository for the 2023 edition of the GCNU Mathematics Bridging Program
 =========================================================================
 
-Under construction.
+Please refer to the syllabus of the following program modules:
 
-To warm up you may want to work the [exercises on inference on the linear Gaussian model](https://github.com/joacorapela/gcnuBridging2023/blob/master/lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/exercises.pdf).
+1. Linear algebra,
 
-In this [folder](https://github.com/joacorapela/gcnuBridging2023/tree/master/code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel) you will find code to help you solve the previous exercises.
+2. Calculus,
 
-[Here](https://github.com/joacorapela/gcnuBridging2023/blob/master/lectures/probability/multivariateGaussian/inferenceInTheLinearGaussianModel/exercises/solution/rapela.pdf) is my written solution to these exercises, and in this [folder](https://github.com/joacorapela/gcnuBridging2023/tree/master/code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel) you will find code for this solution.
+3. [Probability](lectures/probability/syllabus.md)
 
-To install the dependencies needed to run the above code, clone this repository and type ``pip install -e .`` from the root directory of the cloned repository.
+4. Convolution, filters and Fourier analysis
+
+5. Ordinary differential equations
+
+Note: to install the dependencies needed to run the code provided here, please clone this repository and type ``pip install -e .`` from the root directory of the cloned repository.
 
