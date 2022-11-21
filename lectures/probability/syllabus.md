@@ -162,7 +162,7 @@ Section 4: Continous random variables and probability distributions (Devore, 201
 
 ---
 
-Section 5: Functions of random variables (Start and Woods, 1994)
+Section 5: Functions of random variables (Stark and Woods, 1994)
 ===============================================================
 
 3.1 Introduction
