@@ -1,4 +1,4 @@
-Lecture 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
+Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 ===========================================================================
 
 0 History of probability
@@ -33,7 +33,7 @@ Lecture 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 
 ---
 
-Lecture 2: Probability (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
+Section 2: Probability (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 =========================================================================
 
 2.1 Sample space and events
@@ -74,7 +74,7 @@ Lecture 2: Probability (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 
 ---
 
-Lecture 3: Discrete random variables and probability distributions (Devore, 2010)
+Section 3: Discrete random variables and probability distributions (Devore, 2010)
 ================================================================================
 
 3.1 Random variables
@@ -120,7 +120,7 @@ Lecture 3: Discrete random variables and probability distributions (Devore, 2010
 
 ---
 
-Lecture 4: Continous random variables and probability distributions (Devore, 2010)
+Section 4: Continous random variables and probability distributions (Devore, 2010)
 =================================================================================
 
 4.1 Probability density functions
@@ -162,7 +162,7 @@ Lecture 4: Continous random variables and probability distributions (Devore, 201
 
 ---
 
-Lecture 5: Functions of random variables (Start and Woods, 1994)
+Section 5: Functions of random variables (Start and Woods, 1994)
 ===============================================================
 
 3.1 Introduction
@@ -179,7 +179,7 @@ Lecture 5: Functions of random variables (Start and Woods, 1994)
 
 ---
 
-Lecture 6: Joint probability distributions and random samples (Devore 2010)
+Section 6: Joint probability distributions and random samples (Devore 2010)
 ===========================================================================
 
 5.1 Jointly distributed random 
@@ -220,41 +220,72 @@ Lecture 6: Joint probability distributions and random samples (Devore 2010)
 
 - general distribution of the sample mean
 - the Normal case
-- the central limit theorem
 - the distribution of a linear combination
 
 ---
 
-Lecture 7: Vector random variables (Stark and Woods, 1994)
-==========================================================
+Section 7: Limit theorems (Ross, 2010)
+======================================
 
-5.1 Join distribution and densities
+8.2 Chebyshev's inequality and the weak law of large numbers
+------------------------------------------------------------
+
+- Markov's inequality
+
+- Chevishev's inequality
+
+- The weak law of large numbers
+
+8.3 The central limit theorem
+-----------------------------
+
+- The central limit theorem for iid RVs (with proof)
+
+- The central limit theorem for independent RVs 
+
+8.4 The strong law of large numbers
+-----------------------------------
+
+- The strong law of large numbers
+
+---
+
+Section 8: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
+========================================================================
+
+5.1 Join distribution and densities (S&W, 1994)
 -----------------------------------
 
 - probability distribution function (PDF)
 - probability density function (pdf)
 
-5.2 Expectation vectors and covariance matrices
+5.2 Expectation vectors and covariance matrices (S&W, 1994)
 -----------------------------------------------
 
 - expectation vector
 - covariance matrix
 
-5.3 Properties of covariance matrices
+5.3 Properties of covariance matrices (S&W, 1994)
 -------------------------------------
 
 - positive definite matrices
 
-5.4 The multidimensional Gaussian law
+5.4 The multidimensional Gaussian law (S&W, 1994)
 -------------------------------------
 
 - multidimensional normal pdf
 - distribution of Y=AX, when X is an n-dimensional normal random vector
 - sampling (correlated) multidimensional normal random vectors
 
+2.3.1 Conditional Gaussian distributions (Bishop, 2006)
+----------------------------------------
+
+2.3.2 Marginal Gaussian distributions (Bishop, 2006)
+-------------------------------------
+
 ---
 
-Lecture 8: likelihood function (Casella and Berger, 2002; Bishop, 2006)
+Section 9: Inference (Casella and Berger, 2002; Bishop, 2006)
 =========================================================
 
 6.3.1 The Likelihood function (C&B, 2002)
@@ -263,18 +294,14 @@ Lecture 8: likelihood function (Casella and Berger, 2002; Bishop, 2006)
 7.2.2 Maximum likelihood estimators (C&B, 2002)
 -----------------------------------
 
-- 3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
+2.3.3 Inference in the linear Gaussian model (Bishop, 2006)
+--------------------------------------------
 
----
+3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
+------------------------------------------------------------
 
-Lecture 9: bayesian linear regression (Bishop, 2006)
-====================================================
-
-3.3.1 Parameter distribution
-----------------------------
-
-3.3.2 Predictive distribution
------------------------------
+3.3 Bayesian linear regression (Bishop, 2006)
+------------------------------
 
 ---
 
@@ -283,8 +310,10 @@ Bibliography
 
 - Bishop, C. M., & Nasrabadi, N. M. (2006). Pattern recognition and machine learning (Vol. 4, No. 4, p. 738). New York: springer.
 
+- Casella, G., & Berger, R. L. (2002). Statistical inference, Duxbury Press. Pacific Grove, CA.
+
 - Devore, J. L. (2011). Probability and Statistics for Engineering and the Sciences. Cengage learning.
 
-- Stark, H., & Woods, J. W. (Eds.). (1986). Probability, random processes, and estimation theory for engineers. Prentice-Hall, Inc., 2nd Ed.
+- Stark, H., & Woods, J. W. (Eds.). (2002). Probability, random processes, and estimation theory for engineers. Prentice-Hall, Inc., 2nd Ed.
 
 - Tijms, H. (2012). Understanding probability. Cambridge University Press.
