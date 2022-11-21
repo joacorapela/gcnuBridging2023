@@ -69,7 +69,7 @@ Section 2: Probability (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 ----------------
 
 - independence
-- the multiplication rule for $P(A\intersect B)$
+- the multiplication rule for $P(A\cap B)$
 - independence of more than two events
 
 ---
