@@ -4,7 +4,7 @@ Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 0 History of probability
 ------------------------
 
-- Understaning probability, Henk Trijms, 2012
+- Understaning probability, Trijms, 2012
 
 1.1 Populations  samples and processes
 --------------------------------------
