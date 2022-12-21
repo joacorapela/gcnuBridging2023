@@ -1,31 +1,31 @@
 Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 ===========================================================================
 
-0 History of probability
+1.1 History of probability
 ------------------------
 
 - Understaning probability, Trijms, 2012
 
-1.1 Populations  samples and processes
+1.2 Populations  samples and processes
 --------------------------------------
 
 - population, census, sample
 - univariate, bivariate, multivariate
 - relation between probability and statistics
 
-1.2 Descriptive statistics
+1.3 Descriptive statistics
 --------------------------
 
 - stem-and-leaf displays
 - historgrams
 
-1.3 Measures of location
+1.4 Measures of location
 ------------------------
 
 - mean
 - median
 
-1.4 Measures of variability
+1.5 Measures of variability
 ---------------------------
 
 - sample variance
