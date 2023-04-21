@@ -33,7 +33,7 @@ Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 
 ---
 
-Section 2: Probability (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
+Section 2: Foundations (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 =========================================================================
 
 2.1 Sample space and events
