@@ -285,23 +285,17 @@ Section 8: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
 
 ---
 
-Section 9: Inference (Casella and Berger, 2002; Bishop, 2006)
+Section 9: Inference (Bishop, 2006)
 =========================================================
-
-6.3.1 The Likelihood function (C&B, 2002)
------------------------------
-
-7.2.2 Maximum likelihood estimators (C&B, 2002)
------------------------------------
-
-2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
---------------------------------------------
 
 3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
 ------------------------------------------------------------
 
 3.3 Bayesian linear regression (Bishop, 2006)
 ------------------------------
+
+2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
+--------------------------------------------
 
 ---
 
