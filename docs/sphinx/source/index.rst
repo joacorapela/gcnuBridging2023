@@ -10,6 +10,7 @@ Welcome to gcnuBridging2023's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   auto_examples/index
 
 
 Indices and tables
