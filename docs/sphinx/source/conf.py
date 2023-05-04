@@ -58,5 +58,17 @@ html_static_path = ['_static']
 sphinx_gallery_conf = {
     'examples_dirs': '../../../examples/sphinx_gallery',   # path to your example scripts
     'gallery_dirs': 'auto_examples',  # path to where to save gallery generated output
+    'binder': {
+        # Required keys
+        'org': 'joacorapela',
+        'repo': 'gcnuBridging2023',
+        'branch': 'gh-pages', # Can be any branch, tag, or commit hash. Use a branch that hosts your docs.
+        'binderhub_url': 'https://mybinder.org', # Any URL of a binderhub deployment. Must be full URL (e.g. https://mybinder.org).
+        'dependencies': '../requirements.txt',
+        # Optional keys
+        # 'filepath_prefix': '<prefix>' # A prefix to prepend to any filepaths in Binder links.
+        # 'notebooks_dir': '<notebooks-directory-name>' # Jupyter notebooks for Binder will be copied to this directory (relative to built documentation root).
+        # 'use_jupyter_lab': <bool> # Whether Binder links should start Jupyter Lab instead of the Jupyter Notebook interface.
+    }
 }
 
