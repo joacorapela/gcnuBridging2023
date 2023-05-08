@@ -6,6 +6,9 @@
 *.swp
 *.bbl
 *.blg
+*.bak
+*egg-info/
+*.npz
 toRsync
 fromRsync
 
