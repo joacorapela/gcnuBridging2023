@@ -18,7 +18,7 @@ import plotly.graph_objects as go
 # Define data generation variables
 # --------------------------------
 
-n_samples = 64
+n_samples = 20
 a0    = -0.3
 a1    = 0.5
 sigma = 0.2
@@ -29,7 +29,7 @@ fig_filename_pattern = "figures/regression_data_nSamples{:02d}.{:s}"
 # Sample data
 # -----------
 
-x = np.random.uniform(size=n_samples)
+x = np.random.uniform(low=-1, high=1, size=n_samples)
 y = a0 + a1 * x
 t = y + np.random.standard_normal(size=y.shape) * sigma
 
@@ -38,7 +38,7 @@ t = y + np.random.standard_normal(size=y.shape) * sigma
 # ---------
 
 data_filename = data_filename_pattern.format(n_samples)
-np.savez(data_filename, x=x, y=y, t=t, a0=a0, a1=a1)
+np.savez(data_filename, x=x, y=y, t=t, a0=a0, a1=a1, sigma=sigma)
 
 #%%
 # Plot data
