@@ -3,8 +3,8 @@
 Batch Bayesian linear regression
 ================================
 
-The code below estimates the posterior of the weighs of a linear regression
-model using simulate data.
+The code below uses a batch algorithm to estimate the posterior of the weighs
+of a linear regression model using simulate data.
 
 """
 
@@ -16,15 +16,18 @@ import numpy as np
 import scipy.stats
 import plotly.graph_objects as go
 
+import joacorapela_common.stats.bayesianLinearRegression
+
 #%%
 # Define data generation variables
 # --------------------------------
 
-n_samples = 64
+n_samples = 20
 prior_precision_coef = 2.0
 likelihood_precision_coef = (1/0.2)**2
 data_filename_pattern = "data/linearRegression_nSamples{:02d}.npz"
 fig_filename_pattern = "figures/regression_data_nSamples{:02d}.{:s}"
+fig_filename_pattern = "figures/batchBayesianLinearRegression_nSamples{:02d}.{:s}"
 
 #%%
 # Load data
@@ -41,28 +44,24 @@ a1 = load_res["a1"]
 # Estimate posterior
 # ------------------
 
+Phi = np.column_stack((np.ones(len(independent_var)), independent_var))
 alpha = prior_precision_coef
 beta = likelihood_precision_coef
-Phi = np.column_stack((np.ones(len(independent_var)), independent_var))
-SNinv = alpha*np.eye(2) + beta * Phi.T @ Phi
-mN = np.linalg.solve(a=SNinv, b=beta * Phi.T @ dependent_var)
+mN, SN = \
+    joacorapela_common.stats.bayesianLinearRegression.batchWithSimplePrior(
+        Phi=Phi, y=dependent_var, alpha=alpha, beta=beta)
 
 #%%
 # Plot the estimates
 # ------------------
-ellipse_quantile = .95
-n_points_ellipse = 100
 marker_true = "cross"
-marker_post = "circle"
 size_true = 10
-size_post = 10
 color_true = "white"
 x = np.linspace(-1, 1, 100)
 y = np.linspace(-1, 1, 100)
 X, Y = np.meshgrid(x, y)
 pos = np.dstack((X, Y))
 
-SN = np.linalg.inv(SNinv)
 rv = scipy.stats.multivariate_normal(mN, SN)
 Z = rv.pdf(pos)
 
@@ -72,10 +71,10 @@ trace_post = go.Contour(x=x, y=y, z=Z, showscale=False)
 fig.add_trace(trace_post)
 
 trace_true_coef = go.Scatter(x=[a0], y=[a1], mode="markers",
-                         marker_symbol=marker_true,
-                         marker_size=size_true,
-                         marker_color=color_true,
-                         name="true mean")
+                             marker_symbol=marker_true,
+                             marker_size=size_true,
+                             marker_color=color_true,
+                             name="true mean")
 fig.add_trace(trace_true_coef)
 fig.update_layout(xaxis_title="Intercept",
                   yaxis_title="Slope")
@@ -87,4 +86,3 @@ fig.write_html(html_fig_filename)
 
 fig.show()
 
-breakpoint()
