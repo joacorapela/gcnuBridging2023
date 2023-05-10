@@ -26,7 +26,6 @@ n_samples = 20
 prior_precision_coef = 2.0
 likelihood_precision_coef = (1/0.2)**2
 data_filename_pattern = "data/linearRegression_nSamples{:02d}.npz"
-fig_filename_pattern = "figures/regression_data_nSamples{:02d}.{:s}"
 fig_filename_pattern = "figures/batchBayesianLinearRegression_nSamples{:02d}.{:s}"
 
 #%%
@@ -84,5 +83,5 @@ html_fig_filename = fig_filename_pattern.format(n_samples, "html")
 fig.write_image(png_fig_filename)
 fig.write_html(html_fig_filename)
 
-fig.show()
+fig
 
