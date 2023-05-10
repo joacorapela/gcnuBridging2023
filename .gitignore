@@ -15,5 +15,8 @@ fromRsync
 # directories
 old/
 notes/
-figures/
 results/
+examples/sphinx_gallery/bayesianLinearRegression/data/*
+!examples/sphinx_gallery/bayesianLinearRegression/data/.gitkeep
+examples/sphinx_gallery/bayesianLinearRegression/figures/*
+!examples/sphinx_gallery/bayesianLinearRegression/figures/.gitkeep
