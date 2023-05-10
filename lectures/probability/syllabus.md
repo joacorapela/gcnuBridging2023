@@ -162,24 +162,7 @@ Section 4: Continous random variables and probability distributions (Devore, 201
 
 ---
 
-Section 5: Functions of random variables (Stark and Woods, 1994)
-===============================================================
-
-3.1 Introduction
-----------------
-
-- examples
-
-3.2 Solving problems of the type Y = g(X)
------------------------------------------
-
-- examples
-
-- general formula of detmining the pdf of Y = g(X)
-
----
-
-Section 6: Joint probability distributions and random samples (Devore 2010)
+Section 5: Joint probability distributions and random samples (Devore 2010)
 ===========================================================================
 
 5.1 Jointly distributed random 
@@ -221,6 +204,23 @@ Section 6: Joint probability distributions and random samples (Devore 2010)
 - general distribution of the sample mean
 - the Normal case
 - the distribution of a linear combination
+
+---
+
+Section 6: Functions of random variables (Stark and Woods, 1994)
+===============================================================
+
+3.1 Introduction
+----------------
+
+- examples
+
+3.2 Solving problems of the type Y = g(X)
+-----------------------------------------
+
+- examples
+
+- general formula of detmining the pdf of Y = g(X)
 
 ---
 
