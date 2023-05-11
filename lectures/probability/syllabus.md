@@ -302,7 +302,7 @@ Section 9: Inference (Bishop, 2006)
 Bibliography
 ============
 
-- Bishop, C. M., & Nasrabadi, N. M. (2006). Pattern recognition and machine learning (Vol. 4, No. 4, p. 738). New York: springer.
+- Bishop, Christopher M. ( 2006). Pattern recognition and machine learning. New York. Springer,
 
 - Casella, G., & Berger, R. L. (2002). Statistical inference, Duxbury Press. Pacific Grove, CA.
 
