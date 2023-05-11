@@ -11,11 +11,16 @@
 *.npz
 toRsync
 fromRsync
+docs/sphinx/make.bat
+.nfs*
 
 # directories
 old/
 notes/
 results/
+figures/
+docs/sphinx/build/
+docs/sphinx/source/auto_examples/
 examples/sphinx_gallery/bayesianLinearRegression/data/*
 !examples/sphinx_gallery/bayesianLinearRegression/data/.gitkeep
 examples/sphinx_gallery/bayesianLinearRegression/figures/*
