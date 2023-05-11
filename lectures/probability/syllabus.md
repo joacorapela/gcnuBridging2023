@@ -291,7 +291,7 @@ Section 9: Inference (Bishop, 2006)
 3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
 ------------------------------------------------------------
 
-3.3 Bayesian linear regression (Bishop, 2006)
+3.3 Bayesian linear regression (Bishop, 2006) ([exercise](inference/bayesianLinearRegression/exercises/exercises.pdf), [solution](https://joacorapela.github.io/gcnuBridging2023/auto_examples/index.html#bayesian-linear-regression))
 ------------------------------
 
 2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
