@@ -7,7 +7,7 @@ Please refer to the syllabus of the following program modules:
 
 2. Calculus,
 
-3. [Probability](lectures/probability/syllabus.md)
+3. [Probability](probability/lectures/syllabus.md)
 
 4. Convolution, filters and Fourier analysis
 
