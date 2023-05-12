@@ -207,57 +207,7 @@ Section 5: Joint probability distributions and random samples (Devore 2010)
 
 ---
 
-Section 6: Functions of random variables (Stark and Woods, 1994)
-===============================================================
-
-3.1 Introduction
-----------------
-
-- examples
-
-3.2 Solving problems of the type Y = g(X)
------------------------------------------
-
-- examples
-
-- general formula of detmining the pdf of Y = g(X)
-
-3.3 Solving problems of the type Z = g(X, Y)
---------------------------------------------
-
-- examples
-
-- the sum of two independent random variables
-
----
-
-Section 7: Limit theorems (Ross, 2010)
-======================================
-
-8.2 Chebyshev's inequality and the weak law of large numbers
-------------------------------------------------------------
-
-- Markov's inequality
-
-- Chevishev's inequality
-
-- The weak law of large numbers
-
-8.3 The central limit theorem
------------------------------
-
-- The central limit theorem for iid RVs (with proof)
-
-- The central limit theorem for independent RVs 
-
-8.4 The strong law of large numbers
------------------------------------
-
-- The strong law of large numbers
-
----
-
-Section 8: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
+Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
 ========================================================================
 
 5.1 Join distribution and densities (S&W, 1994)
@@ -289,6 +239,56 @@ Section 8: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
 
 2.3.2 Marginal Gaussian distributions (Bishop, 2006)
 -------------------------------------
+
+---
+
+Section 7: Functions of random variables (Stark and Woods, 1994)
+===============================================================
+
+3.1 Introduction
+----------------
+
+- examples
+
+3.2 Solving problems of the type Y = g(X)
+-----------------------------------------
+
+- examples
+
+- general formula of detmining the pdf of Y = g(X)
+
+3.3 Solving problems of the type Z = g(X, Y)
+--------------------------------------------
+
+- examples
+
+- the sum of two independent random variables
+
+---
+
+Section 8: Limit theorems (Ross, 2010)
+======================================
+
+8.2 Chebyshev's inequality and the weak law of large numbers
+------------------------------------------------------------
+
+- Markov's inequality
+
+- Chevishev's inequality
+
+- The weak law of large numbers
+
+8.3 The central limit theorem
+-----------------------------
+
+- The central limit theorem for iid RVs (with proof)
+
+- The central limit theorem for independent RVs 
+
+8.4 The strong law of large numbers
+-----------------------------------
+
+- The strong law of large numbers
 
 ---
 
