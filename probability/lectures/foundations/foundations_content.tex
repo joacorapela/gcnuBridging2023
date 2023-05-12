@@ -1,0 +1,171 @@
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+% \usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\hypersetup{colorlinks,citecolor=}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+
+\newtheorem{claim}{Claim}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Foundations of probability theory}
+
+\author{Joaqu\'{i}n Rapela} % Your name
+\institute[GCNU, UCL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Gatsby Computational Neuroscience Unit\\University College London % Your institution for the title page
+}
+\date{May 18, 2022} % Date, can be changed to a custom date
+
+\AtBeginSection[]
+  {
+     \begin{frame}<beamer>
+     \frametitle{Contents}
+         \tableofcontents[currentsection,hideallsubsections]
+     \end{frame}
+  }
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Contents} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Historical notes}
+
+\section{Probability model}
+
+\section{Conditional probability}
+
+\section{Random variables}
+
+\section{Expected value and law of large numbers}
+
+\begin{frame}
+    \frametitle{The best-choice problem}
+
+    \footnotesize
+    \hfill\citet{tijms12}
+
+    \textit{
+        %
+        Your friend proposes the following wager: twenty people are requested
+        to write a number in a piece of paper. They write any number they like,
+        no matter how high. You fold up the twenty pieces of paper and place
+        them randomly on a tabletop.
+        %
+        Your friends task is to single out the paper with the largest number.
+        He opens the papers one by one. Each time he opens one, he must decide
+        whether to stop with that one or go on to open another one. Once a
+        paper is opened, your friend cannot go back to any of the previously
+        opened paper.
+        %
+        He pays you one dollar if he does not identify the paper with the
+        highest number on it, otherwise you pay him five dollars. Do you take
+        the wager?  }
+
+    \textit{
+        %
+        What would you say to a similar wager with 100 people where your friend
+        pays you one dollar if he does not find the paper with the highest
+        number and you pay him ten dollars otherwise?
+        %
+    }
+        
+    \textit{ 
+        %
+        Your friend will use the following strategy. He will allow the first half
+        of papers to pass through his hands, and remember the highest number that
+        has appeared. As he process the second half, he chooses the first paper
+        showing a number higher than the one he remembered in the first half.
+        %
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{References}
+
+    \tiny{
+        \bibliographystyle{apalike}
+        \bibliography{probability}
+    }
+\end{frame}
+
+\end{document}
+

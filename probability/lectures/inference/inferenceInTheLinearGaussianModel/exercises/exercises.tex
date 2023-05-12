@@ -1,0 +1,277 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage[shortlabels]{enumitem}
+\usepackage{verbatim}
+\usepackage{amsthm}
+
+\newtheorem{claim}{Claim}
+
+\begin{document}
+
+\title{Exercises: inference in the linear Gaussian model}
+\author{Joaqu\'{i}n Rapela\thanks{j.rapela@ucl.ac.uk}}
+
+\maketitle
+
+\section{Inferring location of a static submarine from its sonar
+measurements}
+
+A static submarine is located in a 2D planar surfarce deep in the sea. A
+priori, we model its unknown location with a 2D random variable
+$\mathbf{z}$ with 
+
+\begin{align}
+    p(\mathbf{z})=\mathcal{N}\left(\mathbf{z}|\mu_z,\Sigma_z\right)
+\end{align}
+
+We obtain noisy measurements of the location of the submarine with a sonar.
+We represent a 2D sonar measurement with random variable $\mathbf{y}_n$,
+with 
+
+\begin{align}
+    p(\mathbf{y}_n|\mathbf{z})=\mathcal{N}(y_n|\mathbf{z}, \Sigma_y)
+\end{align}
+
+\begin{enumerate}[(a)]
+
+    \item Sample 100 a priory locations of the submarine
+        (i.e., $\mathbf{z}_1,\ldots,\mathbf{z}_{100}$) using
+        a mean $\mu_z=[2,3]^\intercal$, a standard deviation along the
+        horizontal direction $\sigma_{\mathbf{z}x}=1.0$, a standard
+        deviation along the vertical direction $\sigma_{\mathbf{z}y}=2.0$,
+        and a correlation coefficient between the vertical and horizontal
+        directions $\rho_{\mathbf{z}}=0.7$.
+
+        Plot $\mu_z$, the 95\% confidence ellipse for $\mathbf{z}$, the samples
+        of the a-priori submarine location and verify that approximately 95\%
+        of these samples lie inside the 95\% confidence ellipse.
+
+        You may want to complete the script
+        \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/doExSubmarine_a.py}{doExSubmarine\_a.py}
+        to address this item.
+
+    \item Select the submarine location $\mathbf{z}_1$ generated in
+        the previous item. Sample $N=5$ sonar measurements, assuming the
+        submarine is at location $\mathbf{z}_1$ (i.e., sample from
+        $p(\mathbf{y}|\mathbf{z}_1)$ to obtain
+        $\mathbf{y}_1,\ldots,\mathbf{y}_N$). Use a standard deviation of
+        1.0 for the measurement noise along the horizontal and vertical
+        directions, and assume that this noise is uncorrelated along these
+        directions.
+
+        Plot $\mathbf{z}_1$, the 95\% confidence ellipse for the sonar
+        measurements given that the submarine located at $\mathbf{z}_1$, the
+        sonar measurements samples, and verify that approximately 95\% of these
+        samples lie inside the 95\% confidence band.
+
+        You may want to complete the script
+        \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/doExSubmarine_b.py}{doExSubmarine\_b.py}
+        to address this item.
+
+    \item derive a mathematical expression for the posterior of the
+        submarine location, given sonar measurements; i.e.,
+        $p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)$.
+
+        \textit{Hints}: 
+
+        \begin{itemize}
+
+            \item The posterior of the submarine location given sonar
+                measurements is proportional to the joint distribution of
+                the submaring location and sonar measurements; i.e.,
+                $p(\mathbf{z}|\mathbf{y}_1,\ldots\mathbf{y}_N)=\frac{p(\mathbf{y}_1,\ldots,\mathbf{y}_N,\mathbf{z})}{p(\mathbf{y}_1,\ldots,\mathbf{y}_N)}=K\,p(\mathbf{y}_1,\ldots,\mathbf{y}_N,\mathbf{z})$,
+                where $K$ is a value that does not depend on $\mathbf{z}$. Thus, to
+                obtain the posterior we can just keep the terms of the
+                joint that depend on $\mathbf{z}$ and normalize the
+                resulting expression to integrate to one.
+
+            \item The joint is the product of the likelihood and the prior;
+                i.e.,
+                $p(\mathbf{y}_1,\ldots\mathbf{y}_N,\mathbf{z})=p(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})p(\mathbf{z})$.
+                Thus, to keep the terms of the joint that depend on
+                $\mathbf{z}$, we should just keep the term of the
+                likelihood that depend on $\mathbf{z}$ and combine the
+                result with the prior.
+
+            \item As shown in Claim.~\ref{claim:likelihoodForZ}, the terms of the
+                likelihood that depend on $\mathbf{z}$ are proportional to
+                a Gaussian distribution with mean $\mathbf{z}$ and
+                covariance $\frac{1}{N}\Sigma$; i.e., 
+                $p(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})=K\,\mathcal{N}(\bar{\mathbf{y}}|\mathbf{z},\frac{1}{N}\Sigma_y)$,
+                where $K$ is a value that does not depend on $\mathbf{z}$.
+
+            \item From the previous arguments, to obtain the posterior of
+                $\mathbf{z}$ we can multiply
+                $\mathcal{N}(\bar{\mathbf{y}}|\mathbf{z},\frac{1}{N}\Sigma_y)$
+                with the prior
+                $p(\mathbf{z})=\mathcal{N}(\mathbf{z}|\mu_z,\Sigma_z)$ and
+                normalize the result. To do this we can use the expression
+                for the posterior of the linear Gaussian model described in
+                class.
+
+        \end{itemize}
+
+    \item plot the sample mean of the measurements, its 95\% confidence
+        ellipse, the mean of the posterior, its 95\% confidence ellipse, and
+        check if the population mean of the measurements, $\mathbf{z}_1$, lies
+        within this ellipse.
+
+        You may want to complete the script
+        \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/doExSubmarine_d.py}{doExSubmarine\_d.py}
+        to address this item.
+
+    \item repeat (b) and (d) with $N\in\{3,10,50,100,1000\}$ measurements, and show
+        the plots generated in (d).  How do the posterior and sample mean
+        estimates change as $N$ increases?
+
+    \item write expressions of the posterior mean and covariances to show that:
+
+        \begin{itemize}
+
+            \item as the number of measurements increases, the relative
+                contribution of the prior to estimates of the posterior
+                mean and covariance decreases,
+
+            \item in the limit when the number of measurements approaches
+                infinity, the posterior covariance approaches zero and the
+                posterior mean approaches the measurements sample mean.
+                That is, for an infinite number of measurements, the
+                posterior estimate becomes deterministic and the
+                contribution of the prior to this estimate dissappears.
+
+        \end{itemize}
+
+        Can you see these points in the previous simulations?
+
+\end{enumerate}
+
+\pagebreak
+
+\begin{claim}
+    If
+    $P(\mathbf{y}_i|\mathbf{z})=\mathcal{N}\left(\mathbf{y}_i|\mathbf{z},\Sigma\right)$,
+    $i=1,\ldots,N$, 
+
+    and
+    $P(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})=\prod_{i=1}^N
+    P(\mathbf{y}_i|\mathbf{z})$, 
+
+    then
+    $P(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})=K\mathcal{N}(\bar{\mathbf{y}}_N|\mathbf{z},\frac{1}{N}\Sigma)$
+
+    where $K$ is a value unrelated to $\mathbf{z}$.
+    \label{claim:likelihoodForZ}
+\end{claim}
+
+\begin{proof}
+    By induction:
+    $P_n=P(\mathbf{y}_1,\ldots,\mathbf{y}_n|\mathbf{z})=K\mathcal{N}(\bar{\mathbf{y}}_n|\mathbf{z},\frac{1}{n}\Sigma)$
+
+    $P_1$:
+    \begin{align*}
+        P(\mathbf{y}_1|\mathbf{z})=\mathcal{N}(\mathbf{y}_1|\mathbf{z},\Sigma)=\mathcal{N}(\bar{\mathbf{y}}_1|\mathbf{z},\frac{1}{1}\Sigma)
+    \end{align*}
+
+    $P_n\rightarrow P_{n+1}$:
+
+    \begin{align*}
+        P(\mathbf{y}_1,\ldots,\mathbf{y}_n,\mathbf{y}_{n+1}|\mathbf{z})&=\prod_{i=1}^{n+1} P(\mathbf{y}_i|\mathbf{z})\\
+                  &=P(\mathbf{y}_1,\ldots,\mathbf{y}_n|\mathbf{z})P(\mathbf{y}_{n+1}|\mathbf{z})\\
+                  &=\mathcal{N}(\bar{\mathbf{y}}_n|\mathbf{z},\frac{1}{n}\Sigma)\mathcal{N}(\mathbf{y}_{n+1}|\mathbf{z},\Sigma)
+    \end{align*}
+
+    \noindent then
+
+    \begin{align*}
+        % \log P(\mathbf{y}_1,\ldots,\mathbf{y}_n,\mathbf{y}_{n+1}|\mathbf{z})&=K-\frac{1}{2}(\bar{\mathbf{y}}_n-\mathbf{z})^\intercal n\Sigma^{-1}(\bar{\mathbf{y}}_n-\mathbf{z})- \frac{1}{2}({\mathbf{y}_{n+1}-\mathbf{z})^\intercal \Sigma^{-1}(\mathbf{y}_{n+1}-\mathbf{z}) 
+        % 1 + 1  = 2
+        \log
+        P(\mathbf{y}_1,\ldots,\mathbf{y}_n,\mathbf{y}_{n+1}|\mathbf{z})=&K-\frac{1}{2}(\bar{\mathbf{y}}_n-\mathbf{z})^\intercal
+        n\Sigma^{-1}(\bar{\mathbf{y}}_n-\mathbf{z})-\\
+        &\frac{1}{2}(\mathbf{y}_{n+1}-\mathbf{z})^\intercal\Sigma^{-1}(\mathbf{y}_{n+1}-\mathbf{z})\\
+        =&K_1-\frac{1}{2}\left(\mathbf{z}^\intercal(n+1)\Sigma^{-1}\mathbf{z}-2\mathbf{z}^\intercal n\Sigma^{-1}\bar{\mathbf{y}}_n-2\mathbf{z}^\intercal\Sigma^{-1}\mathbf{y}_{n+1}\right)\\
+        =&K_1-\frac{1}{2}\left(\mathbf{z}^\intercal(n+1)\Sigma^{-1}\mathbf{
+            z}-2\mathbf{z}^\intercal \Sigma^{-1}\sum_{i=1}^n\mathbf{y}_i-2\mathbf{z}^\intercal\Sigma^{-1}\mathbf{y}_{n+1}\right)\\
+        =&K_1-\frac{1}{2}\left(\mathbf{z}^\intercal(n+1)\Sigma^{-1}\mathbf{
+            z}-2\mathbf{z}^\intercal\Sigma^{-1}\sum_{i=1}^{n+1}\mathbf{y}_i\right)\\
+        =&K_1-\frac{1}{2}\left(\mathbf{z}^\intercal(n+1)\Sigma^{-1}\mathbf{
+            z}-2\mathbf{z}^\intercal(n+1)\Sigma^{-1}\bar{\mathbf{y}}_{n+1}\right)\\
+    \end{align*}
+
+    Therefore
+
+    \begin{align*}
+        P(\mathbf{y}_1,\ldots,\mathbf{y}_n,\mathbf{y}_{n+1}|\mathbf{z})=&K_2\,\mathcal{N}\left(\mathbf{z}\left|\bar{\mathbf{y}}_{n+1},\frac{1}{n+1}\Sigma\right.\right)=K_2\,\mathcal{N}\left(\bar{\mathbf{y}}_{n+1}\left|\mathbf{z},\frac{1}{n+1}\Sigma\right.\right)
+    \end{align*}
+
+\end{proof}
+
+\begin{comment}
+\section*{Radiation source}
+
+In a planar 2D surface 5.000 meters below the earth surface there is a source
+of radiation that we aim to discover. We can measure this source with $N=100$
+sensors located at distant points on the 3D earth surface. These measurements
+are noisy because our sensors are noisy. Geophysicist informed us that that the
+distribution of a set of surface measurements $\mathbf{Y}$ given a 2D radiation
+source $\mathbf{X}$ is Gaussian with mean $\mathbf{\mu}=A \mathbf{X} +
+\mathbf{b}$ and covariance $Q$.
+
+
+\begin{align*}
+    A &= \left[\begin{array}{cc}
+                   0.7 & 8.1\\
+                   1.05 & 2.5\\
+                   0.45 & 2.3
+               \end{array}
+         \right]\\
+    \mathbf{b} &= \left[\begin{array}{c}
+                            0.0\\
+                            0.0\\
+                            0.0
+                        \end{array}
+                  \right]\\
+    Q &= \left[\begin{array}{cc}
+                   0.7 & 0.1\\
+                   0.05 & 0.5
+               \end{array}
+         \right]
+\end{align*}
+
+
+A priory, our guess is that the source of radiation is at location $\mu=(10,
+-3)$ meters, with respect of the center of our parametrization of the deep
+planar surface.  We are equally uncertain about the location of the source of
+radiation in the vertical and horizontal directions. The variance of our
+uncertainty in either direction is 2~$\text{meter}^2$. We know that the source
+of radiation is in a rift, so we assume a correlation coefficient of 0.7 for
+the horizontal and vertical source locations.
+
+\begin{enumerate}[(a)]
+
+    \item sample $N=100$ instances of sources of radiation and surface
+        measurements ($\mathbf{x}_n, \mathbf{y}_n; n=1,\ldots,N$),
+
+    \item plot the mean of the sources of radiation and its 95\% confidence
+        ellipse. Verify that 95\% of the sampled sources lie within the 95\%
+        confidence ellipse,
+
+    \item for each sampled surface measurement, $\mathbf{y}_n$, infer the mean,
+        $\mu_{x|y;n}$, and covariance, $\Sigma_{x|y;n}$, of the the posterior
+        probability of the source given the observation,
+
+    \item plot the sampled sources of radiation $\mathbf{x}_{n}$, the estimated
+        means $\mu_{x|y;n}$ and $95\%$ confidence ellipses, of the posterior
+        distribution of the source of radiation given the surface
+        measurements,
+
+\item count how many times a sampled source of radiation, $\mathbf{x}_n$,
+    lies within the 95\% confidence ellipse of mean of the posterior
+    probability of the source given a measurement.
+
+\end{enumerate}
+\end{comment}
+
+\end{document}
