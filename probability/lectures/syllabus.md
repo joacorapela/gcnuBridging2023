@@ -1,5 +1,5 @@
-Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
-===========================================================================
+Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012) (Alberto Pezzotta)
+==============================================================================================
 
 1.1 History of probability
 ------------------------
@@ -33,8 +33,8 @@ Section 1: Introduction  (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 
 ---
 
-Section 2: Foundations (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
-=========================================================================
+Section 2: Foundations (Devore, 2010; Stark and Woods, 1994; Tijms, 2012) (Joaquin Rapela)
+==========================================================================================
 
 2.1 Sample space and events
 ---------------------------
@@ -74,8 +74,8 @@ Section 2: Foundations (Devore, 2010; Stark and Woods, 1994; Tijms, 2012)
 
 ---
 
-Section 3: Discrete random variables and probability distributions (Devore, 2010)
-================================================================================
+Section 3: Discrete random variables and probability distributions (Devore, 2010) (Cameron Stewart)
+===================================================================================================
 
 3.1 Random variables
 --------------------
@@ -120,8 +120,8 @@ Section 3: Discrete random variables and probability distributions (Devore, 2010
 
 ---
 
-Section 4: Continous random variables and probability distributions (Devore, 2010)
-=================================================================================
+Section 4: Continous random variables and probability distributions (Devore, 2010) (James Heald)
+================================================================================================
 
 4.1 Probability density functions
 ---------------------------------
@@ -162,8 +162,8 @@ Section 4: Continous random variables and probability distributions (Devore, 201
 
 ---
 
-Section 5: Joint probability distributions and random samples (Devore 2010)
-===========================================================================
+Section 5: Joint probability distributions and random samples (Devore 2010) (Laurence Freeman)
+==============================================================================================
 
 5.1 Jointly distributed random 
 ------------------------------
@@ -207,8 +207,8 @@ Section 5: Joint probability distributions and random samples (Devore 2010)
 
 ---
 
-Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
-========================================================================
+Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006) (Mohi Shafiei Kafraj)
+==============================================================================================
 
 5.1 Join distribution and densities (S&W, 1994)
 -----------------------------------
@@ -242,8 +242,22 @@ Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006)
 
 ---
 
-Section 7: Functions of random variables (Stark and Woods, 1994)
-===============================================================
+Section 7: Inference (Bishop, 2006) (Joaquin Rapela)
+====================================================
+
+3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
+------------------------------------------------------------
+
+3.3 Bayesian linear regression (Bishop, 2006) ([exercise](inference/bayesianLinearRegression/exercises/exercises.pdf), [solution](https://joacorapela.github.io/gcnuBridging2023/auto_examples/index.html#bayesian-linear-regression))
+------------------------------
+
+2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
+--------------------------------------------
+
+---
+
+Section 8: Functions of random variables (Stark and Woods, 1994) (Cameron Stewart)
+==================================================================================
 
 3.1 Introduction
 ----------------
@@ -266,8 +280,8 @@ Section 7: Functions of random variables (Stark and Woods, 1994)
 
 ---
 
-Section 8: Limit theorems (Ross, 2010)
-======================================
+Section 9: Limit theorems (Ross, 2010) (George Dimitriadis)
+===========================================================
 
 8.2 Chebyshev's inequality and the weak law of large numbers
 ------------------------------------------------------------
@@ -289,20 +303,6 @@ Section 8: Limit theorems (Ross, 2010)
 -----------------------------------
 
 - The strong law of large numbers
-
----
-
-Section 9: Inference (Bishop, 2006)
-=========================================================
-
-3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
-------------------------------------------------------------
-
-3.3 Bayesian linear regression (Bishop, 2006) ([exercise](inference/bayesianLinearRegression/exercises/exercises.pdf), [solution](https://joacorapela.github.io/gcnuBridging2023/auto_examples/index.html#bayesian-linear-regression))
-------------------------------
-
-2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
---------------------------------------------
 
 ---
 
