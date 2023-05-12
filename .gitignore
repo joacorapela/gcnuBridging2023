@@ -7,12 +7,20 @@
 *.bbl
 *.blg
 *.bak
+*.nav
+*.snm
+*.toc
+*.bib
 *egg-info/
 *.npz
 toRsync
 fromRsync
 docs/sphinx/make.bat
 .nfs*
+*.csh
+*.dic
+probability/lectures/foundations/notes.md
+probability/lectures/foundations/old.tex
 
 # directories
 old/
