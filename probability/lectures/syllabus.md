@@ -222,6 +222,13 @@ Section 6: Functions of random variables (Stark and Woods, 1994)
 
 - general formula of detmining the pdf of Y = g(X)
 
+3.3 Solving problems of the type Z = g(X, Y)
+--------------------------------------------
+
+- examples
+
+- the sum of two independent random variables
+
 ---
 
 Section 7: Limit theorems (Ross, 2010)
