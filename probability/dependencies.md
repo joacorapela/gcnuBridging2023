@@ -1,13 +1,14 @@
-- Expectations
+- Continuous random variables and proability distributions: Expectations
     - calculus: integration
 
-- Gaussian marginals and conditionals:
+- Inference: Gaussian marginals and conditionals
     - calculus: integration
 
-- Bayesian linear regression
+- Inference: Bayesian linear regression
     - probability: Gaussian marginals and conditionals
     - linear algebra: normal equations
 
-- Limit theorems
-    - probability: expectation and variance of continuous and discrete random variables
-    - probability: functions of random variables
+- Limit theorems:
+    - probability: continuous random variables: expectation and variance
+    - probability: discrete random variables: expectation and variance
+    - probability: functions of random variables:
