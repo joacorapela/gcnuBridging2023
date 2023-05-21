@@ -242,21 +242,7 @@ Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006) (Mohi S
 
 ---
 
-Section 7: Inference (Bishop, 2006) (Joaquin Rapela)
-====================================================
-
-3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
-------------------------------------------------------------
-
-3.3 Bayesian linear regression (Bishop, 2006) ([exercise](inference/bayesianLinearRegression/exercises/exercises.pdf), [solution](https://joacorapela.github.io/gcnuBridging2023/auto_examples/index.html#bayesian-linear-regression))
-------------------------------
-
-2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
---------------------------------------------
-
----
-
-Section 8: Functions of random variables (Stark and Woods, 1994) (Cameron Stewart)
+Section 7: Functions of random variables (Stark and Woods, 1994) (Cameron Stewart)
 ==================================================================================
 
 3.1 Introduction
@@ -280,7 +266,7 @@ Section 8: Functions of random variables (Stark and Woods, 1994) (Cameron Stewar
 
 ---
 
-Section 9: Limit theorems (Ross, 2010) (George Dimitriadis)
+Section 8: Limit theorems (Ross, 2010) (George Dimitriadis)
 ===========================================================
 
 8.2 Chebyshev's inequality and the weak law of large numbers
@@ -303,6 +289,20 @@ Section 9: Limit theorems (Ross, 2010) (George Dimitriadis)
 -----------------------------------
 
 - The strong law of large numbers
+
+---
+
+Section 9: Inference (Bishop, 2006) (Joaquin Rapela)
+====================================================
+
+3.1.1 Maximum likelihood and least squares linear regression (Bishop, 2006)
+------------------------------------------------------------
+
+3.3 Bayesian linear regression (Bishop, 2006) ([exercise](inference/bayesianLinearRegression/exercises/exercises.pdf), [solution](https://joacorapela.github.io/gcnuBridging2023/auto_examples/index.html#bayesian-linear-regression))
+------------------------------
+
+2.3.3 Inference in the linear Gaussian model (Bishop, 2006) ([exercise](inference/inferenceInTheLinearGaussianModel/exercises/exercises.pdf), [solution](inference/inferenceInTheLinearGaussianModel/exercises/solutions/rapela.pdf))
+--------------------------------------------
 
 ---
 
