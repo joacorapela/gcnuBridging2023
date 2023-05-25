@@ -101,7 +101,9 @@ def Plot_pdf_CDF_3D(Mean,Covariance):
     ax0.set_ylabel('y',fontname="Arial", fontsize= fontsize)
     ax0.set_zlabel('z',fontname="Arial", fontsize= fontsize)
     ax0.set_title('CDF',fontname="Arial", fontsize= fontsize)
-    
+
+    plt.show()
+
 #%% Step 1:2D
 #For this interesting distribution, implement step 1 to see what pdf and CDF look like, for different mean vector and covariance matrices!    
 Mean = np.array([0,0])
