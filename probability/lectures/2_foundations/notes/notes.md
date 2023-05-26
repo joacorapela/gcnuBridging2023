@@ -57,11 +57,16 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     - example 7.7 (rule 7-2): Chevalier de Mere to Blaise Pascal 1654
     - example 7.8 (rule 7-3, addition rule, easy)
     - example 7.9 (rule 7-3): uses counting tools (binomial coefficient)
+        - wrong, but simple, approach
+        - correct, but more complicated, approach
+        - sampling approach
     - example 7.10 (rule 7-1): uses counting tools (binomial coefficient)
 
 # 8 Conditional probability and Bayes
 
 - p. 256: good motivation of conditional probability in the cards example
+
+## 8.1 Conditional probability
 
 - Definition 8.1
 
@@ -71,6 +76,23 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 - do NOT present example 8.2 at this point, as it requires the concept of independence
 
+## 8.1.1 Assigning probabilities by conditioning
+
+- Rule 8.1
+
+- two examples that follow the previous rule:
+
+    - redo Example 7.9
+
+    - probability that it takes 10 or more cards before the first ace appears
+
+## 8.1.2 Independent events
+
+    - motivation of independence definition with conditional probabilities
+
+    - Definition 8.2
+
+    - Example 8.5
 * examples: 
 
     - rock paper scissors game
