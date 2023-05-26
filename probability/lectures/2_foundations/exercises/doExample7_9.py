@@ -19,7 +19,7 @@ def in_event_countries_against_each_other(set_of_matches):
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--n_samples", type=int, default=100000,
+    parser.add_argument("--n_samples", type=int, default=10000000,
                         help="number of samples")
     args = parser.parse_args()
 
