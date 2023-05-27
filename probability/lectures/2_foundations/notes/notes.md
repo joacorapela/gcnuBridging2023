@@ -78,7 +78,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 ## 8.1.1 Assigning probabilities by conditioning
 
-- Rule 8.1
+- Rule 8.1: P(A_1, ..., A_N) = P(A_N|A_1, ..., A_{N-1}) x ... x P(A_1)
 
 - two examples that follow the previous rule:
 
@@ -93,6 +93,17 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     - Definition 8.2
 
     - Example 8.5
+
+# 8.2 Law of conditional probability
+
+- example of dice followed by coin tosses
+
+- Rule 8.2: law of conditional probability
+
+- example 8.6: tour the France
+
+###
+
 * examples: 
 
     - rock paper scissors game
