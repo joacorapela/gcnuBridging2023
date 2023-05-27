@@ -60,7 +60,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
         - wrong, but simple, approach
         - correct, but more complicated, approach
         - sampling approach
-    - example 7.10 (rule 7-1): uses counting tools (binomial coefficient)
+    - example 7.10 (rule 7-1, birthday problem, used in example 8.6): uses counting tools (binomial coefficient)
 
 # 8 Conditional probability and Bayes
 
@@ -93,6 +93,9 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     - Definition 8.2
 
     - Example 8.5
+
+    - Example 8.6 (uses birthday problem, example 7.10)
+
 * examples: 
 
     - rock paper scissors game
