@@ -24,7 +24,7 @@ probability/lectures/foundations/old.tex
 
 # directories
 old/
-notes/
+# notes/
 results/
 figures/
 docs/sphinx/build/
