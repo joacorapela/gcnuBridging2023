@@ -78,7 +78,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 ## 8.1.1 Assigning probabilities by conditioning
 
-- Rule 8.1: P(A_1, ..., A_N) = P(A_N|A_1, ..., A_{N-1}) x ... x P(A_1)
+- Rule 8.1: $P(A_1, ..., A_N) = P(A_N|A_1, ..., A_{N-1}) x ... x P(A_1)$
 
 - two examples that follow the previous rule:
 
@@ -88,13 +88,13 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 ## 8.1.2 Independent events
 
-    - motivation of independence definition with conditional probabilities
+- motivation of independence definition with conditional probabilities
 
-    - Definition 8.2
+- Definition 8.2
 
-    - Example 8.5
+- Example 8.5
 
-    - Example 8.6 (uses birthday problem, example 7.10)
+- Example 8.6 (uses birthday problem, example 7.10)
 
 # 8.2 Law of conditional probability
 
@@ -102,7 +102,27 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 - Rule 8.2: law of conditional probability
 
-- example 8.6: tour the France
+- example 8.6: tour the France (difficult!)
+
+# 8.3 Baye's rule in odds form
+
+- true/false hypothesis
+
+- Rule 8.3
+
+- interpretation of rule 8.3
+
+    - avoid need of P(E)
+
+    - prior odds + likelihood ratio or Bayes factor
+
+    - prior odds update with new evidence
+
+    - sequential update -> Bayesian linear regression
+
+- example 8.8
+
+- example 8.11
 
 ###
 
