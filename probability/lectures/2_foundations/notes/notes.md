@@ -78,7 +78,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 ## 8.1.1 Assigning probabilities by conditioning
 
-- Rule 8.1: $P(A_1, ..., A_N) = P(A_N|A_1, ..., A_{N-1}) x ... x P(A_1)$
+- Rule 8.1: $P(A_1, ..., A_N) = P(A_N|A_1, ..., A_{N-1}) \ldots P(A_1)$
 
 - two examples that follow the previous rule:
 
