@@ -2,16 +2,20 @@
 import sys
 import math
 
+def pB(i):
+    assert(0 <= i & i <= 180)
+    aux_constant = 23.0 / 365
+    answer = math.comb(180, i) * aux_constant**i * (1 - aux_constant)**(180 - i)
+    return answer
+
 def main(argv):
-    answer = 179
-    for i in range(2, 181):
-        print(f"i={i}")
+    answer = 1.0 - pB(0) - pB(1)
+    aux_constant = 1 - 23.0 / 365
+    for i in range(2, 23 + 1):
         aux_ratio = 1.0
         for j in range(i):
-            print(f"j={i}")
-            aux_ratio *= 23-i / 365.0
-        # answer -= (math.comb(180, i) * math.comb(23, i)**2 * math.factorial(i)**2 1.0/(23 * 365)**i * (1- 23.0/365)**(180-i))
-        answer -= math.comb(180, i) * math.comb(23, i)**2 * math.factorial(i)**2 * 1.0 / (23 * 365)**i * (1- 23.0/365)**(180-i)
+            aux_ratio *= (23 - j) / 23.0
+        answer -= aux_ratio * pB(i)
     print(answer)
 
 if __name__ == "__main__":
