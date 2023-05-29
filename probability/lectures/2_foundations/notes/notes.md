@@ -39,7 +39,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     - mention the proof by Cantor that the real numbers are not countable
 
 # 7.1.1 Axioms of probability theory
-- events in countable and uncountable sample spaces (hint abou sigma algebras)
+- events in countable and uncountable sample spaces (hint about sigma algebras)
 - probability measure
     - three axioms
         - explain what an infinite union means
