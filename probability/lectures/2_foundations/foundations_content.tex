@@ -106,55 +106,333 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
 
-\section{Historical notes}
+\begin{frame}
+\frametitle{Main reference} % Table of contents slide, comment this block out to remove it
 
-\section{Probability model}
+    I will mainly follow chapters seven \textit{Foundations of probability
+    theory} and eight \textit{Conditional probability and Bayes} from
+    \citet{tijms12}.
 
-\section{Conditional probability}
+\end{frame}
 
-\section{Random variables}
+\section{Foundations of probability theory}
 
-\section{Expected value and law of large numbers}
+\subsection{Historical notes}
 
 \begin{frame}
-    \frametitle{The best-choice problem}
+\frametitle{Historical notes}
 
-    \footnotesize
-    \hfill\citet{tijms12}
+- explain the frequency-based interpretation of probability.
 
-    \textit{
-        %
-        Your friend proposes the following wager: twenty people are requested
-        to write a number in a piece of paper. They write any number they like,
-        no matter how high. You fold up the twenty pieces of paper and place
-        them randomly on a tabletop.
-        %
-        Your friends task is to single out the paper with the largest number.
-        He opens the papers one by one. Each time he opens one, he must decide
-        whether to stop with that one or go on to open another one. Once a
-        paper is opened, your friend cannot go back to any of the previously
-        opened paper.
-        %
-        He pays you one dollar if he does not identify the paper with the
-        highest number on it, otherwise you pay him five dollars. Do you take
-        the wager?  }
+- constructing the mathematical foundations of probability theory has proven to be a long-lasting process of trial an error.  
 
-    \textit{
-        %
-        What would you say to a similar wager with 100 people where your friend
-        pays you one dollar if he does not find the paper with the highest
-        number and you pay him ten dollars otherwise?
-        %
-    }
-        
-    \textit{ 
-        %
-        Your friend will use the following strategy. He will allow the first half
-        of papers to pass through his hands, and remember the highest number that
-        has appeared. As he process the second half, he chooses the first paper
-        showing a number higher than the one he remembered in the first half.
-        %
-    }
+- the approach of defining probability as relative frequencies of repeatable experiments lead to unsatisfactory theory (why?)
+https://www.jstor.org/stable/pdf/20115155.pdf
+
+- the frequency view of probability has a long history that goes back to Aristotle.
+
+- in 1933 the Russian mathematician Andrej Kolmogrov (1903-1987) laid a satisfactory mathematical foundation of probability theory.
+
+He created a set of axioms. Axioms state a number of minimal requirements that the probability objects should satisfy. From these few algorithms all claims of probability can be derived, as we will see.
+
+\end{frame}
+
+\subsection{Axioms of probability theory}
+
+\begin{frame}
+\frametitle{Probabilistic foundation}
+
+- sample space
+
+    - examples of finite, countable and uncountable
+
+    - mention the proof by Cantor that the real numbers are not countable
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Axioms of probability theory}
+
+- events in countable and uncountable sample spaces (hint about sigma algebras)
+
+- probability measure
+
+    - three axioms
+
+        - explain what an infinite union means
+
+- probability space: sample space + events + probability measure = probability space
+
+- building a probability measure for a finite or countable sample space.
+
+- probability model = sample space + probability measure
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Equally likely outcomes}
+
+- examples
+
+- uncountable sample space
+
+\end{frame}
+
+\subsection{Some basic rules}
+
+\begin{frame}
+    \frametitle{Some basic rules}
+
+    \begin{description}
+
+        \item{Rule 1} For any finite number of mutually exclusive events
+            $A_1,\ldots,A_n$,
+
+            \begin{align*}
+                P(A_1,\ldots,A_n) = P(A_1) + \ldots + P(A_n)
+            \end{align*}
+
+        \item{Rule 2} For any event A,
+
+            \begin{align*}
+                P(A) = 1 - P(A^c)
+            \end{align*}
+
+            where the event $A^c$ consists of all outcomes that are not in $A$.
+
+        \item{Rule 3} For any two events A and B,
+
+            \begin{align*}
+                P(A\cup B) = P(A) + P(B) - P(AB)
+            \end{align*}
+
+    \end{description}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of rule 1}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of rule 2}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of rule 3}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: Chevalier de Mere to Blaise Pascal}
+
+    - example 7.7 (rule 7-2): Chevalier de Mere to Blaise Pascal 1654
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+    - example 7.8 (rule 7-3, addition rule, easy)
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+    - example 7.9 (rule 7-3): uses counting tools (binomial coefficient)
+
+        - wrong, but simple, approach
+
+        - correct, but more complicated, approach
+
+        - sampling approach
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+    - example 7.10 (rule 7-1, birthday problem, used in example 8.6): uses counting tools (binomial coefficient)
+
+\end{frame}
+
+\section{Conditional probability and Bayes}
+
+\subsection{Conditional probability}
+
+\begin{frame}
+    \frametitle{Conditional probability}
+
+- p. 256: good motivation of conditional probability in the cards example
+
+- Definition 8.1
+
+- interpretation of condition probability with relative frequencies
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+- Example 8.1 (first ask students their intuition, as the problem is counter intuitive)
+
+- do NOT present example 8.2 at this point, as it requires the concept of independence
+
+\end{frame}
+
+\subsection{Assigning probabilities by conditioning}
+
+\begin{frame}
+    \frametitle{Assigning probabilities by conditioning}
+
+    \begin{description}
+
+        \item[Rule 4] For any sequence of events $A_1,\ldots,A_n$,
+
+            \begin{align*}
+                P(A_1, ..., A_n) = P(A_n|A_{n-1}, ..., A_1) \ldots P(A_1)
+            \end{align*}
+
+    \end{description}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+    - redo Example 7.9 (solution following Rule 4)
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example:}
+
+    - probability that it takes 10 or more cards before the first ace appears
+
+\end{frame}
+
+\subsection{Independent events}
+
+\begin{frame}
+    \frametitle{Independent events}
+
+- motivation of independence definition with conditional probabilities
+
+- Definition 8.2
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- Example 8.5
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- Example 8.6 (uses birthday problem, example 7.10)
+
+\end{frame}
+
+\subsection{Law of conditional probability}
+
+\begin{frame}
+    \frametitle{Law of conditional probability}
+
+- example of dice followed by coin tosses
+
+    \begin{description}
+
+        \item{Rule 5} law of conditional probability. Let $A$ be an event that
+            can only occur if one of the mutually exclusive events
+            $B_1,\ldots,B_n$ occurs. Then
+
+            \begin{align*}
+                P(A) = P(A|B_1) P(B_1) + \ldots + P(A|B_n) P(B_n)  
+            \end{align*}
+
+    \end{description}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- example 8.6: tour the France (difficult!)
+
+\end{frame}
+
+\subsection{Baye's rule in odds form}
+
+\begin{frame}
+    \frametitle{Bayes rule in odds form}
+
+- true/false hypothesis
+
+    \begin{description}
+
+        \item{Rule 6} The posterior probability $P(H|E)$ satisfies
+
+            \begin{align*}
+                \frac{P(H|E)}{P(\bar{H}|E)} = \frac{P(H)}{P(\bar{H})}\frac{P(E|H)}{P(E|\bar{H})}
+            \end{align*}
+
+    \end{description}
+
+- interpretation of rule 6
+
+    - avoid need of P(E)
+
+    - prior odds + likelihood ratio or Bayes factor
+
+    - prior odds update with new evidence
+
+    - sequential update (mention Bayesian linear regression)
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- example 8.8
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- example 8.11
+
+    - add to the problem statement:
+
+        - in 1992, 4936 women were murdered in the US, of which roughly 1430 were murdered by their (ex)husbands or boyfriends
+
+        - 5\% of the married women in the US have at some point been physically abused by their husbands.
+
+        - assume that a woman who has been murdered by some other than her husband had the same same chance of being abused by her husband as a randomly selected woman
+
+        - Alan Dershowitz admitted that a substantial percentage of the husbands who murder their wives, previous to the murder, also physically abuse their wives. Given this statement, we assume that the proability that a husband physically abused his wife, given that he killed her, is 50 percent.
+
+\end{frame}
+
+\subsection{Bayesian inference -- discrete case}
+
+\begin{frame}
+    \frametitle{Bayesian inference -- discrete case}
+
+- explain posterior sequential update
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+
+- example 8.13 (solve it analytically and by sampling)
 
 \end{frame}
 
@@ -166,6 +444,9 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
         \bibliography{probability}
     }
 \end{frame}
+
+\begin{comment}
+\end{comment}
 
 \end{document}
 
