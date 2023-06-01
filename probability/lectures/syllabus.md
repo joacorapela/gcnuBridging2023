@@ -51,12 +51,6 @@ Section 2: Foundations (Devore, 2010; Stark and Woods, 1994; Tijms, 2012) (Joaqu
 - interpretation
 - probability properties
 
-2.3 Counting techniques
------------------------
-
-- product rule for ordered pairs
-- permutations and combinations
-
 2.4 Conditional probability
 ---------------------------
 
