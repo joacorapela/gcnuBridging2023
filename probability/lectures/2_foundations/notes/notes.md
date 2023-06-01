@@ -124,33 +124,19 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 - example 8.11
 
-###
+    - add to the problem statement:
 
-* examples: 
+        - in 1992, 4936 women were murdered in the US, of which roughly 1430 were murdered by their (ex)husbands or boyfriends
 
-    - rock paper scissors game
-    - Efron's dice game
+        - 5% of the married women in the US have at some point been physically abused by their husbands.
 
-- probability axioms
-* examples of probability derivations
+        - assume that a woman who has been murdered by some other than her husband had the same same chance of being abused by her husband as a randomly selected woman
 
-# Conditional probability and Bayes
+        - Alan Dershowitz admitted that a substantial percentage of the husbands who murder their wives, previous to the murder, also physically abuse their wives. Given this statement, we assume that the proability that a husband physically abused his wife, given that he killed her, is 50 percent.
 
-- conditional probability
-- multiplication rule
-- independent events
-* law of conditional probability (with derivation)
+# 8.4 Bayesian inference -- discrete case
 
-# Random variables
+- explain posterior sequential update
 
-- discrete versus continuous
-- Examples
-
-# Expected value and law of large numbers
-
-- motivation of expected value with casino Huygens example
-- definition of expected value for a discrete random variable
-- example of expected value: best-choice problem
-    - derivation of the solution
-    * simulation of the solution (law of large numbers)
+- example 8.13 (solve it analytically and by sampling)
 
