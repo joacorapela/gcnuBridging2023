@@ -71,8 +71,19 @@
 \usepackage{media9}
 % \usepackage{multimedia}
 
+\newtheorem{probDef}{Definition}
+\newtheorem*{probDef*}{Definition}
 \newtheorem{claim}{Claim}
+\newtheorem{probExample}{Example}
+\newtheorem{probRule}{Rule}
+\newtheorem{probAxiom}{Axiom}
+\setbeamertemplate{theorems}[numbered]
 
+\newtheorem{manualprobRuleinner}{Rule}
+\newenvironment{manualProbRule}[1]{%
+  \renewcommand\themanualprobRuleinner{#1}%
+  \manualprobRuleinner
+}{\endmanualprobRuleinner}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -137,44 +148,232 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 \end{frame}
 
-\subsection{Axioms of probability theory}
+\subsection{Axiomatic definition of probability}
 
 \begin{frame}
-\frametitle{Probabilistic foundation}
+\frametitle{Probability model}
 
-- sample space
+    \begin{probDef}[Probability model]
+        A \textbf{probability model} is a matematical representation of a
+        random experiment. \onslide<2->{It consists of a description of all possible
+        outcomes of the experiment (i.e., \textbf{sample space}), a set of
+        subsets of the sample space (i.e., \textbf{events}), and an assigment of
+        probability to events (i.e., \textbf{probability measure}).}
+        \label{def:probabilityModel}
+    \end{probDef}
 
-    - examples of finite, countable and uncountable
+\end{frame}
 
-    - mention the proof by Cantor that the real numbers are not countable
+\begin{frame}
+    \frametitle{Sample space}
+
+    \begin{probDef}[Sample space]
+        The set of all samples in an experiment is called the \textbf{sample
+        space}. It is denoted by $\Omega$.
+    \end{probDef}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Event}
+
+    \begin{probDef}[Event]
+
+        An \textbf{event} is a subset of the sample space. We denote the
+        collection of all events by $\mathcal{F}$.
+
+    \end{probDef}
+
+    \onslide<2->{
+
+    Notes:
+    \begin{enumerate}
+
+        \item We will only assign probabilities to events (i.e., to sets
+            $A\in\mathcal{F}$).
+
+        \item For finite or countable sample spaces, we can assign
+            probabilities to any subset of the sample space. Thus, any subset
+            of a finite or countable sample space can be an event.
+
+        \item For uncountable sample spaces, we can only assign probabilities
+            to well behaved subsets of the sample space (i.e., to elements in a
+            $\sigma$ algebra of subsets of the sample space). Only well-behaved
+            subsets of an uncountable sample space can be events.
+
+    \end{enumerate}
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Probability measure}
+
+    \begin{probDef}[Probability measure]
+
+        A \textbf{probability measure} is a function that assigns numbers
+        between zero and one to events (i.e., $P:\mathcal{F}\rightarrow
+        [0,1]$).
+
+    \end{probDef}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Probability model: definitions}
+
+    \begin{probDef*}[Sample space]
+
+        The set of all samples in an experiment is called the \textbf{sample
+        space}. It is denoted by $\Omega$.
+
+    \end{probDef*}
+
+
+    \footnotesize
+    \begin{probDef*}[Event]
+
+        An \textbf{event} is a subset of the sample space. We denote the
+        collection of all events by $\mathcal{F}$.
+
+    \end{probDef*}
+
+    \begin{probDef*}[Probability measure]
+
+        A \textbf{probability measure} is a function that assigns numbers
+        between zero and one to events (i.e., $P:\mathcal{F}\rightarrow
+        [0,1]$).
+
+    \end{probDef*}
+
+    \begin{probDef*}[Probability model]
+
+        A \textbf{probability model}, $\mathcal{M}$, is a mathemtatical representation of a
+        random experiment consiting of a sample space, $\Omega$, a set of
+        events, $\mathcal{F}$, and a probability measure, $P$ (i.e.,
+        $\mathcal{M}=\{\Omega,\mathcal{F},P\}$).
+
+    \end{probDef*}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples of probability models}
+
+    \small
+    For each of the following examples, let's find the sample space and propose
+    a probability measure.
+
+    \begin{enumerate}
+
+        \item The experiment is to toss a fair coin once. \onslide<2->{The
+            sample space is the set [\textit{H}, \textit{T}].} \onslide<3->{We
+            assign a probability of 0.5 to each element of the sample space.}
+
+        \onslide<4->{\item The experiment is to repeately roll a fair dice and
+            count the number of rolls until the first six shows up.}
+            \onslide<5->{The sample space is the set of positive integers.}
+            \onslide<6->{The probabilities
+            $\frac{1}{6},\frac{5}{6}\times\frac{1}{6},\left(\frac{5}{6}\right)^2\times\frac{1}{6},
+            \ldots$ can be assigned to the outcomes $1,2,3,\ldots$.}
+
+        \item \onslide<7->{The experiment is to measure the time between the
+            first and second spikes in an experimental trial.} \onslide<9->{The
+            sample space is the set $(0,\infty)$ of positive real numbers.}
+            \onslide<9->{We can assign a probability of $1-\exp(-\lambda t)$ to
+            the event that the second spike is fired less than $t$ seconds
+            after the first spike.}
+
+    \end{enumerate}
+    \normalsize
+
+    \note{
+
+        - highlight that we discussed finite, countable and uncountable sample
+        spaces.
+
+        - Cantor (1845-1918): the set of all real numbers, and the set of real
+        numbers between zero and one, are examples of infinite, and
+        uncountable, sample spaces.
+
+        - mention that the probability of a sample in an uncountable sample
+        space is zero.
+
+    }
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Axioms of probability theory}
 
-- events in countable and uncountable sample spaces (hint about sigma algebras)
 
-- probability measure
+    \begin{probAxiom}
 
-    - three axioms
+        $P(A)\ge 0,\quad\forall A\in\mathcal{F}$
+
+    \end{probAxiom}
+
+    \begin{probAxiom}
+
+        $P(\Omega)=1$
+
+    \end{probAxiom}
+
+    \begin{probAxiom}
+
+        $P\left(\cup_{i=1}^\infty A_i\right)=\sum_{i=1}^\infty P(A_i)$ for every collection of pairwise disjoint events $A_1,A_2,\ldots$
+
+    \end{probAxiom}
+
+
+    \note{
 
         - explain what an infinite union means
 
-- probability space: sample space + events + probability measure = probability space
+        - For a finite or countable sample space it suffices that
 
-- building a probability measure for a finite or countable sample space.
+            - $P(\omega)\ge 0$
+            - $\sum_{\omega\in\Omega}P(\omega)=1$
 
-- probability model = sample space + probability measure
+    }
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Equally likely outcomes}
+    \frametitle{Experiment with equally likely outcomes}
 
-- examples
+    An experiment with equally likely outcomes is one with a finite number of
+    outcomes $\omega_1,\ldots,\omega_N$, where all outcomes have the same
+    probability (i.e., $P(\omega_i)=\frac{1}{N}$).
 
-- uncountable sample space
+    \onslide<2->{
+
+    \begin{claim}
+        For any event $A$, $P(A)=\frac{N(A)}{N}$, where $N(A)$ is the number of
+        outcomes in the set $A$.
+    \end{claim}
+
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example: equally likely outcomes -- discrete $\Omega$}
+
+    \begin{probExample}
+        John, Pedro and Rosita each roll on fair die. How do we calculate the
+        probability that the score of Rosita is equal to the sum of the scores
+        of John and Pedro?
+    \end{probExample}
+
+    \note{
+
+        - examples
+
+        - uncountable sample space
+
+    }
 
 \end{frame}
 
@@ -183,45 +382,87 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \begin{frame}
     \frametitle{Some basic rules}
 
-    \begin{description}
+    \small
+    \begin{probRule}
 
-        \item{Rule 1} For any finite number of mutually exclusive events
-            $A_1,\ldots,A_n$,
+        For any finite number of mutually exclusive events $A_1,\ldots,A_N$,
+        \begin{align*}
+            P(A_1\cup A_2\cup\ldots\cup A_n) = P(A_1) + \ldots + P(A_N)
+        \end{align*}
 
-            \begin{align*}
-                P(A_1,\ldots,A_n) = P(A_1) + \ldots + P(A_n)
-            \end{align*}
+    \end{probRule}
 
-        \item{Rule 2} For any event A,
+    \begin{probRule}
 
-            \begin{align*}
-                P(A) = 1 - P(A^c)
-            \end{align*}
+        For any event A,
+        \begin{align*}
+            P(A) = 1 - P(A^c)
+        \end{align*}
+        where the event $A^c$ consists of all outcomes that are not in $A$.
 
-            where the event $A^c$ consists of all outcomes that are not in $A$.
+    \end{probRule}
 
-        \item{Rule 3} For any two events A and B,
+    \begin{probRule}
 
-            \begin{align*}
-                P(A\cup B) = P(A) + P(B) - P(AB)
-            \end{align*}
+        For any two events A and B,
+        \begin{align*}
+            P(A\cup B) = P(A) + P(B) - P(AB)
+        \end{align*}
 
-    \end{description}
-
+    \end{probRule}
+    \normalsize
 \end{frame}
 
 \begin{frame}
-    \frametitle{Proof of rule 1}
+    \frametitle{Rule 1}
+
+	\footnotesize
+	\begin{proof}
+		Denote by $\emptyset$ the empty set. We will firt prove that $P(\emptyset)=0$. Take $A_i=\emptyset$ for $i=1, 2, \ldots$. Then $\emptyset=\cup_{i=1}^\infty A_i$. Next, by Axiom~3, $P(\emptyset)=\sum_{i=1}^\infty P(A_i)=\sum_{i=1}^\infty P(\emptyset)$. This implies that $P(\emptyset)=0$.
+
+		Define $A_{N+j}=\emptyset$ for $j=1,2,\ldots$. Then
+		\footnotesize
+		\begin{align*}
+            P(A_1\cup A_2\cup\ldots\cup A_N)&=P(A_1\cup A_2\cup\ldots\cup A_N\cup A_{N+1}\cup A_{N+2}\cup\ldots)\\
+										    &=P(\cup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\\
+                                            &=\sum_{i=1}^N P(A_i)+\sum_{j=1}^\infty P(A_{N+j})=\sum_{i=1}^N P(A_i)
+		\end{align*}
+		\normalsize
+
+	\end{proof}
+
+	Notes:
+	\begin{enumerate}
+		\item the last equality in the second line holds by Axiom~1
+		\item the last equality in the third line holds because $P(A_{N+j})=P(\emptyset)=0$.
+	\end{enumerate}
+    \normalsize
 
 \end{frame}
 
 \begin{frame}
     \frametitle{Proof of rule 2}
 
+	\begin{proof}
+
+		$\Omega=A\cup A^c$. $A$ and $A^c$ are disjoint. Then, by Rule~1, $P(\Omega)=P(A)+P(A^c)$. From Axiom~2, $P(\Omega)=1$. Thus, $1=P(A)+P(A^c)$.
+
+	\end{proof}
+
 \end{frame}
 
 \begin{frame}
     \frametitle{Proof of rule 3}
+
+	\begin{proof}
+
+		\begin{align*}
+			A\cup B=A\setminus B\;\cup\;B\setminus A\;\cup AB\\
+			% A=A\B\cup AB\rightarrow P(A)=P(A\B)+P(AB)\rightarrow P(A\B)=P(A)-P(AB)\\
+			% B=B\A\cup AB\rightarrow P(B)=P(B\A)+P(AB)\rightarrow P(B\A)=P(B)-P(AB)\\
+		\end{align*}
+
+	\end{proof}
 
 \end{frame}
 
