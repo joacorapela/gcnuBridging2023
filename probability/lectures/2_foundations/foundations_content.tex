@@ -322,7 +322,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
     \begin{probAxiom}
 
-        $P\left(\cup_{i=1}^\infty A_i\right)=\sum_{i=1}^\infty P(A_i)$ for every collection of pairwise disjoint events $A_1,A_2,\ldots$
+        $P\left(\bigcup_{i=1}^\infty A_i\right)=\sum_{i=1}^\infty P(A_i)$ for every collection of pairwise disjoint events $A_1,A_2,\ldots$
 
     \end{probAxiom}
 
@@ -406,7 +406,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
         For any two events A and B,
         \begin{align*}
-            P(A\cup B) = P(A) + P(B) - P(AB)
+            P(A\cup B) = P(A) + P(B) - P(A\cap B)
         \end{align*}
 
     \end{probRule}
@@ -418,13 +418,15 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 	\footnotesize
 	\begin{proof}
-		Denote by $\emptyset$ the empty set. We will firt prove that $P(\emptyset)=0$. Take $A_i=\emptyset$ for $i=1, 2, \ldots$. Then $\emptyset=\cup_{i=1}^\infty A_i$. Next, by Axiom~3, $P(\emptyset)=\sum_{i=1}^\infty P(A_i)=\sum_{i=1}^\infty P(\emptyset)$. This implies that $P(\emptyset)=0$.
+		Denote by $\emptyset$ the empty set. We will firt prove that
+        $P(\emptyset)=0$. Take $A_i=\emptyset$ for $i=1, 2, \ldots$. Then
+        $\emptyset=\bigcup_{i=1}^\infty A_i$. Next, by Axiom~3, $P(\emptyset)=\sum_{i=1}^\infty P(A_i)=\sum_{i=1}^\infty P(\emptyset)$. This implies that $P(\emptyset)=0$.
 
 		Define $A_{N+j}=\emptyset$ for $j=1,2,\ldots$. Then
 		\footnotesize
 		\begin{align*}
             P(A_1\cup A_2\cup\ldots\cup A_N)&=P(A_1\cup A_2\cup\ldots\cup A_N\cup A_{N+1}\cup A_{N+2}\cup\ldots)\\
-										    &=P(\cup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\\
+										    &=P(\bigcup_{i=1}^\infty A_i)=\sum_{i=1}^\infty P(A_i)\\
                                             &=\sum_{i=1}^N P(A_i)+\sum_{j=1}^\infty P(A_{N+j})=\sum_{i=1}^N P(A_i)
 		\end{align*}
 		\normalsize
@@ -453,23 +455,43 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 \begin{frame}
     \frametitle{Proof of rule 3}
-
+    \tiny
 	\begin{proof}
-
 		\begin{align*}
-			A\cup B=A\setminus B\;\cup\;B\setminus A\;\cup AB\\
-			% A=A\B\cup AB\rightarrow P(A)=P(A\B)+P(AB)\rightarrow P(A\B)=P(A)-P(AB)\\
-			% B=B\A\cup AB\rightarrow P(B)=P(B\A)+P(AB)\rightarrow P(B\A)=P(B)-P(AB)\\
+            A\cup B&=\left(A\setminus B\right)\cup\left(B\setminus A\right)\cup\left(A\cap B\right)\\
+            A&=\left(A\setminus B\right)\cup \left(A\cap B\right)\\
+            B&=\left(B\setminus A\right)\cup \left(A\cap B\right)
 		\end{align*}
-
+        Since the sets in the right-hand-side of the above equations are
+        pairwise disjoint, by rule 1, we obtain
+		\begin{align*}
+            P\left(A\cup B\right)&=P\left(A\setminus B\right)+P\left(B\setminus A\right)+P\left(A\cap B\right)\\
+            P\left(A\right)&=P\left(A\setminus B\right)+P\left(A\cap B\right)\rightarrow P\left(A\setminus B\right)=P\left(A\right)-P\left(A\cap B\right)\\
+            P\left(B\right)&=P\left(B\setminus A\right)+P\left(A\cap B\right)\rightarrow P\left(B\setminus A\right)=P\left(B\right)-P\left(A\cap B\right)
+		\end{align*}
+        Replazing the equations on the right of the second and third line in
+        the equation on the first line the rule is proved.
+		\begin{align*}
+            P\left(A\cup B\right)&=P\left(A\right)-P\left(A\cap B\right)+P\left(B\right)-P\left(A\cap B\right)+P\left(A\cap B\right)\\
+                                 &=P\left(A\right)+P\left(B\right)-P\left(A\cap B\right)
+		\end{align*}
 	\end{proof}
-
+    \normalsize
 \end{frame}
 
 \begin{frame}
     \frametitle{Example: Chevalier de Mere to Blaise Pascal}
 
-    - example 7.7 (rule 7-2): Chevalier de Mere to Blaise Pascal 1654
+    The gambler Chevalier de Mere posed the following problem to the famous
+    French mathematician Blaise Pascal in 1654. This problem marks the begining
+    of probability theory.
+
+    \begin{probExample}
+        How many rolls of a fair die are required to have at least a
+        50\% chance of rolling at least one six? How many rolls of two fair
+        dice are required to hoave at least a 50\% chance of rolling at least
+        one double six?
+    \end{probExample}
 
 \end{frame}
 
