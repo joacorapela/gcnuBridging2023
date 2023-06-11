@@ -3,6 +3,7 @@
 *.out
 *.aux
 *.log
+*.vrb
 *.swp
 *.bbl
 *.blg
