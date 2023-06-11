@@ -29,7 +29,7 @@ def sample_in_event(sample):
 #%%
 # Below we draw many samples, check if each sample belongs to the event, and
 # computes the probability of the event as the frequency of drawn samples
-# belong to the event.
+# belonging to the event.
 
 n_samples = 10000
 n_draws = 4
