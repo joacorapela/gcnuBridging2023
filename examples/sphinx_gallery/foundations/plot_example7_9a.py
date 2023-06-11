@@ -1,11 +1,10 @@
 
 """
-Example 7.9
+Example 7.9a
 =================================
 
 """
 
-import sys
 import numpy as np
 
 #%%
