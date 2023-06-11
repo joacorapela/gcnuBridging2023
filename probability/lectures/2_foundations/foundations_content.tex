@@ -13,7 +13,7 @@
 %\usetheme{Berlin}
 %\usetheme{Boadilla}
 %\usetheme{CambridgeUS}
-% \usetheme{Copenhagen}
+%\usetheme{Copenhagen}
 %\usetheme{Darmstadt}
 %\usetheme{Dresden}
 %\usetheme{Frankfurt}
@@ -58,6 +58,24 @@
 %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
+% remove title and author from left panel
+ \makeatletter
+  \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+  {
+    \beamer@tempdim=\beamer@sidebarwidth%
+    \advance\beamer@tempdim by -6pt%
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+  }%
+\makeatother
+% done remove title and author from left panel 
+
 \hypersetup{colorlinks,citecolor=}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
@@ -70,6 +88,16 @@
 \usepackage{amsthm}
 \usepackage{media9}
 % \usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+
+\usepackage{setspace}
 
 \newtheorem{probDef}{Definition}
 \newtheorem*{probDef*}{Definition}
@@ -84,6 +112,12 @@
   \renewcommand\themanualprobRuleinner{#1}%
   \manualprobRuleinner
 }{\endmanualprobRuleinner}
+
+\newtheorem{manualprobExampleinner}{Example}
+\newenvironment{manualProbExample}[1]{%
+  \renewcommand\themanualprobExampleinner{#1}%
+  \manualprobExampleinner
+}{\endmanualprobExampleinner}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -271,7 +305,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
             sample space is the set [\textit{H}, \textit{T}].} \onslide<3->{We
             assign a probability of 0.5 to each element of the sample space.}
 
-        \onslide<4->{\item The experiment is to repeately roll a fair dice and
+        \onslide<4->{\item The experiment is to repeately roll a fair die and
             count the number of rolls until the first six shows up.}
             \onslide<5->{The sample space is the set of positive integers.}
             \onslide<6->{The probabilities
@@ -359,7 +393,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example: equally likely outcomes -- discrete $\Omega$}
+    \frametitle{Example: equally likely outcomes}
 
     \begin{probExample}
         John, Pedro and Rosita each roll on fair die. How do we calculate the
@@ -379,39 +413,42 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 \subsection{Some basic rules}
 
+\setstretch{0.75}
+
 \begin{frame}
     \frametitle{Some basic rules}
 
-    \small
+    \scriptsize
     \begin{probRule}
-
         For any finite number of mutually exclusive events $A_1,\ldots,A_N$,
         \begin{align*}
             P(A_1\cup A_2\cup\ldots\cup A_n) = P(A_1) + \ldots + P(A_N)
         \end{align*}
-
     \end{probRule}
 
     \begin{probRule}
-
         For any event A,
         \begin{align*}
             P(A) = 1 - P(A^c)
         \end{align*}
         where the event $A^c$ consists of all outcomes that are not in $A$.
-
     \end{probRule}
 
     \begin{probRule}
+		Let $A,B$ be two events such that $A\subseteq B$. Then $P(A)\le P(B)$.
+    \end{probRule}
 
+    \begin{probRule}
         For any two events A and B,
         \begin{align*}
             P(A\cup B) = P(A) + P(B) - P(A\cap B)
         \end{align*}
-
     \end{probRule}
+
     \normalsize
 \end{frame}
+
+\setstretch{1.00}
 
 \begin{frame}
     \frametitle{Rule 1}
@@ -454,7 +491,14 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \end{frame}
 
 \begin{frame}
-    \frametitle{Proof of rule 3}
+    \frametitle{Exercise}
+
+    Prove rule 3.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of rule 4}
     \tiny
 	\begin{proof}
 		\begin{align*}
@@ -480,69 +524,318 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example: Chevalier de Mere to Blaise Pascal}
+    \frametitle{Example 7.7: Chevalier de Mere to Blaise Pascal}
 
     The gambler Chevalier de Mere posed the following problem to the famous
     French mathematician Blaise Pascal in 1654. This problem marks the begining
     of probability theory.
 
-    \begin{probExample}
-        How many rolls of a fair die are required to have at least a
-        50\% chance of rolling at least one six? How many rolls of two fair
-        dice are required to hoave at least a 50\% chance of rolling at least
-        one double six?
-    \end{probExample}
+    \begin{manualProbExample}{7.7}
+        \begin{enumerate}[a]
+
+            \item How many rolls of a fair die are required to have at least a
+                50\% chance of rolling at least one six?
+
+            \item How many rolls of two fair dice are required to have at
+                least a 50\% chance of rolling at least one double six?
+
+        \end{enumerate}
+    \end{manualProbExample}
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{Analytical solution to example 7.7a}
+
+	(a)
+    \begin{itemize}[<+->]
+
+		\item Let's fix the number of rolls $r$. The sample space is
+$\Omega=\{(i_1,\ldots,i_r): 1\leq i_k\leq 6\}$, where $i_k$ is the up face of
+the die on the kth roll. The outcomes in $\Omega$ are equiprobable.
+
+        \item We want to calculate the probability of the event $A$=``at least
+            one six shows up in the $r$ rolls.''. When you see the keyword ``at
+            least one'' in an event, it is easier to calculate the probability
+            of the complement $A^c$=``no six shows up in the $r$ rolls.''
+
+        \item
+            $P(A^c)=\frac{N(A^c)}{N}=\frac{5^r}{6^r}=\left(\frac{5}{6}\right)^r$.
+
+        \item
+            $\frac{1}{2}<P(A)=1-P(A^c)=1-\left(\frac{5}{6}\right)^r$
+            iff
+            $\left(\frac{5}{6}\right)^r<\frac{1}{2}$ iff
+            $\log\left(\frac{5}{6}\right)^r<\log\frac{1}{2}$ iff
+            $r\log\frac{5}{6}<\log\frac{1}{2}$ iff
+            $r>\frac{\log\frac{1}{2}}{\log\frac{5}{6}}=3.8$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution to example 7.7a}
+
+    Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example7_7a.html#sphx-glr-auto-examples-foundations-plot-example7-7a-py}{here}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise}
+
+    Solve example 7.7b analytically and by simulation. Answer: you need at least 25 draws.
+
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+    \frametitle{Analytical solution to example 7.7b}
+
+	(b)
+    \begin{itemize}[<+->]
+
+		\item Let's fix the number of rolls $r$. The sample space is
+$\Omega=\{(i^1_1,i^2_1,\ldots,i^1_r,i^2_r,): 1\leq i^j_k\leq 6\}$, where $i^j_k$ is the up face of
+the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
+
+        \item We want to calculate the probability of the event $A$=``at least
+            one pair of six shows up in the $r$ rolls.''. The complement of $A$ is
+            $A^c$=``no pair of six shows up in the $r$ rolls.''
+
+        \item
+            $P(A^c)=\frac{N(A^c)}{N}=\frac{35^r}{36^r}=\frac{35^r}{36^r}=\left(\frac{35}{36}\right)^r$.
+
+        \item
+            $\frac{1}{2}<P(A)=1-P(A^c)=1-\left(\frac{35}{36}\right)^r$
+            iff
+            $\left(\frac{35}{36}\right)^r<\frac{1}{2}$ iff
+            $\log\left(\frac{35}{3}\right)^r<\log\frac{1}{2}$ iff
+            $r\log\frac{35}{36}<\log\frac{1}{2}$ iff
+            $r>\frac{\log\frac{1}{2}}{\log\frac{35}{36}}=24.6$
+    \end{itemize}
+\end{frame}
+\end{comment}
+
+\begin{comment}
 \begin{frame}
     \frametitle{Example:}
 
     - example 7.8 (rule 7-3, addition rule, easy)
 
 \end{frame}
+\end{comment}
 
-\begin{frame}
-    \frametitle{Example:}
+\begin{frame}[fragile]
+    \frametitle{Example 7.9: soccer teams in quarterfinal}
 
-    - example 7.9 (rule 7-3): uses counting tools (binomial coefficient)
+    \begin{manualProbExample}{7.9}
+        The eight soccer teams which have reached the quarterfinals of the
+        Championship League are formed by two teams from of the the countries
+        England, Germany, Italy and Spain. The four matches to be played in the
+        quarterfinal are determined by drawing lots.
 
-        - wrong, but simple, approach
-
-        - correct, but more complicated, approach
-
-        - sampling approach
+        \begin{enumerate}[a]
+            \item What is the probability that the two teams from the same
+                country play against each other in each of the four matches?
+            \item What is the probability that there is a match between the two
+                teams from England or between the two teams from Germany?
+        \end{enumerate}
+    \end{manualProbExample}
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{Analytical solution to example 7.9: setup}
+    \begin{itemize}[<+->]
+        \item Let $T$ be the set of eight teams
+            $T=\{E_1,E_2,G_1,G_2,I_1,I_2,S_1,S_2\}$
+        \item A match is a set of two different elements from $T$ (i.e.,
+            $\text{match}=\{T_i,T_j\},\text{match}\subset T,T_i\neq Tj$).
+        \item A quarterfinal is a set of four different matches.
+        \item $\Omega$ is the set of all possible quarterfinals (e.g.,
+            $\{\{E1,G1\},\{I1,G2\},\{S2,G2\},\{I2,G1\}\}\in\Omega$).
+        \item $\Omega$ contains equally-likely outcomes. Thus, for any event
+            $A$, $P(A)=\frac{N(A)}{N}$.
+
+        \item $N=\frac{\binom{8}{2}\binom{6}{2}\binom{4}{2}}{4!}$. There are
+            $\binom{8}{2}$, $\binom{6}{2}$, $\binom{4}{2}$ and 1  ways of
+            selecting the first, second, third and fourth matches,
+            respectively. We divide by $4!$ because the order between matches
+            does not matter.
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 7.9a}
+    \begin{itemize}[<+->]
+        \item The event A=``\textit{two teams from the same country play against
+            each other in each of the four matches}'' contains only one outcome
+            (i.e., $A=\{\{E_1,E_2\},\{G_1,G_2\},\{I_1,I_2\},\{S_1,S_2\}\}$).
+
+        \item
+            $P(A)=\frac{N(A)}{N}=\frac{1}{\frac{\binom{8}{2}\binom{6}{2}\binom{4}{2}}{4!}}=0.009524$
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 7.9b}
+    \begin{itemize}[<+->]
+        \scriptsize
+        \item The event $B$=``\textit{there is a match between the two teams from
+            England or between the two teams from Germany}'' is the union of
+            the events $B_E$=``\textit{there is a match between the two teams
+            from England}'' and $B_G$=``\textit{there is a match between the
+            two teams from Germany}'' (i.e., $B=B_E\cup B_G$).
+
+        \item Since $B_E$ and $B_G$ are not disjoint, we should use Rule~3 to
+            compute $P(B_E\cup B_G)$ (i.e., $P(B_E\cup B_G)=P(B_E)+P(B_G)-P(B_E\cap B_G)$.
+
+        \item $P(B_E)=P(B_G)$. Since the match $\{E_1,E_2\}$ is in all
+            quarterfinals in $B_E$, to calculate $N(B_E)$ we need to computer
+            the number of matches between six teams of three countries, as done
+            in part (a). This gives
+            $N(B_E)=\frac{\binom{6}{2}\binom{4}{2}}{3!}$. Then
+            $P(B_E)=P(B_G)=\frac{\frac{\binom{6}{2}\binom{4}{2}}{3!}}{\frac{\binom{8}{2}\binom{6}{2}\binom{4}{2}}{4!}}=0.142857$.
+
+        \item Since the match $\{E_1,E_2\}$ and $\{G_1,G_2\}$ are in all
+            quarterfinals in $B_E\cap B_G$, as in part (a),
+            $N(B_E\cap B_G)=\frac{\binom{4}{2}}{2!}$. Then $P(B_E\cap
+            B_G)=\frac{\frac{\binom{4}{2}}{2!}}{\frac{\binom{8}{2}\binom{6}{2}\binom{4}{2}}{4!}}=0.028571$.
+
+        \item Thus $P(B_E\cup B_G)=P(B_E)+P(B_G)-P(B_E\cap B_G)=2\times 0.142857-0.028571=0.257143$.
+        \normalsize
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution to example 7.9a}
+
+    Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example7_9a.html#sphx-glr-auto-examples-foundations-plot-example7-9a-py}{here}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise}
+
+    Solve example 7.7b by simulation. Answer: you should obtain a solution
+    close to the analytical one.
+
+\end{frame}
+
+\begin{comment}
 \begin{frame}
     \frametitle{Example:}
 
     - example 7.10 (rule 7-1, birthday problem, used in example 8.6): uses counting tools (binomial coefficient)
 
 \end{frame}
+\end{comment}
 
 \section{Conditional probability and Bayes}
 
 \subsection{Conditional probability}
 
 \begin{frame}
-    \frametitle{Conditional probability}
+    \frametitle{Definition of conditional probability: motivation}
 
-- p. 256: good motivation of conditional probability in the cards example
+    \begin{itemize}[<+->]
+        \item We are given a probability model $(\Omega,\mathcal{F},P)$.
+        \item We are interested in the probability of event $A\in\mathcal{F}$.
+            This model provides us the unconditioned probability of $A$, $P(A)$.
 
-- Definition 8.1
+		\item Our colleague performs an experiment and tells us that event $B$
+ocurred. How does the fact that $B$ occurred changes the probability of $A$?
 
-- interpretation of condition probability with relative frequencies
+            \begin{figure}
+                \begin{tikzpicture}
+                    % Place nodes
+                    \node (pA) {$P(A)$};
+                    \node [right=3cm of pA] (pAcB) {$P(A|B)$};
+                    % Draw edges
+                    % \path[->] (pA) edge node [below,anchor=center,pos=0.25] {B occurred} (pAcB);
+                    \path[->] (pA) edge node [above] {B occurred} (pAcB);
+                \end{tikzpicture}
+            \end{figure}
+
+		\item Definition 1: $P(\cdot|B)=P(\cdot\cap B)$, where $\cdot$ can be any event.
+
+		\item Problem with Definition 1: we want $P(B|B)=1$, but from Definition 1, $P(B|B)=P(B\cap B)=P(B)\le 1$.
+
+		\item Definition 2: $P(\cdot|B)=\frac{P(\cdot\cap B)}{P(B)}$.
+
+			\begin{itemize}
+				\item $P(B|B)=1\;\checkmark$
+				\item $P(A)=P(A|\Omega)=\frac{P(A\cap\Omega)}{P(\Omega)}=\frac{P(A)}{1}=P(A)\;\checkmark$
+			\end{itemize}
+
+    \end{itemize}
+
+	\note{
+		- p. 256: good motivation of conditional probability in the cards example
+
+		- Definition 8.1
+
+		[- interpretation of condition probability with relative frequencies]
+
+	}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Definition of conditional probability}
+
+    \begin{probDef}[Conditional probability]
+
+		For any to events $A$ and $B$, with $P(B)>0$, the conditional
+probability of $A$ given $B$, $P(A|B)$, is defined as 
+
+		\begin{align*}
+			P(A|B)=\frac{P(A\cap B)}{P(B)}
+		\end{align*}
+
+	\end{probDef}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example:}
+    \frametitle{Example 8.1: conditional probability for two dice}
 
-- Example 8.1 (first ask students their intuition, as the problem is counter intuitive)
+	\begin{manualProbExample}{8.1}
+		Someone has rolled two dice. You know that one of the dice turned up a
+face value of six. What is the probability that the other die turned up a six
+as  well?
+	\end{manualProbExample}
 
-- do NOT present example 8.2 at this point, as it requires the concept of independence
+	\note{
+
+		- Example 8.1 (first ask students their intuition, as the problem is counter intuitive)
+
+		- do NOT present example 8.2 at this point, as it requires the concept of independence
+
+	}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 8.1}
+
+    \begin{itemize}[<+->]
+
+		\item $\Omega=\{(i_1,i_2): 1\le i_1,i_2\le6\}$. $N=36$. Equally probable outcomes.
+
+		\item $B$=``\textit{one die turned up a face value of six}''=
+$\{(6,i),(j,6),(6,6):1\le i,j\le 5\}$. $N(B)=11$. $P(B)=\frac{N(B)}{N}=\frac{11}{36}$.
+
+		\item $A$=``\textit{the other die turned up a face value of six also}''.
+
+		\item $A\cap B$=``\textit{the two dice turned up a face value of six}''=
+$\{(6,6)\}$. $N(A\cap B)=1$. $P(A\cap B)=\frac{N(A\cap B)}{N}=\frac{1}{36}$.
+
+		\item Approach 1 [definition]: $P(A|B)=\frac{P(A\cap B)}{P(B)}=\frac{1/36}{11/36}=\frac{1}{11}$.
+
+		\item Approach 1 [$B$ as $\Omega$]: $P(A|B)=\frac{N(A\cap B)}{N(B)}=\frac{1}{11}$.
+
+    \end{itemize}
 
 \end{frame}
 
@@ -607,7 +900,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \begin{frame}
     \frametitle{Law of conditional probability}
 
-- example of dice followed by coin tosses
+- example of die followed by coin tosses
 
     \begin{description}
 
