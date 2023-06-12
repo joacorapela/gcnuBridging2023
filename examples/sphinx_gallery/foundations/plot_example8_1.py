@@ -1,7 +1,7 @@
 
 """
-Example 8.1
-===========
+Example 8.1: conditional probability for two dice
+=================================================
 
 """
 
@@ -26,6 +26,7 @@ def sample_in_unconditioned_event(two_dice):
 # This function checks if the sample belong to the conditioned event
 #
 def sample_in_conditioned_event(two_dice):
+    # are  the two dice six?
     answer = two_dice[0] == 6 and two_dice[1] == 6
     return answer
 
