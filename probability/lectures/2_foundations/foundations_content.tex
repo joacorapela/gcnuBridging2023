@@ -826,16 +826,32 @@ as  well?
 		\item $B$=``\textit{one die turned up a face value of six}''=
 $\{(6,i),(j,6),(6,6):1\le i,j\le 5\}$. $N(B)=11$. $P(B)=\frac{N(B)}{N}=\frac{11}{36}$.
 
-		\item $A$=``\textit{the other die turned up a face value of six also}''.
+		\item $A$=``\textit{the other die turned up a face value of six}''
 
 		\item $A\cap B$=``\textit{the two dice turned up a face value of six}''=
 $\{(6,6)\}$. $N(A\cap B)=1$. $P(A\cap B)=\frac{N(A\cap B)}{N}=\frac{1}{36}$.
 
 		\item Approach 1 [definition]: $P(A|B)=\frac{P(A\cap B)}{P(B)}=\frac{1/36}{11/36}=\frac{1}{11}$.
 
-		\item Approach 1 [$B$ as $\Omega$]: $P(A|B)=\frac{N(A\cap B)}{N(B)}=\frac{1}{11}$.
+		\item Approach 2 [$B$ as $\Omega$]: $P(A|B)=\frac{N(A\cap B)}{N(B)}=\frac{1}{11}$.
 
     \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution to example 8.1}
+
+    Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example8_1.html#sphx-glr-auto-examples-foundations-plot-example8-1-py}{here}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise}
+
+    Someone has rolled two dice. You know that the first die turned up a
+face value of six. What is the probability that the second die turned up a six
+as  well?
 
 \end{frame}
 
@@ -844,16 +860,53 @@ $\{(6,6)\}$. $N(A\cap B)=1$. $P(A\cap B)=\frac{N(A\cap B)}{N}=\frac{1}{36}$.
 \begin{frame}
     \frametitle{Assigning probabilities by conditioning}
 
-    \begin{description}
+    \scriptsize
+    \begin{probRule}
 
-        \item[Rule 4] For any sequence of events $A_1,\ldots,A_n$,
-
+        For any $n\in\mathbb{N}$, $n\ge 2$, and any sequence of events $A_1,\ldots,A_n$,
             \begin{align*}
-                P(A_1, ..., A_n) = P(A_n|A_{n-1}, ..., A_1) \ldots P(A_1)
+                P(A_1\cap\ldots\cap A_n) = P(A_n|A_{n-1}\cap\ldots\cap A_1)
+                P(A_{n-1}|A_{n-2}\cap\ldots\cap A_1)\ldots P(A_1)
             \end{align*}
+    \end{probRule}
 
-    \end{description}
+\end{frame}
 
+\begin{frame}
+    \frametitle{Proof of rule 5}
+
+    \tiny
+    \begin{proof}
+        By induction.
+
+        \begin{description}
+            \item[$P_2$:] $P(A_1\cap A_2)=P(A_2|A_1)P(A_1)$
+            \item[$P_n\rightarrow P_{n+1}$:]
+                \begin{align*}
+                    P(A_1\cap A_2\cap\ldots\cap A_n\cap A_{n+1})=\;&P(B\cap A_{n+1})\\
+                    =\;&P(A_{n+1}|B)P(B)\\
+                    =\;&P(A_{n+1}|A_n\cap A_{n-1}\cap\ldots A_1)\\
+                       &P(A_n\cap A_{n-1}\cap\ldots\cap A_1)\\
+                    =\;&P(A_{n+1}|A_n\cap A_{n-1}\cap\ldots A_1)\\
+                       &P(A_n|A_{n-1}\cap\ldots\cap A_1)\\
+                       &P(A_{n-1}|A_{n-2}\cap\ldots\cap A_1)\ldots P(A_1)
+                \end{align*}
+        \end{description}
+    \end{proof}
+    Notes:
+    \begin{enumerate}
+        \item $P_2$ follows from the definition of conditional probability.
+        \item in the first equality in $P_n\rightarrow P_{n+1}$ we defined the
+            event $B=A_1\cap\ldots\cap A_n$.
+        \item in the second equality in $P_n\rightarrow P_{n+1}$ we used the
+            definition of conditional proability.
+        \item in the third equality in $P_n\rightarrow P_{n+1}$ we replaced $B$
+            by its definition.
+        \item in the fourth equality in $P_n\rightarrow P_{n+1}$ we used the
+            inductive hypothesis $P(A_1\cap\ldots\cap A_n) =
+            P(A_n|A_{n-1}\cap\ldots\cap A_1)P(A_{n-1}|A_{n-2}\cap\ldots\cap
+            A_1)\ldots P(A_1)$.
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}
