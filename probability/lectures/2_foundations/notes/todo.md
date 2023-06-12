@@ -1,3 +1,4 @@
+- example 8.1 may not be the best one to show how priors are updated
 - example 7.7b by simulation
 - add one more example on discrete equally likely outcomes (example 7.2?)
 x solve example 7.9 with simulations
