@@ -1,0 +1,506 @@
+\documentclass[10pt]{beamer}
+\usefonttheme{professionalfonts}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Gatsby Bridging Program}
+\subtitle{Probability: Discrete Distributions}
+% \date{\today}
+\date{}
+\author{Cameron Stewart}
+\institute{Gatsby Computational Neuroscience Unit}
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents%[hideallsubsections]
+\end{frame}
+
+\section{Random Variables, Probability Mass Functions, and Cumulative Distribution Functions}
+
+\begin{frame}[fragile]{What is a Random Variable?}
+Random variables are functions which map the possible outcomes of an experiment to numerical values. How we define these functions is up to us.
+\begin{exampleblock}{Example 1}
+Consider a bag containing 3 red balls (R) and 5 green balls (G). In our experiment, we are going to draw 2 balls from the bag, with replacement. The sample space is \(\Omega = \left\{\text{RR}, \text{RG}, \text{GR}, \text{GG}\right\}\).
+
+We are interested in determining the probabilities of drawing various numbers of red balls. To to this, we could start by defining a random variable \(X: \Omega \rightarrow \left\{0, 1, 2\right\}\) such that
+\begin{equation*}
+    X\left(\omega\right) =
+    \begin{cases}
+        0 & \text{if } \omega = \text{GG}\\
+        1 & \text{if } \omega \in \left\{\text{RG, GR}\right\}\\
+        2 & \text{if } \omega = \text{RR}
+    \end{cases}\,.
+\end{equation*}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{What is a Random Variable?}
+Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\).
+\begin{exampleblock}{Example 1 Cont.}
+What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\text{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
+\begin{align*}
+    \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
+    &= \frac{15}{32}\,.
+\end{align*}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Discrete and Continuous Random Variables}
+Discrete random variables can take a countable number of values. For example:
+\begin{itemize}
+    \item \(X \in \left\{0, 1\right\}\)
+    \item \(X \in \left\{0, 1, 2, \dots\right\}\)
+    \item \(X\) representing the number of buses arriving within an hour.
+\end{itemize}
+
+Continuous random variables can take values in continuous ranges. For example:
+\begin{itemize}
+    \item \(X \in \left[0, 1\right]\)
+    \item \(X \in \mathbb{R}\)
+    \item \(X\) representing the waiting time until the next bus.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Probability Mass Functions}
+Discrete distributions can be defined by their probability mass function (PMF). The PMF of random variable \(X\) is often denoted by \(f_X\) or \(p_X\), and is defined as
+\begin{equation*}
+    f_X\left(x\right) = \mathbb{P}\left(X = x\right)\,.
+\end{equation*}
+\(f_X\) is simply a function name. It is fine to use a different name, as long as it is clear how the function is defined. Occasionally, the same name is used for PMFs if it is clear from context how these are defined, but I'd advise against this practice for the sake of clarity. E.g. it is clearer to write \(p_X\left(x\right)\) and \(p_Y\left(y\right)\) than \(p\left(x\right)\) and \(p\left(y\right)\) if these correspond to 2 different PMFs.
+\end{frame}
+
+\begin{frame}[fragile]{Probability Mass Functions}
+Probabilities can't be negative and must sum to 1 over the set of all possible values \(\mathcal{X}\), so we have the following constraints:
+\begin{equation*}
+    f_X\left(x\right) \geq 0 \text{ for all } x
+\end{equation*}
+and
+\begin{equation*}
+    \sum_{x \in \mathcal{X}} f_X\left(x\right) = 1\,.
+\end{equation*}
+\(\mathcal{X}\) is referred to as the support of \(X\). \(f_X\left(x\right) = 0\) for \(x \notin \mathcal{X}\).
+\end{frame}
+
+\begin{frame}[fragile]{Probability Mass Functions}
+\begin{exampleblock}{Example 1 Cont.}
+Let's continue with our red ball example. What is the PMF of \(X\)? First, we recognise that \(\mathcal{X} = \left\{0, 1, 2\right\}\). You can verify for yourself that
+\begin{equation*}
+    f_X\left(x\right) =
+    \begin{cases}
+        \frac{25}{64} & \text{if } x = 0\\
+        \frac{15}{32} & \text{if } x = 1\\
+        \frac{9}{64} & \text{if } x = 2\\
+        0 & \text{otherwise}
+    \end{cases}\,,
+\end{equation*}
+and that this function satisfies the conditions for a PMF on the previous slide.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Cumulative Distribution Functions}
+A probability distribution can also be defined in terms of its cumulative distribution function (CDF). The CDF of a random variable \(X\) is a monotonically increasing function defined as
+\begin{equation*}
+    F_X\left(x\right) = \mathbb{P}\left(X \leq x\right)\,.
+\end{equation*}
+For discrete random variables, we can relate this definition to the PMF as follows:
+\begin{equation*}
+    F_X\left(x\right) = \sum_{y\leq x} f_X\left(y\right)\,.
+\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Cumulative Distribution Functions}
+As probabilities must sum to 1 over the support, we have the following emergent properties for CDFs:
+\begin{align*}
+    \lim_{x\rightarrow-\infty}F_X\left(x\right) = 0\\
+    \lim_{x\rightarrow\infty}F_X\left(x\right) = 1
+\end{align*}
+We can also see that the following is true:
+\begin{equation*}
+    \mathbb{P}\left(a < X \leq b\right) = F_X\left(b\right) - F_X\left(a\right)\,.
+\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Cumulative Distribution Functions}
+\begin{exampleblock}{Example 1 Cont.}
+Back to the red ball example. What is the CDF of \(X\)? Previously, we found that
+\begin{equation*}
+    f_X\left(x\right) =
+    \begin{cases}
+        \frac{25}{64} & \text{if } x = 0\\
+        \frac{15}{32} & \text{if } x = 1\\
+        \frac{9}{64} & \text{if } x = 2\\
+        0 & \text{otherwise}
+    \end{cases}\,.
+\end{equation*}
+Hence, the CDF is
+\begin{equation*}
+    F_X\left(x\right) =
+    \begin{cases}
+        0 & \text{if } x < 0\\
+        \frac{25}{64} & \text{if } 0 \leq x < 1\\
+        \frac{55}{64} & \text{if } 1 \leq x < 2\\
+        1 & \text{if } x \geq 2
+    \end{cases}\,.
+\end{equation*}
+\end{exampleblock}
+\end{frame}
+
+% \begin{frame}[fragile]{PDF and CDF Plots}
+% \begin{exampleblock}{Example 1 Cont.}
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+%    some text here some text here some text here some text here some text here
+% \end{column}
+% \begin{column}{0.5\textwidth}
+%     \begin{center}
+%      % \includegraphics[width=0.5\textwidth]{image1.jpg}
+%      \end{center}
+% \end{column}
+% \end{columns}
+% \end{exampleblock}
+% \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \section[Intro]{Introduction}
+
+% \begin{frame}[fragile]{Metropolis}
+
+%   The \themename theme is a Beamer theme with minimal visual noise
+%   inspired by the \href{https://github.com/hsrmbeamertheme/hsrmbeamertheme}{\textsc{hsrm} Beamer
+%   Theme} by Benjamin Weiss.
+
+%   Enable the theme by loading
+
+%   \begin{verbatim}    \documentclass{beamer}
+%     \usetheme{metropolis}\end{verbatim}
+
+%   Note, that you have to have Mozilla's \emph{Fira Sans} font and XeTeX
+%   installed to enjoy this wonderful typography.
+% \end{frame}
+% \begin{frame}[fragile]{Sections}
+%   Sections group slides of the same topic
+
+%   \begin{verbatim}    \section{Elements}\end{verbatim}
+
+%   for which \themename provides a nice progress indicator \ldots
+  
+% \end{frame}
+
+% \section{Titleformats}
+
+% \begin{frame}{Metropolis titleformats}
+% 	\themename supports 4 different titleformats:
+% 	\begin{itemize}
+% 		\item Regular
+% 		\item \textsc{Smallcaps}
+% 		\item \textsc{allsmallcaps}
+% 		\item ALLCAPS
+% 	\end{itemize}
+% 	They can either be set at once for every title type or individually.
+% \end{frame}
+
+% \subsection{Tricks}
+
+% {
+%     \metroset{titleformat frame=smallcaps}
+% \begin{frame}{Small caps}
+% 	This frame uses the \texttt{smallcaps} titleformat.
+
+% 	\begin{alertblock}{Potential Problems}
+% 		Be aware, that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in smallcaps will be typeset with the Computer Modern Serif font instead.
+% 	\end{alertblock}
+% \end{frame}
+% }
+
+% {
+% \metroset{titleformat frame=allsmallcaps}
+% \begin{frame}{All small caps}
+% 	This frame uses the \texttt{allsmallcaps} titleformat.
+
+% 	\begin{alertblock}{Potential problems}
+% 		As this titleformat also uses smallcaps you face the same problems as with the \texttt{smallcaps} titleformat. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
+
+% 		As a rule of thumb: Just use it for plaintext-only titles.
+% 	\end{alertblock}
+% \end{frame}
+% }
+
+% {
+% \metroset{titleformat frame=allcaps}
+% \begin{frame}{All caps}
+% 	This frame uses the \texttt{allcaps} titleformat.
+
+% 	\begin{alertblock}{Potential Problems}
+% 		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
+% 	\end{alertblock}
+% \end{frame}
+% }
+
+% \section{Elements}
+
+% \begin{frame}[fragile]{Typography}
+%       \begin{verbatim}The theme provides sensible defaults to
+% \emph{emphasize} text, \alert{accent} parts
+% or show \textbf{bold} results.\end{verbatim}
+
+%   \begin{center}becomes\end{center}
+
+%   The theme provides sensible defaults to \emph{emphasize} text,
+%   \alert{accent} parts or show \textbf{bold} results.
+% \end{frame}
+
+% \begin{frame}{Font feature test}
+%   \begin{itemize}
+%     \item Regular
+%     \item \textit{Italic}
+%     \item \textsc{SmallCaps}
+%     \item \textbf{Bold}
+%     \item \textbf{\textit{Bold Italic}}
+%     \item \textbf{\textsc{Bold SmallCaps}}
+%     \item \texttt{Monospace}
+%     \item \texttt{\textit{Monospace Italic}}
+%     \item \texttt{\textbf{Monospace Bold}}
+%     \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+%   \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Lists}
+%   \begin{columns}[T,onlytextwidth]
+%     \column{0.33\textwidth}
+%       Items
+%       \begin{itemize}
+%         \item Milk \item Eggs \item Potatos
+%       \end{itemize}
+
+%     \column{0.33\textwidth}
+%       Enumerations
+%       \begin{enumerate}
+%         \item First, \item Second and \item Last.
+%       \end{enumerate}
+
+%     \column{0.33\textwidth}
+%       Descriptions
+%       \begin{description}
+%         \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
+%       \end{description}
+%   \end{columns}
+% \end{frame}
+% \begin{frame}{Animation}
+%   \begin{itemize}[<+- | alert@+>]
+%     \item \alert<4>{This is\only<4>{ really} important}
+%     \item Now this
+%     \item And now this
+%   \end{itemize}
+% \end{frame}
+% \begin{frame}{Figures}
+%   \begin{figure}
+%     \newcounter{density}
+%     \setcounter{density}{20}
+%     \begin{tikzpicture}
+%       \def\couleur{alerted text.fg}
+%       \path[coordinate] (0,0)  coordinate(A)
+%                   ++( 90:5cm) coordinate(B)
+%                   ++(0:5cm) coordinate(C)
+%                   ++(-90:5cm) coordinate(D);
+%       \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
+%       \foreach \x in {1,...,40}{%
+%           \pgfmathsetcounter{density}{\thedensity+20}
+%           \setcounter{density}{\thedensity}
+%           \path[coordinate] coordinate(X) at (A){};
+%           \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
+%                               -- (C) coordinate[pos=.10](B)
+%                               -- (D) coordinate[pos=.10](C)
+%                               -- (X) coordinate[pos=.10](D);
+%           \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
+%       }
+%     \end{tikzpicture}
+%     \caption{Rotated square from
+%     \href{http://www.texample.net/tikz/examples/rotated-polygons/}{texample.net}.}
+%   \end{figure}
+% \end{frame}
+% \begin{frame}{Tables}
+%   \begin{table}
+%     \caption{Largest cities in the world (source: Wikipedia)}
+%     \begin{tabular}{lr}
+%       \toprule
+%       City & Population\\
+%       \midrule
+%       Mexico City & 20,116,842\\
+%       Shanghai & 19,210,000\\
+%       Peking & 15,796,450\\
+%       Istanbul & 14,160,467\\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{frame}
+% \begin{frame}{Blocks}
+%   Three different block environments are pre-defined and may be styled with an
+%   optional background color.
+
+%   \begin{columns}[T,onlytextwidth]
+%     \column{0.5\textwidth}
+%       \begin{block}{Default}
+%         Block content.
+%       \end{block}
+
+%       \begin{alertblock}{Alert}
+%         Block content.
+%       \end{alertblock}
+
+%       \begin{exampleblock}{Example}
+%         Block content.
+%       \end{exampleblock}
+
+%     \column{0.5\textwidth}
+
+%       \metroset{block=fill}
+
+%       \begin{block}{Default}
+%         Block content.
+%       \end{block}
+
+%       \begin{alertblock}{Alert}
+%         Block content.
+%       \end{alertblock}
+
+%       \begin{exampleblock}{Example}
+%         Block content.
+%       \end{exampleblock}
+
+%   \end{columns}
+% \end{frame}
+% \begin{frame}{Math}
+%   \begin{equation*}
+%     e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
+%   \end{equation*}
+% \end{frame}
+% \begin{frame}{Line plots}
+%   \begin{figure}
+%     \begin{tikzpicture}
+%       \begin{axis}[
+%         mlineplot,
+%         width=0.9\textwidth,
+%         height=6cm,
+%       ]
+
+%         \addplot {sin(deg(x))};
+%         \addplot+[samples=100] {sin(deg(2*x))};
+
+%       \end{axis}
+%     \end{tikzpicture}
+%   \end{figure}
+% \end{frame}
+% \begin{frame}{Bar charts}
+%   \begin{figure}
+%     \begin{tikzpicture}
+%       \begin{axis}[
+%         mbarplot,
+%         xlabel={Foo},
+%         ylabel={Bar},
+%         width=0.9\textwidth,
+%         height=6cm,
+%       ]
+
+%       \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
+%       \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
+%       \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
+
+%       \legend{lorem, ipsum, dolor}
+
+%       \end{axis}
+%     \end{tikzpicture}
+%   \end{figure}
+% \end{frame}
+% \begin{frame}{Quotes}
+%   \begin{quote}
+%     Veni, Vidi, Vici
+%   \end{quote}
+% \end{frame}
+
+% {%
+% \setbeamertemplate{frame footer}{My custom footer}
+% \begin{frame}[fragile]{Frame footer}
+%     \themename defines a custom beamer template to add a text to the footer. It can be set via
+%     \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
+% \end{frame}
+% }
+
+% \begin{frame}{References}
+%   Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
+% \end{frame}
+
+% \section{Conclusion}
+
+% \begin{frame}{Summary}
+
+%   Get the source of this theme and the demo presentation from
+
+%   \begin{center}\url{github.com/matze/mtheme}\end{center}
+
+%   The theme \emph{itself} is licensed under a
+%   \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+%   Attribution-ShareAlike 4.0 International License}.
+
+%   \begin{center}\ccbysa\end{center}
+
+% \end{frame}
+
+% {\setbeamercolor{palette primary}{fg=black, bg=yellow}
+% \begin{frame}[standout]
+%   Questions?
+% \end{frame}
+% }
+
+% \appendix
+
+% \begin{frame}[fragile]{Backup slides}
+%   Sometimes, it is useful to add slides at the end of your presentation to
+%   refer to during audience questions.
+
+%   The best way to do this is to include the \verb|appendixnumberbeamer|
+%   package in your preamble and call \verb|\appendix| before your backup slides.
+
+%   \themename will automatically turn off slide numbering and progress bars for
+%   slides in the appendix.
+% \end{frame}
+
+% \begin{frame}[allowframebreaks]{References}
+
+%   \bibliography{demo}
+%   \bibliographystyle{abbrv}
+
+% \end{frame}
+
+\end{document}
