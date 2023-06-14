@@ -136,7 +136,7 @@
 \begin{frame}
 \frametitle{Discrete vs. continuous random variables}
 
-Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards in a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in some interval).
+Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards in a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in an interval).
 
 \
 
@@ -172,7 +172,7 @@ A random variable $X$ is continuous if:
 
 %When measuring continuous random variables with increasing precision, the probability mass function approaches a smooth curve, the probability density function.
 
-Continuous random variables can be discretised into bins to form a probability mass function. As the bins become narrower, the probability mass function approaches a smooth curve.
+Continuous random variables can be discretised into bins to form a discrete distribution that can be viewed as a probability histogram. As the bins become narrower, the histogram approaches a smooth curve.
 
 \center \includegraphics[height=2.5cm]{images/normal_mass_to_hist.png}
 \vspace{-0.25cm}
@@ -251,11 +251,13 @@ P(x \leq X \leq x + \delta) &= \int_x^{x+\delta} f(t) dt\\
 
 \vspace{-0.5cm}
 
+\onslide<2->{
 Thus density is probability per unit length (probability accumulation rate):
 
 \begin{align*}
 \frac{P(x \leq X \leq x + \delta)}{\delta} &\approx f(x) \ \ \ \ \ \ \ \ \ \ \ 
 \end{align*} 
+}
 
 \end{frame}
 
@@ -289,6 +291,7 @@ P(X = a) &= \int_a^a f(x) dx \\
 &= 0.
 \end{align*}
 
+\onslide<2->{
 This implies that probabilities don't depend on interval end points:
 
 \vspace{-0.25cm}
@@ -298,6 +301,7 @@ P(a \leq X \leq b) = P(a < X < b) = P(a < X \leq b) = P(a \leq X < b),
 \end{align*}
 
 as  $P(X = a) = P(X = b) = 0$.
+}
 
 %\begin{theorem}
 %$P(a \leq X \leq b) = P(a \leq X < b)$ because $P(X = b)$ = 0\\
@@ -313,18 +317,21 @@ as  $P(X = a) = P(X = b) = 0$.
 The expected value (mean) of a continuous random variable $X$ is:
 
 \begin{equation*}
-\mathbb{E}[X] = \int_{-\infty}^\infty x f(x) \mathrm{d}x,
+\mathbb{E}[X] = \int_{-\infty}^\infty x f(x) \mathrm{d}x.
 \end{equation*}
 
 \vspace{.1cm}
 
-the expected value of a function $g(x)$ of $X$ is:
+\onslide<2->{
+The expected value of a function $g(x)$ of $X$ is:
 
 \begin{equation*}
-\mathbb{E}[g(X)] = \int_{-\infty}^\infty g(x) f(x) \mathrm{d}x,
+\mathbb{E}[g(X)] = \int_{-\infty}^\infty g(x) f(x) \mathrm{d}x.
 \end{equation*}
+}
 
-the variance of $X$ is:
+\onslide<3->{
+The variance of $X$ is:
 
 \vspace{-.4cm}
 
@@ -333,7 +340,7 @@ the variance of $X$ is:
 \mathrm{Var}[X] &= \mathbb{E}[(x - \mathbb{E}[X])^2] \\
 &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x.
 \end{align*}
-
+}
 % var[X] is an example of g(x)
 
 % \begin{equation}
@@ -351,7 +358,7 @@ the variance of $X$ is:
 \begin{frame}
 \frametitle{Example: the uniform distribution}
 
-When $X$ has a uniform distribution, the PDF is:
+When $X$ has a uniform distribution:
 
 \vspace{-.3cm}
 
@@ -359,25 +366,29 @@ When $X$ has a uniform distribution, the PDF is:
     f(x) &= 
     \begin{cases}
       \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
-      0 & \text{otherwise,}
+      0 & \text{otherwise.}
     \end{cases}
 \end{align*}
 
-the expected value of $X$ is:
+\onslide<2->{
+The expected value of $X$ is:
 
 \vspace{-.3cm}
 
 \begin{align*}
-    \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x = \frac{a + b}{2},
+    \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x = \frac{a + b}{2}.
 \end{align*}
+}
 
-the variance of $X$ is:
+\onslide<3->{
+The variance of $X$ is:
 
 \vspace{-.3cm}
 
 \begin{align*}
     \mathrm{Var}[X] &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x = \frac{(b-a)^2}{12}.
 \end{align*}
+}
 
 %\begin{align*}
 %    \text{The PDF of a uniform distribution}\\
@@ -410,16 +421,16 @@ the variance of $X$ is:
 
 \section{Cumulative distribution functions}
 \begin{frame}
-\frametitle{The cumulative distribution function (CDF)}
+\frametitle{The cumulative distribution function}
 
-The cumulative distribution function $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
+The cumulative distribution function (CDF) $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
 
 \center \includegraphics[height=2.5cm]{images/pdf_cdf_1.png}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{The cumulative distribution function (CDF)}
+\frametitle{The cumulative distribution function}
 
 %The cumulative distribution function $F(x)$ is the area under the probability density function to the left of x.
 
@@ -437,7 +448,9 @@ F(x) &= P(X \leq x)\\
 
 \vspace{0.5cm}
 
+\onslide<2->{
 The CDF is a monotonically-increasing continuous function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
+}
 
 \end{frame}
 
@@ -464,6 +477,7 @@ P(a \leq X \leq b) = F(b) - F(a).
 
 %%For any number $a$,
 
+\onslide<2->{
 \begin{align*}
 P(X > a) &= F(\infty) - F(a)\\
 &= 1 - F(a).
@@ -472,6 +486,7 @@ P(X > a) &= F(\infty) - F(a)\\
 \vspace{-.7cm}
 
 \center \includegraphics[height=2.5cm]{images/normal_a_inf.png}
+}
 
 
 %\begin{theorem}
@@ -496,7 +511,7 @@ P(X > a) &= F(\infty) - F(a)\\
 At every $x$ at which the derivative $F^\prime(x)$ exists, $F^\prime(x) = f(x)$.
 
 \
-
+\onslide<2->{
 \begin{examples}
 When $X$ has a uniform distribution, for $a < x < b$:
 
@@ -506,7 +521,7 @@ When $X$ has a uniform distribution, for $a < x < b$:
 F^\prime(x) = \frac{d}{dx}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
 \end{align*}
 \end{examples}
-
+}
 %F(x) is differentiable except at and where the graph of F(x) has sharp corners.
 
 \end{frame}
@@ -520,17 +535,20 @@ using the inverse of its cumulative distribution function.
 
 \
 
+\onslide<2->{
 Recall that $F: \mathbb{R} \mapsto [0, 1]$.
-%arbitrary distribution. 
+}
 
 \ 
 
 %To draw a sample $x$ of a continuous random variable $X$ with CDF $F$:
+\onslide<3->{
 To draw a sample $x \sim f(x)$:
 \begin{enumerate}
     \item Sample $u \sim \U{0,1}$ (using a pseudo-random number generator)
     \item Let $x = F^{-1}(u)$
 \end{enumerate}
+}
 
 \end{frame}
 
@@ -547,23 +565,29 @@ The PDF of the exponential distribution is:
     \end{cases}
 \end{equation*}
 
+\onslide<2->{
 which implies that the CDF is:
 
 \begin{equation*}
 F(x) = 1 - e^{- \lambda x} = u,
 \end{equation*}
+}
 
+\onslide<3->{
 and the inverse of the CDF is:
 
 \begin{equation*}
 F^{-1}(u) = -\frac{ \log(1 -u) } {\lambda}  = x.
 \end{equation*}
+}
 
+\onslide<4->{
 Hence, to sample $x \sim f(x)$:
 \begin{enumerate}
     \item Sample $u \sim \U{0,1}$
     \item Let $x = -\frac{ \log(1 -u) } {\lambda} $
 \end{enumerate}
+}
 
 \end{frame}
 
