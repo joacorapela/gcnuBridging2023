@@ -191,6 +191,37 @@ Continuous random variables can be discretised into bins to form a discrete dist
 %\end{frame}
 
 \begin{frame}
+\frametitle{The probability density function}
+
+\begin{definition} 
+%A random variable $X$ is continuous if there exists a nonnegative function $f(x)$ defined on the interval $(-\infty, \infty)$, such that for any interval $[a, b]$ we have 
+The \textbf{probability density function} (PDF) of a continuous random variable $X$ is a function $f(x)$ defined on the interval $(-\infty, \infty)$ such that for any two numbers $a$ and$b$ with $a \leq b$,
+\begin{equation*}
+P(a \leq X \leq b) = \int_a^b f(x) dx.
+\end{equation*} 
+That is, the probability that $X$ takes on a value in the interval [a, b] is the area under the graph of the density function above this interval.
+\end{definition}
+
+% \begin{theorem} This is a theorem. \end{theorem}
+% \begin{proof} This is a proof. \end{proof}
+
+\vspace{0.3cm}
+
+\onslide<2->{
+A valid probability density function $f(x)$ has the following properties:
+
+\begin{equation}
+f(x) \geq 0 \textrm{ for all } x
+\end{equation}
+
+\begin{equation}
+\int_{-\infty}^\infty f(x) dx = 1.
+\end{equation}
+}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Probabilities as integrals}
 
 The probability that a continuous random variable $X$ takes on a value in the interval [a, b] is given by the area under the probability density function $f(x)$.
@@ -205,34 +236,6 @@ P(a \leq X \leq b) = \int_a^b f(x) dx
 \begin{center}
 \includegraphics[height=4cm]{images/normal_area.png}
 \end{center}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{The probability density function}
-
-\begin{definition} 
-A random variable $X$ is continuous if there exists a nonnegative function $f(x)$ defined on the interval $(-\infty, \infty)$, such that for any interval $[a, b]$ we have 
-\begin{equation*}
-P(a \leq X \leq b) = \int_a^b f(x) dx.
-\end{equation*} 
-\end{definition}
-% \begin{theorem} This is a theorem. \end{theorem}
-% \begin{proof} This is a proof. \end{proof}
-
-\vspace{0.3cm}
-
-\onslide<2->{
-A valid probability density function (PDF) $f(x)$ has the following properties:
-
-\begin{equation}
-f(x) \geq 0 \textrm{ for all } x
-\end{equation}
-
-\begin{equation}
-\int_{-\infty}^\infty f(x) dx = 1.
-\end{equation}
-}
 
 \end{frame}
 
@@ -358,63 +361,48 @@ The variance of $X$ is:
 \begin{frame}
 \frametitle{Example: the uniform distribution}
 
-When $X$ has a uniform distribution:
+\begin{definition}
+$X$ is said to have a \textbf{uniform distribution} on the interval [a, b] if the PDF of $X$ is:
 
 \vspace{-.3cm}
 
 \begin{align*}
-    f(x) &= 
+    f(x; a, b) &= 
     \begin{cases}
       \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
       0 & \text{otherwise.}
     \end{cases}
 \end{align*}
+\end{definition}
 
-\onslide<2->{
-The expected value of $X$ is:
+\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the uniform distribution}
+
+When $X$ has a uniform distribution, the expected value of $X$ is:
 
 \vspace{-.3cm}
 
 \begin{align*}
-    \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x = \frac{a + b}{2}.
+    \mathbb{E}[X] &= \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
+    &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{a + b}{2}.
 \end{align*}
-}
 
-\onslide<3->{
+\onslide<2->{
 The variance of $X$ is:
 
 \vspace{-.3cm}
 
 \begin{align*}
-    \mathrm{Var}[X] &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x = \frac{(b-a)^2}{12}.
+    \mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
+    &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{(b-a)^2}{12}.
 \end{align*}
 }
-
-%\begin{align*}
-%    \text{The PDF of a uniform distribution}\\
-%    \hspace{-3cm}
-%    f(x) &= 
-%    \begin{cases}
-%      \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
-%      0 & \text{otherwise}
-%    \end{cases}
-%    \\[12pt]
-%    \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x\\
-%    &= \frac{a + b}{2}
-%    \\[12pt]
-%    \mathrm{Var}[X] &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x\\
-%    &= \frac{(b-a)^2}{12}
-%\end{align*}
-
-% \begin{align*}
-% \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x\\
-% &= \frac{a + b}{2}
-% \end{align*}
-
-% \begin{align*}
-% \mathrm{Var}[X] &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x\\
-% &= \frac{(b-a)^2}{12}
-% \end{align*}
 
 \end{frame}
 
@@ -423,7 +411,7 @@ The variance of $X$ is:
 \begin{frame}
 \frametitle{The cumulative distribution function}
 
-The cumulative distribution function (CDF) $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
+The cumulative distribution function $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
 
 \center \includegraphics[height=2.5cm]{images/pdf_cdf_1.png}
 
@@ -437,7 +425,7 @@ The cumulative distribution function (CDF) $F(x)$ is the area under the probabil
 \vspace{.3cm}
 
 \begin{definition} 
-Let $X$ be a continuous random variable with probability density function $f(x)$, then the cumulative distribution function is defined as
+Let $X$ be a continuous random variable with probability density function $f(x)$, then the \textbf{cumulative distribution function} (CDF) $F(x)$ is defined as
 \begin{align*}
 F(x) &= P(X \leq x)\\
 &= \int_{-\infty}^x f(t) dt.
