@@ -25,7 +25,7 @@ def sample_in_unconditioned_event(two_dice):
 #%%
 # This function checks if the sample belong to the conditioned event
 #
-def sample_in_conditioned_event(two_dice):
+def sample_in_conditioned_and_uncondtioned_event(two_dice):
     # are  the two dice six?
     answer = two_dice[0] == 6 and two_dice[1] == 6
     return answer
@@ -37,14 +37,14 @@ def sample_in_conditioned_event(two_dice):
 n_samples=1000000
 
 n_samples_in_unconditioned_event = 0
-n_samples_in_conditioned_event = 0
+n_samples_in_conditioned_and_uncondtioned_event = 0
 for i in range(n_samples):
     a_sample = sample()
     if sample_in_unconditioned_event(a_sample):
         n_samples_in_unconditioned_event += 1
-    if sample_in_conditioned_event(a_sample):
-        n_samples_in_conditioned_event += 1
-p_event = n_samples_in_conditioned_event/n_samples_in_unconditioned_event
+    if sample_in_conditioned_and_uncondtioned_event(a_sample):
+        n_samples_in_conditioned_and_uncondtioned_event += 1
+p_event = n_samples_in_conditioned_and_uncondtioned_event/n_samples_in_unconditioned_event
 
 print(f"probability {p_event}, "
       f"estimated from {n_samples} simulations")
