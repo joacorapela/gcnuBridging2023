@@ -1,8 +1,76 @@
-\documentclass{beamer}
-\usetheme{Madrid}
+\documentclass[10pt]{beamer} 
+\usetheme{PaloAlto} % \usetheme{Madrid}
 \usecolortheme{default}
-\usepackage{comment}
 \usepackage{statex2} % for uniform dist. symbol
+
+% remove title and author from left panel
+ \makeatletter
+  \setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+  {
+    \beamer@tempdim=\beamer@sidebarwidth%
+    \advance\beamer@tempdim by -6pt%
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+  }%
+\makeatother
+% done remove title and author from left panel 
+
+\hypersetup{colorlinks,citecolor=}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{natbib}
+\usepackage{apalike}
+\usepackage{comment}
+% \usepackage{enumitem}
+% \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
+% \setlist[description]{style=nextline}
+\usepackage{amsthm}
+\usepackage{media9}
+% \usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{tikz}
+\tikzset{
+     arrow/.style={-{Stealth[]}}
+     }
+\usetikzlibrary{positioning,arrows.meta}
+
+\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+
+\usepackage{setspace}
+
+%\newtheorem{probDef}{Definition}
+%\newtheorem*{probDef*}{Definition}
+%\newtheorem{claim}{Claim}
+%\newtheorem{probExample}{Example}
+%\newtheorem{probRule}{Rule}
+%\newtheorem{probAxiom}{Axiom}
+%\setbeamertemplate{theorems}[numbered]
+
+\newtheorem{manualprobRuleinner}{Rule}
+\newenvironment{manualProbRule}[1]{%
+  \renewcommand\themanualprobRuleinner{#1}%
+  \manualprobRuleinner
+}{\endmanualprobRuleinner}
+
+\newtheorem{manualprobExampleinner}{Example}
+\newenvironment{manualProbExample}[1]{%
+  \renewcommand\themanualprobExampleinner{#1}%
+  \manualprobExampleinner
+}{\endmanualprobExampleinner}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
 
 \title[Continuous Random Variables ]
 {Continuous Random Variables\newline }
@@ -28,7 +96,9 @@
 \date[Gatsby Bridging Programme  2023] % (optional)
 {Gatsby Bridging Programme 2023}
 
-\logo{\includegraphics[height=0.8cm]{images/GATSBY_Logo.jpg}}
+\titlegraphic{\includegraphics[height=0.8cm]{images/GATSBY_Logo.jpg}}
+
+%%\logo{\includegraphics[height=0.8cm]{images/GATSBY_Logo.jpg}}
 
 \definecolor{uoftblue}{RGB}{6,41,88}
 \setbeamercolor{titlelike}{bg=uoftblue}
@@ -38,10 +108,10 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{Table of Contents}
-\tableofcontents
-\end{frame}
+%\begin{frame}
+%\frametitle{Table of Contents}
+%\tableofcontents
+%\end{frame}
 
 %\section{The probability density function (PDF)}
 %\begin{frame}
@@ -62,19 +132,15 @@
 \end{itemize}
 \end{frame}
 
+\section{Continuous random variables}
 \begin{frame}
-\frametitle{Continuous random variables}
+\frametitle{Discrete vs. continuous random variables}
 
-\begin{definition} 
-A random variable (RV) $X$ is continuous if:
-\begin{enumerate}
-\item possible values comprise either a single interval on the number line (i.e. for some $a < b$, any number $x$ between $a$ and $b$ is a possible value) or a union of disjoint intervals, and
-\item  $P(X = c) = 0$ for any number $c$ that is a possible value of $X$.
-\end{enumerate}
-\end{definition}
+Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards in a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in some interval).
 
-Unlike discrete RVs, which have a finite number of outcomes, continuous RVs can take on an infinite continuous range of possible values. % e.g. rolls of a die or cards from a deck
+\
 
+\onslide<2->{
 \begin{examples}
 \begin{itemize}
 \item the voltage membrane potential of a cell
@@ -83,12 +149,24 @@ Unlike discrete RVs, which have a finite number of outcomes, continuous RVs can 
 \item the velocity of an eye movement
 \end{itemize}
 \end{examples}
-
-% Although spike count rates take only discrete values, it ismore convenient to treat r as a continuous variable for our discussion. Treated as probability densities, these two distributions are
+}
 
 \end{frame}
 
-\section{The probability density function (PDF)} % = dayan abbot 90
+\begin{frame}
+\frametitle{Continuous random variables}
+
+\begin{definition} 
+A random variable $X$ is continuous if:
+\begin{enumerate}
+\item possible values comprise either a single interval on the number line (i.e. for some $a < b$, any number $x$ between $a$ and $b$ is a possible value) or a union of disjoint intervals, and
+\item  $P(X = c) = 0$ for any number $c$ that is a possible value of $X$.
+\end{enumerate}
+\end{definition}
+
+\end{frame}
+
+\section{Probability density functions}
 \begin{frame}
 \frametitle{Discrete probability distributions in the limit} % = dayan abbot 90
 
@@ -96,12 +174,9 @@ Unlike discrete RVs, which have a finite number of outcomes, continuous RVs can 
 
 Continuous random variables can be discretised into bins to form a probability mass function. As the bins become narrower, the probability mass function approaches a smooth curve.
 
-%to form a probability mass function. As the bins become increasingly narrow, the probability mass function approaches a smooth curve, the probability density function.
-
+\center \includegraphics[height=2.5cm]{images/normal_mass_to_hist.png}
 \vspace{-0.25cm}
-\center \includegraphics[height=2.75cm]{images/normal_mass_to_hist.png}
-\vspace{-0.25cm}
-\center \includegraphics[height=2.75cm]{images/exp_mass_to_hist.png}
+\center \includegraphics[height=2.5cm]{images/exp_mass_to_hist.png}
 
 \end{frame}
 
@@ -116,7 +191,25 @@ Continuous random variables can be discretised into bins to form a probability m
 %\end{frame}
 
 \begin{frame}
-\frametitle{The probability density function (PDF)}
+\frametitle{Probabilities as integrals}
+
+The probability that a continuous random variable $X$ takes on a value in the interval [a, b] is given by the area under the probability density function $f(x)$.
+
+\vspace{-0.25cm}
+
+\begin{equation*}
+P(a \leq X \leq b) = \int_a^b f(x) dx
+\end{equation*}
+
+\vspace{-0.5cm}
+\begin{center}
+\includegraphics[height=4cm]{images/normal_area.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The probability density function}
 
 \begin{definition} 
 A random variable $X$ is continuous if there exists a nonnegative function $f(x)$ defined on the interval $(-\infty, \infty)$, such that for any interval $[a, b]$ we have 
@@ -129,9 +222,8 @@ P(a \leq X \leq b) = \int_a^b f(x) dx.
 
 \vspace{0.3cm}
 
-%nonnegative function $f(x)$ 
-
-A valid probability density function $f(x)$ has the following properties:
+\onslide<2->{
+A valid probability density function (PDF) $f(x)$ has the following properties:
 
 \begin{equation}
 f(x) \geq 0 \textrm{ for all } x
@@ -140,24 +232,7 @@ f(x) \geq 0 \textrm{ for all } x
 \begin{equation}
 \int_{-\infty}^\infty f(x) dx = 1.
 \end{equation}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Probabilities as integrals}
-
-The probability that $X$ takes on a value in the interval [a, b] is given by the area under the probability density function $f(x)$.
-
-\vspace{-0.25cm}
-\begin{center}
-\includegraphics[height=4cm]{images/normal_area.png}
-\end{center}
-
-\vspace{-0.5cm}
-
-\begin{equation*}
-P(a \leq X \leq b) = \int_a^b f(x) dx
-\end{equation*}
+}
 
 \end{frame}
 
@@ -333,13 +408,13 @@ the variance of $X$ is:
 \end{frame}
 
 
-\section{The cumulative distribution function (CDF)}
+\section{Cumulative distribution functions}
 \begin{frame}
 \frametitle{The cumulative distribution function (CDF)}
 
 The cumulative distribution function $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
 
-\center \includegraphics[height=2.5cm]{images/pdf_cdf_0point5.png}
+\center \includegraphics[height=2.5cm]{images/pdf_cdf_1.png}
 
 \end{frame}
 
@@ -381,7 +456,7 @@ P(a \leq X \leq b) = F(b) - F(a).
 
 %\vspace{-1cm}
 
-\vspace{-.8cm}
+\vspace{-.7cm}
 
 \center \includegraphics[height=2.5cm]{images/normal_ab_a_b.png}
 
@@ -394,7 +469,7 @@ P(X > a) &= F(\infty) - F(a)\\
 &= 1 - F(a).
 \end{align*} 
 
-\vspace{-.8cm}
+\vspace{-.7cm}
 
 \center \includegraphics[height=2.5cm]{images/normal_a_inf.png}
 
