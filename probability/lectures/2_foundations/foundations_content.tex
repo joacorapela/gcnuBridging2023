@@ -119,6 +119,10 @@
   \manualprobExampleinner
 }{\endmanualprobExampleinner}
 
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -909,6 +913,7 @@ as  well?
     \end{enumerate}
 \end{frame}
 
+\begin{comment}
 \begin{frame}
     \frametitle{Example:}
 
@@ -920,6 +925,138 @@ as  well?
     \frametitle{Example:}
 
     - probability that it takes 10 or more cards before the first ace appears
+
+\end{frame}
+\end{comment}
+
+\begin{frame}
+    \frametitle{Example 8.3: allocating tourists to hotels}
+
+    \footnotesize
+    \begin{manualProbExample}{8.3}
+        A group of 15 tourists is stranded in a city with four hotels of the
+        same class. Each of the hotels has enough room available to accomodate
+        the 15 tourists. The group's guide, who has a good working relationship
+        with each of the four hotels, assigns the tourists to the hotels as
+        follows. First, he randomly determines how many tourists will go to
+        hotel A, then how many of the remaining tourists will go to hotel B, and
+        next how many of the still reamining tourists will go to hotel C. All
+        remaining tourists are sent to hotel D. At each stage of the assignment
+        the guide draws a random number between zero and the number of tourists
+        left.
+        \begin{enumerate}[a]
+            \item Calculate the probability of any assignment of tourists to
+                hotels.
+            \item Check that the probability of all possible assignments equals
+                one.
+            \item What is the probability that all four hotels receive guests?
+            \item Is the selected rule fair to the four hotels?
+        \end{enumerate}
+    \end{manualProbExample}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 8.3}
+
+    \tiny
+    Let $i$, $j$ and $k$ be the number of tourists assigned to hotels A, B an C
+    respectively. Then 
+
+    \begin{align*}
+        \Omega=\{(i,j,k,15-(i+j+k)):\;&0\le i\le 15,\\
+                                      &0\le j\le 15-i;\\
+                                      &0\le k\le 15-(i+j)\}
+    \end{align*}
+
+    \begin{enumerate}[a]
+
+		\item Define the events $E_j(k)$=``hotel $W$ receives $k$ tourists,''
+with $W\in\{A,B,C,D\}$.
+
+			The assignment $(i,j,k,15-(i+j+k))$ is the only member of the
+            event $E_A(i)\cap E_B(j)\cap E_C(k)\cap E_D(15-(i+j+k))$. Then
+            \begin{align*}
+                P(\{(i,j,k,15-(i+j+k))\})&=P(E_A(i)\cap E_B(j)\cap E_C(k))\\
+                                         &=P(E_C(k)|E_A(i)\cap
+                                         E_B(j))\;P(E_B(j)|E_A(i))\;P(E_A(i))\\
+                P(E_A(i))&=\frac{1}{16}\\
+                P(E_B(j)|E_A(i))&=\frac{1}{16-i}\\
+                P(E_C(k)|E_B(j)\cap E_A(i))&=\frac{1}{16-(i+j)}
+            \end{align*}
+            Therefore
+            \begin{align*}
+                P(\{(i,j,k,15-(i+j+k))\})&=\frac{1}{16-(i+j)}\frac{1}{16-i}\frac{1}{16}
+            \end{align*}
+		\seti
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 8.3}
+
+    \tiny
+    Let $i$, $j$ and $k$ be the number of tourists assigned to hotels A, B an C
+    respectively. Then 
+
+    \begin{align*}
+        \Omega=\{(i,j,k,15-(i+j+k)):\;&0\le i\le 15,\\
+                                      &0\le j\le 15-i;\\
+                                      &0\le k\le 15-(i+j)\}
+    \end{align*}
+
+    \begin{enumerate}[a]
+		\conti
+        \item 
+            \begin{align*}
+				P(\Omega)&=\sum_{\omega\in\Omega}P(\omega)=\sum_{i=0}^{15}\sum_{j=0}^{15-i}\sum_{k=0}^{15-(i+j)}P(\{(i,j,k,15-(i+j+k))\})\\
+                         &=\sum_{i=0}^{15}\sum_{j=0}^{15-i}\sum_{k=0}^{15-(i+j)}\frac{1}{16-(i+j)}\frac{1}{16-i}\frac{1}{16}\\
+                         &=\frac{1}{16}\sum_{i=0}^{15}\frac{1}{16-i}\sum_{j=0}^{15-i}\frac{1}{16-(i+j)}\sum_{k=0}^{15-(i+j)}1\\
+                         &=\frac{1}{16}\sum_{i=0}^{15}\frac{1}{16-i}\sum_{j=0}^{15-i}\frac{1}{16-(i+j)}(16-(i+j))\\
+                         &=\frac{1}{16}\sum_{i=0}^{15}\frac{1}{16-i}\sum_{j=0}^{15-i}1=\frac{1}{16}\sum_{i=0}^{15}\frac{1}{16-i}(16-i)=\frac{1}{16}\sum_{i=0}^{15}1=\frac{1}{16}16=1
+            \end{align*}
+		\seti
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution to example 8.3}
+
+    \tiny
+    \begin{enumerate}[a]
+		\conti
+        \item 
+			Define the event $E$=``all hotels receive guests.'' Then
+    		\begin{align*}
+        		E=\{(i,j,k,15-(i+j+k)):\;&1\le i\le 12,\\
+                                      	 &1\le j\le 13-i;\\
+                                      	 &1\le k\le 14-(i+j)\}
+            \end{align*}
+    		\begin{align*}
+				P(E)&=\sum_{i=1}^{12}\sum_{j=1}^{13-i}\sum_{k=1}^{14-(i+j)}P(\{(i,j,k,15-(i+j+k))\})\\
+                    &=\sum_{i=1}^{12}\sum_{j=1}^{13-i}\sum_{k=1}^{14-(i+j)}\frac{1}{16-(i+j)}\frac{1}{16-i}\frac{1}{16}\\
+                    &=0.2856
+            \end{align*}
+        \item
+    		\begin{align*}
+                P(\{(15,0,0,0)\})&=\frac{1}{16}\\
+                P(\{(0,15,0,0)\})&=\frac{1}{16^2}
+            \end{align*}
+            Thus, the selected rule is unfair to the four hotels.
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution to example 8.3}
+
+    Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example8_3.html#sphx-glr-auto-examples-foundations-plot-example8-3-py}{here}.
 
 \end{frame}
 
