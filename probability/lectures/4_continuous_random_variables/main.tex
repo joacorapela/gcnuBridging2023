@@ -136,7 +136,7 @@
 \begin{frame}
 \frametitle{Discrete vs. continuous random variables}
 
-Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards in a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in an interval).
+Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards of a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in an interval).
 
 \
 
@@ -195,7 +195,8 @@ Continuous random variables can be discretised into bins to form a discrete dist
 
 \begin{definition} 
 %A random variable $X$ is continuous if there exists a nonnegative function $f(x)$ defined on the interval $(-\infty, \infty)$, such that for any interval $[a, b]$ we have 
-The \textbf{probability density function} (PDF) of a continuous random variable $X$ is a function $f(x)$ defined on the interval $(-\infty, \infty)$ such that for any two numbers $a$ and$b$ with $a \leq b$,
+The \textbf{probability density function} (PDF) of a continuous random variable $X$ is a function $f(x)$ defined on the interval $(-\infty, \infty)$ such that for any two numbers $a$ and
+$b$ with $a \leq b$,
 \begin{equation*}
 P(a \leq X \leq b) = \int_a^b f(x) dx.
 \end{equation*} 
@@ -255,7 +256,7 @@ P(x \leq X \leq x + \delta) &= \int_x^{x+\delta} f(t) dt\\
 \vspace{-0.5cm}
 
 \onslide<2->{
-Thus density is probability per unit length (probability accumulation rate):
+Thus density is probability per unit length (rate of probability accumulation):
 
 \begin{align*}
 \frac{P(x \leq X \leq x + \delta)}{\delta} &\approx f(x) \ \ \ \ \ \ \ \ \ \ \ 
@@ -314,106 +315,19 @@ as  $P(X = a) = P(X = b) = 0$.
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Mean and variance}
-
-The expected value (mean) of a continuous random variable $X$ is:
-
-\begin{equation*}
-\mathbb{E}[X] = \int_{-\infty}^\infty x f(x) \mathrm{d}x.
-\end{equation*}
-
-\vspace{.1cm}
-
-\onslide<2->{
-The expected value of a function $g(x)$ of $X$ is:
-
-\begin{equation*}
-\mathbb{E}[g(X)] = \int_{-\infty}^\infty g(x) f(x) \mathrm{d}x.
-\end{equation*}
-}
-
-\onslide<3->{
-The variance of $X$ is:
-
-\vspace{-.4cm}
-
-\begin{align*}
-% var[X] &= \mathbb{E}[(X - \mathbb{E}[X])^2]\\
-\mathrm{Var}[X] &= \mathbb{E}[(x - \mathbb{E}[X])^2] \\
-&= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x.
-\end{align*}
-}
-% var[X] is an example of g(x)
-
-% \begin{equation}
-% var[X] = \mathbb{E}[X^2] - \mathbb{E}[X]^2
-% \end{equation}
-
-% \begin{equation}
-% \mathbb{E}[X^2] = \int_{-\infty}^\infty x^2 f(x) \mathrm{d}x
-% \end{equation}
-
-% Mode
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Example: the uniform distribution}
-
-\begin{definition}
-$X$ is said to have a \textbf{uniform distribution} on the interval [a, b] if the PDF of $X$ is:
-
-\vspace{-.3cm}
-
-\begin{align*}
-    f(x; a, b) &= 
-    \begin{cases}
-      \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
-      0 & \text{otherwise.}
-    \end{cases}
-\end{align*}
-\end{definition}
-
-\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Example: the uniform distribution}
-
-When $X$ has a uniform distribution, the expected value of $X$ is:
-
-\vspace{-.3cm}
-
-\begin{align*}
-    \mathbb{E}[X] &= \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
-    &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\
-    &= \frac{a + b}{2}.
-\end{align*}
-
-\onslide<2->{
-The variance of $X$ is:
-
-\vspace{-.3cm}
-
-\begin{align*}
-    \mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
-    &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x \\
-    &= \frac{(b-a)^2}{12}.
-\end{align*}
-}
-
-\end{frame}
-
-
 \section{Cumulative distribution functions}
 \begin{frame}
 \frametitle{The cumulative distribution function}
 
-The cumulative distribution function $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
+The cumulative distribution function (CDF) $F(x)$ is the area under the probability density function $f(x)$ to the left of $x$.
 
-\center \includegraphics[height=2.5cm]{images/pdf_cdf_1.png}
+\begin{center}
+\includegraphics[height=2.5cm]{images/pdf_cdf_1.png}
+\end{center}
+
+\onslide<2->{
+The CDF is a monotonically-increasing continuous function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
+}
 
 \end{frame}
 
@@ -425,7 +339,7 @@ The cumulative distribution function $F(x)$ is the area under the probability de
 \vspace{.3cm}
 
 \begin{definition} 
-Let $X$ be a continuous random variable with probability density function $f(x)$, then the \textbf{cumulative distribution function} (CDF) $F(x)$ is defined as
+Let $X$ be a continuous random variable with probability density function $f(x)$, then the \textbf{cumulative distribution function} $F(x)$ is defined as
 \begin{align*}
 F(x) &= P(X \leq x)\\
 &= \int_{-\infty}^x f(t) dt.
@@ -436,9 +350,6 @@ F(x) &= P(X \leq x)\\
 
 \vspace{0.5cm}
 
-\onslide<2->{
-The CDF is a monotonically-increasing continuous function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
-}
 
 \end{frame}
 
@@ -512,6 +423,130 @@ F^\prime(x) = \frac{d}{dx}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
 }
 %F(x) is differentiable except at and where the graph of F(x) has sharp corners.
 
+\
+
+TODO: show Gaussians of different widths.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Percentiles of a continuous distribution}
+
+\begin{definition}
+Let $p$ be a number between 0 and 1. The \textbf{(100$p$)th percentile} of the distributionof a continuous random variable $X$, denoted by $\eta(p)$, is defined by
+\begin{align*}
+p = F(\eta(p)) = \int_{-\infty}^{\eta(p)}f(x) dx
+\end{align*}
+\end{definition}
+
+\onslide<2->{
+\center \includegraphics[height=2.5cm]{images/percentiles.png} % 85th percentile
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Median}
+
+\begin{definition}
+The \textbf{median} of a continuous distribution, denoted by $\tilde{\mu}$, is the 50th percentile, so $\tilde{\mu}$ satisfies $F( \tilde{\mu}) = 0.5$. That is, half the are area under the probability density function is to the left of $\tilde{\mu}$ and half is to the right of $\tilde{\mu}$.
+\end{definition}
+
+\center \includegraphics[height=2.5cm]{images/median.png} % 85th percentile
+
+\end{frame}
+
+\section{Expected values}
+\begin{frame}
+\frametitle{Mean and variance}
+
+The expected value (mean) of a continuous random variable $X$ is:
+
+\begin{equation*}
+\mathbb{E}[X] = \int_{-\infty}^\infty x f(x) \mathrm{d}x.
+\end{equation*}
+
+\vspace{.1cm}
+
+\onslide<2->{
+The expected value of a function $g(x)$ of $X$ is:
+
+\begin{equation*}
+\mathbb{E}[g(X)] = \int_{-\infty}^\infty g(x) f(x) \mathrm{d}x.
+\end{equation*}
+}
+
+\onslide<3->{
+The variance of $X$ is:
+
+\vspace{-.4cm}
+
+\begin{align*}
+% var[X] &= \mathbb{E}[(X - \mathbb{E}[X])^2]\\
+\mathrm{Var}[X] &= \mathbb{E}[(x - \mathbb{E}[X])^2] \\
+&= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x.
+\end{align*}
+}
+% var[X] is an example of g(x)
+
+% \begin{equation}
+% var[X] = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+% \end{equation}
+
+% \begin{equation}
+% \mathbb{E}[X^2] = \int_{-\infty}^\infty x^2 f(x) \mathrm{d}x
+% \end{equation}
+
+% Mode
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the uniform distribution}
+
+\begin{definition}
+$X$ is said to have a \textbf{uniform distribution} on the interval [a, b] if the PDF of $X$ is:
+
+\vspace{-.5cm}
+
+\begin{align*}
+    f(x; a, b) &= 
+    \begin{cases}
+      \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
+      0 & \text{otherwise.}
+    \end{cases}
+\end{align*}
+\end{definition}
+
+\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the uniform distribution}
+
+When $X$ has a uniform distribution, its expected value is:
+
+\vspace{-.3cm}
+
+\begin{align*}
+    \mathbb{E}[X] &= \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
+    &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{a + b}{2}.
+\end{align*}
+
+\onslide<2->{
+Its variance is:
+
+\vspace{-.3cm}
+
+\begin{align*}
+    \mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
+    &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{(b-a)^2}{12}.
+\end{align*}
+}
+
 \end{frame}
 
 \begin{frame}
@@ -543,14 +578,33 @@ To draw a sample $x \sim f(x)$:
 \begin{frame}
 \frametitle{Example: the exponential distribution}
 
-The PDF of the exponential distribution is:
+\begin{definition}
+$X$ is said to have an \textbf{exponential distribution} on the interval [0, $\infty$) if the PDF of $X$ is:
 
-\begin{equation*}
-    f(x) = 
+\vspace{-.5cm}
+
+\begin{align*}
+    f(x; \lambda) &= 
     \begin{cases}
       \lambda e ^{-\lambda x} & \text{if}\ x \geq 0 \\
       0 & \text{otherwise},
     \end{cases}
+\end{align*}
+where $\lambda$ is a rate parameter that governs the rate of decay of $f(x)$. 
+%If a random variable X has this distribution, we write $X \sim Exp(\lambda)$.
+\end{definition}
+
+\center \includegraphics[height=3.6cm]{images/exp_pdf.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the exponential distribution}
+
+For $x \geq 0$, the PDF of the exponential distribution is:
+
+\begin{equation*}
+    f(x) = \lambda e ^{-\lambda x},
 \end{equation*}
 
 \onslide<2->{
