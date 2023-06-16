@@ -203,9 +203,6 @@ P(a \leq X \leq b) = \int_a^b f(x) dx.
 That is, the probability that $X$ takes on a value in the interval [a, b] is the area under the graph of the density function above this interval.
 \end{definition}
 
-% \begin{theorem} This is a theorem. \end{theorem}
-% \begin{proof} This is a proof. \end{proof}
-
 \vspace{0.3cm}
 
 \onslide<2->{
@@ -345,8 +342,6 @@ F(x) &= P(X \leq x)\\
 &= \int_{-\infty}^x f(t) dt.
 \end{align*} 
 \end{definition}
-% \begin{theorem} This is a theorem. \end{theorem}
-% \begin{proof} This is a proof. \end{proof}
 
 \vspace{0.5cm}
 
@@ -425,7 +420,7 @@ F^\prime(x) = \frac{d}{dx}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
 
 \
 
-TODO: show Gaussians of different widths.
+%TODO: show Gaussians of different widths.
 
 \end{frame}
 
@@ -433,7 +428,8 @@ TODO: show Gaussians of different widths.
 \frametitle{Percentiles of a continuous distribution}
 
 \begin{definition}
-Let $p$ be a number between 0 and 1. The \textbf{(100$p$)th percentile} of the distributionof a continuous random variable $X$, denoted by $\eta(p)$, is defined by
+Let $p$ be a number between 0 and 1. The \textbf{(100$p$)th percentile} of the distribution
+of a continuous random variable $X$, denoted by $\eta(p)$, is defined by
 \begin{align*}
 p = F(\eta(p)) = \int_{-\infty}^{\eta(p)}f(x) dx
 \end{align*}
@@ -550,25 +546,46 @@ Its variance is:
 \end{frame}
 
 \begin{frame}
-\frametitle{Sampling using the CDF}
+\frametitle{The inverse transform method}
 
-The inverse transform sampling algorithm is a procedure for sampling a continuous random variable
-%with arbitrary probability distribution 
-using the inverse of its cumulative distribution function.
-
-\
+\begin{theorem}
+Let $U \sim \U{0,1}$ be a continuous random variable having a standard uniform distribution on the interval [0,1]. Then, the random variable
+\begin{equation*}
+X = F^{-1}(U)
+\end{equation*}
+is distributed as the cumulative distribution function  $F$, that is $P(X \leq x) = F(x)$.
+\end{theorem}
 
 \onslide<2->{
-Recall that $F: \mathbb{R} \mapsto [0, 1]$.
+\begin{proof}
+\begin{equation*}
+\begin{aligned}
+P(X \leq x) &= P(F^{-1}(U) \leq x)\\
+\vspace{1cm}
+&= P(U \leq F(x)) \\
+&= F(x).
+\end{aligned} 
+\end{equation*}
+\text{because} $\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.
+\end{proof}
 }
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sampling using the CDF}
+
+The inverse transform method can be used to sample a continuous random variable
+%with arbitrary probability distribution 
+given the inverse of its cumulative distribution function.
 
 \ 
 
 %To draw a sample $x$ of a continuous random variable $X$ with CDF $F$:
-\onslide<3->{
+\onslide<2->{
 To draw a sample $x \sim f(x)$:
 \begin{enumerate}
-    \item Sample $u \sim \U{0,1}$ (using a pseudo-random number generator)
+    \item Sample $u \sim \U{0,1}$ (recall that $F: \mathbb{R} \mapsto [0, 1]$)
     \item Let $x = F^{-1}(u)$
 \end{enumerate}
 }
@@ -626,7 +643,7 @@ F^{-1}(u) = -\frac{ \log(1 -u) } {\lambda}  = x.
 \onslide<4->{
 Hence, to sample $x \sim f(x)$:
 \begin{enumerate}
-    \item Sample $u \sim \U{0,1}$
+    \item Sample $u \sim \U{0,1}$ (using a pseudo-random number generator)
     \item Let $x = -\frac{ \log(1 -u) } {\lambda} $
 \end{enumerate}
 }
