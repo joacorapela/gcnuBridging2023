@@ -1,4 +1,7 @@
 \documentclass[10pt]{beamer}
+\setbeamerfont{normal text}{size=\small}
+\AtBeginDocument{\usebeamerfont{normal text}}
+
 \usefonttheme{professionalfonts}
 
 \usetheme[progressbar=frametitle]{metropolis}
@@ -34,7 +37,7 @@
 
 \begin{frame}[fragile]{What is a Random Variable?}
 Random variables are functions which map the possible outcomes of an experiment to numerical values. How we define these functions is up to us. In general, for random variable \(X\) and sample space \(\Omega\), we have that \(X: \Omega \rightarrow \mathbb{R}\).
-\onslide<2>{\begin{exampleblock}{Example 1}
+\onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1}
 Consider a bag containing 3 red balls (R) and 5 green balls (G). In our experiment, we are going to draw 2 balls from the bag, with replacement. The sample space is \(\Omega = \left\{\text{RR}, \text{RG}, \text{GR}, \text{GG}\right\}\).
 
 We are interested in determining the probabilities of drawing various numbers of red balls. To do this, we could start by defining a random variable \(X: \Omega \rightarrow \left\{0, 1, 2\right\}\) such that
@@ -51,7 +54,7 @@ We are interested in determining the probabilities of drawing various numbers of
 
 \begin{frame}[fragile]{What is a Random Variable?}
 Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\).
-\onslide<2>{\begin{exampleblock}{Example 1 Cont.}
+\onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\text{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
 \begin{align*}
     \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
@@ -67,10 +70,12 @@ In a previous lecture, we covered the following relationship for events \(E\) an
     &= \mathbb{P}\left(F \mid E\right)\mathbb{P}\left(E\right)\,.
 \end{align*}
 \onslide<2->{This also applies to random variables. Here we are looking at the probability of random variables \(X\) and \(Y\) taking values in sets \(A\) and \(B\) respectively:
+\metroset{block=fill}\begin{alertblock}{Chain Rule for Two Random Variables}
 \begin{align*}
     \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\text{Joint Prob.}} &= \overbrace{\mathbb{P}\left(X \in A \mid Y \in B\right)}^{\text{Conditional Prob.}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\text{Marginal Prob.}}\\
-    &= \mathbb{P}\left(Y \in B \mid X \in A\right)\mathbb{P}\left(X \in A\right)\,.
-\end{align*}}
+    &= \mathbb{P}\left(Y \in B \mid X \in A\right)\mathbb{P}\left(X \in A\right)
+\end{align*}
+\end{alertblock}}
 \onslide<3>{A future lecture will cover joint, conditional, and marginal distributions and the chain rule, independence, and marginalisation in more detail.}
 \end{frame}
 
@@ -83,14 +88,15 @@ taking note that independence implies
 \begin{equation*}
     \mathbb{P}\left(X \in A \mid Y \in B\right) = \mathbb{P}\left(X \in A\right)\,.
 \end{equation*}}
-\onslide<3>{For \(N\) independent random variables, this generalises to
+\onslide<3>{For \(N\) independent random variables, this generalises to:
+\metroset{block=fill}\begin{alertblock}{Independence of \(N\) Random Variables}
 \begin{equation*}
-    \mathbb{P}\left(X_1 \in A_1, \dots, X_N \in A_N\right) = \prod_{n=1}^N\mathbb{P}\left(X_n \in A_n\right)\,.
-\end{equation*}}
+    \mathbb{P}\left(X_1 \in A_1, \dots, X_N \in A_N\right) = \prod_{n=1}^N\mathbb{P}\left(X_n \in A_n\right)
+\end{equation*}\end{alertblock}}
 \end{frame}
 
 \begin{frame}[fragile]{The Chain Rule and Independence}
-\begin{exampleblock}{Example 1 Cont.}
+\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 In our red ball example, we could also use separate random variables for the outcomes of each draw from the bag. Let \(X_1 \in \left\{0, 1\right\}\) be the random variable representing the first draw and \(X_2 \in \left\{0, 1\right\}\) be the random variable representing the second draw (0 for a green ball and 1 for red ball). Then it is straightforward to see that \(X = X_1 + X_2\).
 
 \onslide<2->{Are \(X_1\) and \(X_2\) independent?}\onslide<3->{ Yes, they are independent random variables, as the first draw has no effect on the second draw.}
@@ -116,10 +122,12 @@ Discrete random variables can take a countable number of values. For example:
 \end{frame}
 
 \begin{frame}[fragile]{Probability Mass Functions}
-Discrete distributions can be defined by their probability mass function (PMF). The PMF of random variable \(X\) is often denoted by \(f_X\) or \(p_X\), and is defined as
+Discrete distributions can be defined by their probability mass function (PMF). The PMF of random variable \(X\) is often denoted by \(f_X\) or \(p_X\), and is defined as:
+\metroset{block=fill}\begin{alertblock}{Probability Mass Functions}
 \begin{equation*}
-    f_X\left(x\right) = \mathbb{P}\left(X = x\right)\,.
+    f_X\left(x\right) = \mathbb{P}\left(X = x\right)
 \end{equation*}
+\end{alertblock}
 \onslide<2>{\(f_X\) is simply a function name. It is fine to use a different name, as long as it is clear how the function is defined. Occasionally, the same name is used for PMFs if it is clear from context how these are defined, but I'd advise against this practice for the sake of clarity. E.g. it is clearer to write \(p_X\left(x\right)\) and \(p_Y\left(y\right)\) than \(p\left(x\right)\) and \(p\left(y\right)\) if these correspond to 2 different PMFs.}
 \end{frame}
 
@@ -136,7 +144,7 @@ and
 \end{frame}
 
 \begin{frame}[fragile]{Probability Mass Functions}
-\begin{exampleblock}{Example 1 Cont.}
+\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 Let's continue with our red ball example. What is the PMF of \(X\)? First, we recognise that \(\mathcal{X} = \left\{0, 1, 2\right\}\). You can verify for yourself that
 \begin{equation*}
     f_X\left(x\right) =
@@ -154,22 +162,24 @@ and that this function satisfies the conditions for a PMF on the previous slide.
 \begin{frame}[fragile]{Probability Mass Functions}
 Often, we use a \(\sim\) to mean "is distributed as". It is very common to see the notation
 \begin{equation*}
-    X \sim p_X\,,
+    X \sim f_x\,,
 \end{equation*}
-which, in the discrete case, means that \(X\) has the PMF \(p_X\). Variations of this notation exist, but there should never be any ambiguity about the distribution of a random variable when using a \(\sim\).
+which, in the discrete case, means that \(X\) has the PMF \(f_x\). Variations of this notation exist, but there should never be any ambiguity about the distribution of a random variable when using a \(\sim\).
 
 \onslide<2>{Sometimes you will see
 \begin{equation*}
-    X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} p_X\,,
+    X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\,,
 \end{equation*}
-which implies that all \(N\) random variables are independent and identically distributed (i.i.d.) with PMF \(p_X\).}
+which implies that all \(N\) random variables are independent and identically distributed (i.i.d.) with PMF \(f_x\).}
 \end{frame}
 
 \begin{frame}[fragile]{Cumulative Distribution Functions}
-A probability distribution can also be defined in terms of its cumulative distribution function (CDF). The CDF of a random variable \(X\) is a monotonically increasing function defined as
+A probability distribution can also be defined in terms of its cumulative distribution function (CDF). The CDF of a random variable \(X\) is a monotonically increasing function defined as:
+\metroset{block=fill}\begin{alertblock}{Cumulative Distribution Functions}
 \begin{equation*}
-    F_X\left(x\right) = \mathbb{P}\left(X \leq x\right)\,.
+    F_X\left(x\right) = \mathbb{P}\left(X \leq x\right)
 \end{equation*}
+\end{alertblock}
 \onslide<2>{For discrete random variables, we can relate this definition to the PMF as follows:
 \begin{equation*}
     F_X\left(x\right) = \sum_{y\leq x} f_X\left(y\right)\,.
@@ -189,7 +199,7 @@ As probabilities must sum to 1 over the support, we have the following emergent 
 \end{frame}
 
 \begin{frame}[fragile]{Cumulative Distribution Functions}
-\begin{exampleblock}{Example 1 Cont.}
+\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 Back to the red ball example. What is the CDF of \(X\)? Previously, we found that
 \begin{equation*}
     f_X\left(x\right) =
@@ -214,16 +224,16 @@ Hence, the CDF is
 \end{frame}
 
 \begin{frame}[fragile]{PDF and CDF Plots}
-\begin{exampleblock}{Example 1 Cont.}
+\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.425\textwidth}
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{pmf.eps}
-    \caption{Probability Mass Function \phantom{dummy}}
+    \caption{Probability Mass Function}
 \end{figure}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.425\textwidth}
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{cdf.eps}
@@ -235,13 +245,13 @@ Hence, the CDF is
 \end{frame}
 
 \begin{frame}[fragile]{Sampling}
-Similarly to how we refer to realisations of random variables, we can also talk about samples of distributions. Sampling from a discrete distribution with PMF \(p_X\) simply implies that we randomly generate a number \(x\) with probability \(p_X\left(x\right)\).
+Similarly to how we refer to realisations of random variables, we can also talk about samples of distributions. Sampling from a discrete distribution with PMF \(f_x\) simply implies that we randomly generate a number \(x\) with probability \(f_x\left(x\right)\).
 
-\onslide<2->{To be entirely correct, drawing \(N\) samples from \(p_X\) involves running \(N\) random experiments with \(N\) associated random variables \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} p_X\) and generating \(N\) realisations \(x_1, \dots, x_N\).}
+\onslide<2->{To be entirely correct, drawing \(N\) samples from \(f_x\) involves running \(N\) random experiments with \(N\) associated random variables \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\) and generating \(N\) realisations \(x_1, \dots, x_N\).}
 
 \onslide<3>{As \(N \rightarrow \infty\), we will observe that
 \begin{equation*}
-    \frac{\sum_{n = 1}^N \href{https://en.wikipedia.org/wiki/Iverson_bracket}{\color{mLightBrown}{\left[x_n = x\right]}}}{N} \rightarrow p_X\left(x\right)
+    \frac{\sum_{n = 1}^N \href{https://en.wikipedia.org/wiki/Iverson_bracket}{\color{mLightBrown}{\left[x_n = x\right]}}}{N} \rightarrow f_x\left(x\right)
 \end{equation*}}
 \end{frame}
 
@@ -250,6 +260,54 @@ Intermission
 \end{frame}
 
 \section{Expectation and Variance}
+
+\begin{frame}[fragile]{Expectations}
+Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_N\right)\right\}\). As \(N\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
+
+We can estimate the expectation for finite \(N\) as follows:
+\metroset{block=fill}\begin{alertblock}{Empirical Estimates of Expectations}
+\begin{equation*}
+    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{N}\sum_{n = 1}^N g\left(x_n\right)\qquad\text{for large }N
+\end{equation*}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Expectations}
+If \(X\) is discrete with support \(\mathcal{X}\) and PMF \(f_X\), we can also define this expectation as a weighted average:
+\metroset{block=fill}\begin{alertblock}{Expectations on Discrete Distributions}
+\begin{equation*}
+    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] = \sum_{x \in \mathcal{X}} f_X\left(x\right)g\left(x\right)
+\end{equation*}
+\end{alertblock}
+If the distribution on which the expectation is taken is clear from context, the text under the \(\mathbb{E}\) is often omitted.
+\end{frame}
+
+\begin{frame}[fragile]{Rules for Expectations}
+\begin{itemize}
+    \item Linearity:
+        \begin{equation*}
+            \mathbb{E}\left[ag\left(X\right) + bh\left(X\right)\right] = a\mathbb{E}\left[g\left(X\right)\right] + b\mathbb{E}\left[h\left(X\right)\right]\,,
+        \end{equation*}
+        for constants \(a, b\) and functions \(g, h\).
+    \item Non-multiplicativity:
+        In general
+        \begin{equation*}
+            \mathbb{E}\left[g\left(X\right)h\left(X\right)\right] \neq \mathbb{E}\left[g\left(X\right)\right]\mathbb{E}\left[h\left(X\right)\right]\,.
+        \end{equation*}
+    \item Multiplicativity under independence:
+        If \(X_1, \dots, X_N\) are independent, then
+        \begin{equation*}
+            \mathbb{E}\left[\prod_{n=1}^N g_n\left(X_n\right)\right] = \prod_{n=1}^N\mathbb{E}\left[g_n\left(X_n\right)\right]\,,
+        \end{equation*}
+        for functions \(g_n\). The definition of a multivariate expectation will make more sense in later lectures when multivariate distributions are covered.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Expectations}
+\metroset{block=fill}\begin{exampleblock}{Example 2}
+    Suppose we roll 2 dice. Let \(X_1\) and \(X_2\) represent the first and second roll respectively.
+\end{exampleblock}
+\end{frame}
 
 \begin{frame}[standout]
 Intermission
