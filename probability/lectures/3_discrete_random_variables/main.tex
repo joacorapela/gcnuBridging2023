@@ -36,7 +36,7 @@
 \section{Random Variables, Probability Mass Functions, and Cumulative Distribution Functions}
 
 \begin{frame}[fragile]{What is a Random Variable?}
-Random variables are functions which map the possible outcomes of an experiment to numerical values. How we define these functions is up to us. In general, for random variable \(X\) and sample space \(\Omega\), we have that \(X: \Omega \rightarrow \mathbb{R}\).
+Random variables are functions which map the possible outcomes of an experiment to numerical values. In general, for random variable \(X\) and sample space \(\Omega\), we have that \(X: \Omega \rightarrow \mathbb{R}\).
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1}
 Consider a bag containing 3 red balls (R) and 5 green balls (G). In our experiment, we are going to draw 2 balls from the bag, with replacement. The sample space is \(\Omega = \left\{\text{RR}, \text{RG}, \text{GR}, \text{GG}\right\}\).
 
@@ -56,25 +56,27 @@ We are interested in determining the probabilities of drawing various numbers of
 Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\).
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\text{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
-\begin{align*}
+\begin{equation*}\begin{aligned}
     \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
     &= \frac{15}{32}\,.
-\end{align*}
+\end{aligned}\end{equation*}
 \end{exampleblock}}
 \end{frame}
 
 \begin{frame}[fragile]{The Chain Rule and Independence}
 In a previous lecture, we covered the following relationship for events \(E\) and \(F\):
-\begin{align*}
+\begin{equation*}\begin{aligned}
     \mathbb{P}\left(E \cap F\right) &= \mathbb{P}\left(E \mid F\right)\mathbb{P}\left(F\right)\\
     &= \mathbb{P}\left(F \mid E\right)\mathbb{P}\left(E\right)\,.
-\end{align*}
+\end{aligned}\end{equation*}
 \onslide<2->{This also applies to random variables. Here we are looking at the probability of random variables \(X\) and \(Y\) taking values in sets \(A\) and \(B\) respectively:
 \metroset{block=fill}\begin{alertblock}{Chain Rule for Two Random Variables}
-\begin{align*}
+\begin{equation*}
+\begin{aligned}
     \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\text{Joint Prob.}} &= \overbrace{\mathbb{P}\left(X \in A \mid Y \in B\right)}^{\text{Conditional Prob.}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\text{Marginal Prob.}}\\
     &= \mathbb{P}\left(Y \in B \mid X \in A\right)\mathbb{P}\left(X \in A\right)
-\end{align*}
+\end{aligned}
+\end{equation*}
 \end{alertblock}}
 \onslide<3>{A future lecture will cover joint, conditional, and marginal distributions and the chain rule, independence, and marginalisation in more detail.}
 \end{frame}
@@ -188,10 +190,10 @@ A probability distribution can also be defined in terms of its cumulative distri
 
 \begin{frame}[fragile]{Cumulative Distribution Functions}
 As probabilities must sum to 1 over the support, we have the following emergent properties for CDFs:
-\begin{align*}
+\begin{equation*}\begin{aligned}
     \lim_{x\rightarrow-\infty}F_X\left(x\right) = 0\\
     \lim_{x\rightarrow\infty}F_X\left(x\right) = 1
-\end{align*}
+\end{aligned}\end{equation*}
 \onslide<2>{We can also see that the following is true:
 \begin{equation*}
     \mathbb{P}\left(a < X \leq b\right) = F_X\left(b\right) - F_X\left(a\right)\,.
@@ -264,12 +266,12 @@ Intermission
 \begin{frame}[fragile]{Expectations}
 Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_N\right)\right\}\). As \(N\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
 
-We can estimate the expectation for finite \(N\) as follows:
+\onslide<2->{We can estimate the expectation for finite \(N\) as follows:
 \metroset{block=fill}\begin{alertblock}{Empirical Estimates of Expectations}
 \begin{equation*}
     \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{N}\sum_{n = 1}^N g\left(x_n\right)\qquad\text{for large }N
 \end{equation*}
-\end{alertblock}
+\end{alertblock}}
 \end{frame}
 
 \begin{frame}[fragile]{Expectations}
@@ -279,34 +281,137 @@ If \(X\) is discrete with support \(\mathcal{X}\) and PMF \(f_X\), we can also d
     \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] = \sum_{x \in \mathcal{X}} f_X\left(x\right)g\left(x\right)
 \end{equation*}
 \end{alertblock}
-If the distribution on which the expectation is taken is clear from context, the text under the \(\mathbb{E}\) is often omitted.
+
+\onslide<2->{If the distribution on which the expectation is taken is clear from context, the text under the \(\mathbb{E}\) is often omitted.}
+
+\onslide<3>{When talking about the mean of a distribution defined by \(f_X\), this specifically refers to the value given by
+\begin{equation*}
+    \underset{X \sim f_X}{\mathbb{E}}\left[X\right]\,.
+\end{equation*}}
 \end{frame}
 
-\begin{frame}[fragile]{Rules for Expectations}
-\begin{itemize}
+\begin{frame}[fragile]{Properties of Expectations}
+\begin{itemize}[<+->]
     \item Linearity:
         \begin{equation*}
             \mathbb{E}\left[ag\left(X\right) + bh\left(X\right)\right] = a\mathbb{E}\left[g\left(X\right)\right] + b\mathbb{E}\left[h\left(X\right)\right]\,,
         \end{equation*}
         for constants \(a, b\) and functions \(g, h\).
     \item Non-multiplicativity:
-        In general
+        In general,
         \begin{equation*}
             \mathbb{E}\left[g\left(X\right)h\left(X\right)\right] \neq \mathbb{E}\left[g\left(X\right)\right]\mathbb{E}\left[h\left(X\right)\right]\,.
         \end{equation*}
-    \item Multiplicativity under independence:
-        If \(X_1, \dots, X_N\) are independent, then
-        \begin{equation*}
-            \mathbb{E}\left[\prod_{n=1}^N g_n\left(X_n\right)\right] = \prod_{n=1}^N\mathbb{E}\left[g_n\left(X_n\right)\right]\,,
-        \end{equation*}
-        for functions \(g_n\). The definition of a multivariate expectation will make more sense in later lectures when multivariate distributions are covered.
+    \item \(\mathbb{E}\left[a\right] = a\) for constant \(a\). Hence, \(\mathbb{E}\left[\mathbb{E}\left[X\right]\right] = \mathbb{E}\left[X\right]\).
 \end{itemize}
+\onslide<4>{\href{https://en.wikipedia.org/wiki/Expected_value\#Properties}{\color{mLightBrown}{Additional properties}} exist for multivariate distributions.}
 \end{frame}
 
 \begin{frame}[fragile]{Expectations}
 \metroset{block=fill}\begin{exampleblock}{Example 2}
-    Suppose we roll 2 dice. Let \(X_1\) and \(X_2\) represent the first and second roll respectively.
+Suppose we roll a six-sided die. Let \(X \in \left\{1, 2, 3, 4, 5, 6\right\}\) represent this roll. What is the expected value of \(X\)?
+
+\onslide<2->{Firstly, we define the support as \(\mathcal{X} \in \left\{1, 2, 3, 4, 5, 6\right\}\) and the PMF \(f_X\) as
+\begin{equation*}
+f_X\left(x\right) =
+\begin{cases}
+    \frac{1}{6} & \text{if } x \in \mathcal{X}\\
+    0 & \text{otherwise}
+\end{cases}\,.
+\end{equation*}}
+
+\onslide<3>{Then the expected value of \(X\) is given by
+\begin{equation*}
+\begin{aligned}
+    \mathbb{E}\left[X\right] &= \sum_{x \in \mathcal{X}} f_X\left(x\right)x\\
+    &= \frac{1}{6}\cdot 1 + \frac{1}{6}\cdot 2 + \frac{1}{6}\cdot 3 + \frac{1}{6}\cdot 4 + \frac{1}{6}\cdot 5 + \frac{1}{6}\cdot 6\\
+    &= 3.5
+\end{aligned}
+\end{equation*}}
 \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Expectations}
+Why care about expectations?
+\begin{itemize}[<+->]
+    \item A huge number of statistical estimation problems, where we try to estimate model parameters given some data, can be written in terms of expectations.
+    \item This includes machine learning problems. Training a machine learning model involves minimising a loss function. The loss function and its gradient is very often written in terms of expectations.
+    \item We can estimate these expectations simply by drawing samples!
+\end{itemize}
+\end{frame}
+
+% \begin{frame}[fragile]{Expectations}
+% \metroset{block=fill}\begin{exampleblock}{Example 3}
+%     Suppose we roll \(N\) dice. Let \(X_1, \dots, X_N \in \left\{1, 2, 3, 4, 5, 6\right\}\) represent the \(N\) rolls. What is the expected value of the average of \(\{X_1, \dots, X_N\}\)?
+    
+%     The support and PMF for each random variable are the same as in the last example. That is, \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\).
+
+% Then the expected value of the average is given by
+% \begin{equation*}\begin{aligned}
+%     \mathbb{E}\left[\frac{X_1 + \dots + X_N}{N}\right] &= \frac{1}{N}\left(\mathbb{E}\left[X_1\right] + \dots + \mathbb{E}\left[X_N\right]\right)\\
+%     &= \frac{3.5N}{N}\\
+%     &= 3.5
+% \end{aligned}\end{equation*}
+% \end{exampleblock}
+% \end{frame}
+
+\begin{frame}[fragile]{Variance}
+How about if we want to know how "spread out" a distribution is? A way of measuring this is with the variance. It measures the expected deviation from the mean.
+\metroset{block=fill}\begin{alertblock}{Variance of a Random Variable}
+\begin{equation*}\begin{aligned}
+    \text{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
+    &= \mathbb{E}\left[X^2 - 2X\mathbb{E}\left[X\right] + \mathbb{E}\left[X\right]^2\right]\\
+    &= \mathbb{E}\left[X^2\right] - 2\mathbb{E}\left[X\right]\mathbb{E}\left[X\right] + \mathbb{E}\left[X\right]^2\\
+    &= \mathbb{E}\left[X^2\right] - \mathbb{E}\left[X\right]^2
+\end{aligned}\end{equation*}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Properties of Variance}
+\begin{itemize}[<+->]
+    \item \(\text{Var}\left(aX + b\right) = a^2\text{Var}\left(X\right)\) for constants \(a, b\).
+    \item \(\text{Var}\left(a\right) = 0\) for constant \(a\).
+    \item \(\text{Var}\left(X\right) \geq 0\).
+\end{itemize}
+\onslide<4>{\href{https://en.wikipedia.org/wiki/Variance\#Properties}{\color{mLightBrown}{Additional properties}} exist for multivariate distributions.}
+\end{frame}
+
+\begin{frame}[fragile]{Variance}
+\metroset{block=fill}\begin{exampleblock}{Example 2 Cont.}
+    Continuing with the die roll example. What is the variance of \(X\)?
+
+\onslide<2->{We will compute the variance of \(X\) in two separate ways. Method 1:
+\begin{equation*}
+\begin{aligned}
+    \text{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
+     &= \mathbb{E}\left[\left(X - 3.5\right)^2\right]\\
+     &= \sum_{x \in \mathcal{X}} f_X\left(x\right)\left(x - 3.5\right)^2\\
+     &= \frac{1}{6}\left(1 - 3.5\right)^2 + \frac{1}{6}\left(2 - 3.5\right)^2 + \frac{1}{6}\left(3 - 3.5\right)^2 + \frac{1}{6}\left(4 - 3.5\right)^2\\
+     &\phantom{=}\quad + \frac{1}{6}\left(5 - 3.5\right)^2 + \frac{1}{6}\left(6 - 3.5\right)^2\\
+     &= 2.91\dot{6}
+\end{aligned}
+\end{equation*}}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Variance}
+\metroset{block=fill}\begin{exampleblock}{Example 2 Cont.}
+Method 2:
+\begin{equation*}\begin{aligned}
+    \text{Var}\left(X\right) &= \mathbb{E}\left[X^2\right] - \mathbb{E}\left[X\right]^2\\
+     &= \sum_{x \in \mathcal{X}} f_X\left(x\right)x^2 - 3.5^2\\
+     &= \frac{1}{6}\cdot 1^2 + \frac{1}{6}\cdot 2^2 + \frac{1}{6}\cdot 3^2 + \frac{1}{6}\cdot 4^2 + \frac{1}{6}\cdot 5^2 + \frac{1}{6}\cdot 6^2 - 3.5^2\\
+     &= 2.91\dot{6}
+\end{aligned}\end{equation*}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Notation}
+It is typical to see the notations \(\mu\), \(\sigma^2\), and \(\sigma\) used for the mean, variance, and standard deviation of a distribution respectively. Clearly, the standard deviation is just the square root of the variance. In other words, we have:
+\begin{equation*}\begin{aligned}
+    \mu &= \mathbb{E}\left[X\right]\\
+    \sigma^2 &= \text{Var}\left(X\right)\,.
+\end{aligned}\end{equation*}
 \end{frame}
 
 \begin{frame}[standout]
