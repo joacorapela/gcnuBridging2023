@@ -165,6 +165,10 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     theory} and eight \textit{Conditional probability and Bayes} from
     \citet{tijms12}.
 
+    \begin{center}
+        \includegraphics[width=1.5in]{figures/tijms12UnderstandingProbabilityCover.jpg}
+    \end{center}
+
 \end{frame}
 
 \begin{frame}
@@ -196,6 +200,25 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \begin{frame}
 \frametitle{Historical notes}
 
+\small
+\begin{description}
+
+    \item[Gerolamo Cardano (1501-1576)] first mathematical analysis of games of chance, introduced probability as the ratio between favorable and the total number of possible outcomes
+
+    \item[Pierre Fermat and Blaise Pascal (1654)] correspondence about the solution of a problem posed by the Chevalier de Mere established the basic principles of probability.
+
+    \item[Christian Huygen (1629-1695)] laid the foundations of current probabity theory. Introduced the concept of expected value.
+
+    \item[Pierre Simon Laplace (1749-1827)] published \textit{Theorie Analytique dez Probabilities}, the greatest contribution in the history of probability.
+
+    \item[Andrej Kolmogorov (1903-1987)] laid the current axiomatic foundation of probability.
+
+\end{description}
+\normalsize
+
+\end{frame}
+
+\begin{comment}
 - explain the frequency-based interpretation of probability.
 
 - constructing the mathematical foundations of probability theory has proven to be a long-lasting process of trial an error.  
@@ -209,7 +232,7 @@ https://www.jstor.org/stable/pdf/20115155.pdf
 
 He created a set of axioms. Axioms state a number of minimal requirements that the probability objects should satisfy. From these few algorithms all claims of probability can be derived, as we will see.
 
-\end{frame}
+\end{comment}
 
 \subsection{Axiomatic definition of probability}
 
@@ -502,6 +525,13 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
         N(A)&=&&15\\
         P(A)&=&&\frac{N(A)}{N}=\frac{15}{216}=0.0694
     \end{alignat*}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution of example 7.1}
+
+    Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example7_1.html#sphx-glr-auto-examples-foundations-plot-example7-1-py}{here}.
 
 \end{frame}
 
@@ -1566,6 +1596,15 @@ with $W\in\{A,B,C,D\}$.
     Continuing example 8.13, calculate the posterior probability of the new
     treatment after a second observation with six successes and a first
     observation with seven successes.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{July 19: online Bayesian linear regression}
+
+    \begin{center}
+        \href{figures/onlineBayesianLinearRegression_nSamples20.html}{\includegraphics[width=4in]{figures/onlineBayesianLinearRegression_nSamples20.png}}
+    \end{center}
 
 \end{frame}
 
