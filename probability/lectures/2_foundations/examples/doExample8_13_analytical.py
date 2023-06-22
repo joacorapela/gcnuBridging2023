@@ -18,7 +18,6 @@ def main(argv):
     num_bins_succeses = 101
     num_tests = 10
     obs_num_successes = 7
-    p = 7
     success_rates = [float(i)/num_bins_succeses
                      for i in range(num_bins_succeses)]
     posterior_success_rates = [
