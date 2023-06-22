@@ -1,7 +1,7 @@
 
 """
-Example 7.7a: Chevalier de Mere to Blaise Pascal
-================================================
+Example 7.1: John, Pedro and Rosita's dice game
+===============================================
 
 """
 
