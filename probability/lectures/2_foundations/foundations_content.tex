@@ -94,6 +94,7 @@
      arrow/.style={-{Stealth[]}}
      }
 \usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{shapes.geometric}
 
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
 
@@ -102,6 +103,7 @@
 \newtheorem{probDef}{Definition}
 \newtheorem*{probDef*}{Definition}
 \newtheorem{claim}{Claim}
+\newtheorem*{claim*}{Claim}
 \newtheorem{probExample}{Example}
 \newtheorem{probRule}{Rule}
 \newtheorem{probAxiom}{Axiom}
@@ -122,6 +124,7 @@
 \newcounter{saveenumi}
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
 \newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -164,6 +167,28 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Main lecture goals}
+
+    % \resizebox{5}{3}{%
+    % \scalebox{0.7}{%
+    \begin{figure}
+        \begin{tikzpicture}
+            % Place nodes
+            \node[ellipse,align=center,anchor=north,fill=blue!20,draw=blue] (foundations) {Mathematical\\foundations\\of probability};
+            \node[ellipse,align=center,anchor=north,fill=orange!20,draw=orange] [below left=of foundations] (proofs) {Proofs\\(beautiful)};
+            \node[ellipse,align=center,anchor=north,fill=orange!20,draw=orange] [below=of foundations] (examples) {Examples\\(fun)};
+            \node[ellipse,align=center,anchor=north,fill=orange!20,draw=orange] [below right=of foundations] (simulations) {Simulations\\(useful)};
+            % Draw edges
+            \path[-] (foundations) edge node [] {} (proofs);
+            \path[-] (foundations) edge node [] {} (examples);
+            \path[-] (foundations) edge node [] {} (simulations);
+        \end{tikzpicture}
+    \end{figure}
+    % }
+
+\end{frame}
+
 \section{Foundations of probability theory}
 
 \subsection{Historical notes}
@@ -192,10 +217,10 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \frametitle{Probability model}
 
     \begin{probDef}[Probability model]
-        A \textbf{probability model} is a matematical representation of a
+        A \textbf{probability model} is a mathematical representation of a
         random experiment. \onslide<2->{It consists of a description of all possible
         outcomes of the experiment (i.e., \textbf{sample space}), a set of
-        subsets of the sample space (i.e., \textbf{events}), and an assigment of
+        subsets of the sample space (i.e., \textbf{events}), and an assignment of
         probability to events (i.e., \textbf{probability measure}).}
         \label{def:probabilityModel}
     \end{probDef}
@@ -286,8 +311,8 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
     \begin{probDef*}[Probability model]
 
-        A \textbf{probability model}, $\mathcal{M}$, is a mathemtatical representation of a
-        random experiment consiting of a sample space, $\Omega$, a set of
+        A \textbf{probability model}, $\mathcal{M}$, is a mathematical representation of a
+        random experiment consisting of a sample space, $\Omega$, a set of
         events, $\mathcal{F}$, and a probability measure, $P$ (i.e.,
         $\mathcal{M}=\{\Omega,\mathcal{F},P\}$).
 
@@ -309,7 +334,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
             sample space is the set [\textit{H}, \textit{T}].} \onslide<3->{We
             assign a probability of 0.5 to each element of the sample space.}
 
-        \onslide<4->{\item The experiment is to repeately roll a fair die and
+        \onslide<4->{\item The experiment is to repeatedly roll a fair die and
             count the number of rolls until the first six shows up.}
             \onslide<5->{The sample space is the set of positive integers.}
             \onslide<6->{The probabilities
@@ -317,7 +342,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
             \ldots$ can be assigned to the outcomes $1,2,3,\ldots$.}
 
         \item \onslide<7->{The experiment is to measure the time between the
-            first and second spikes in an experimental trial.} \onslide<9->{The
+            first and second spikes in an experimental trial.} \onslide<8->{The
             sample space is the set $(0,\infty)$ of positive real numbers.}
             \onslide<9->{We can assign a probability of $1-\exp(-\lambda t)$ to
             the event that the second spike is fired less than $t$ seconds
@@ -378,43 +403,6 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Experiment with equally likely outcomes}
-
-    An experiment with equally likely outcomes is one with a finite number of
-    outcomes $\omega_1,\ldots,\omega_N$, where all outcomes have the same
-    probability (i.e., $P(\omega_i)=\frac{1}{N}$).
-
-    \onslide<2->{
-
-    \begin{claim}
-        For any event $A$, $P(A)=\frac{N(A)}{N}$, where $N(A)$ is the number of
-        outcomes in the set $A$.
-    \end{claim}
-
-    }
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{Example: equally likely outcomes}
-
-    \begin{probExample}
-        John, Pedro and Rosita each roll on fair die. How do we calculate the
-        probability that the score of Rosita is equal to the sum of the scores
-        of John and Pedro?
-    \end{probExample}
-
-    \note{
-
-        - examples
-
-        - uncountable sample space
-
-    }
-
-\end{frame}
-
 \subsection{Some basic rules}
 
 \setstretch{0.75}
@@ -452,6 +440,71 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     \normalsize
 \end{frame}
 
+\begin{frame}
+    \frametitle{Experiment with equally likely outcomes}
+
+    An experiment with equally likely outcomes is one with a finite number of
+    outcomes $\omega_1,\ldots,\omega_N$, where all outcomes have the same
+    probability (i.e., $P(\omega_i)=\frac{1}{N}$).
+
+    \onslide<2->{
+
+    \begin{claim}
+        For any event $A$, $P(A)=\frac{N(A)}{N}$, where $N(A)$ is the number of
+        outcomes in the set $A$.
+    \end{claim}
+
+    }
+
+    \onslide<3->{
+    \scriptsize
+    \begin{proof}
+        \begin{align*}
+            A&=\{a_1,\ldots,a_{N(A)}\}=\{a_1\}\cup\ldots\cup\{a_{N(A)}\}\\
+            P(A)&=P(\{a_1\})+\ldots+P(\{a_{N(A)}\})=\sum_{i=1}^{N(A)}P(\{a_i\})\\
+                &=\sum_{i=1}^{N(A)}\frac{1}{N}=\frac{N(A)}{N}
+        \end{align*}
+    \end{proof}
+    \normalsize
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example 7.1: John, Pedro and Rosita's dice game}
+
+    \begin{manualProbExample}{7.1}
+        John, Pedro and Rosita each roll on fair die. How do we calculate the
+        probability that the score of Rosita is equal to the sum of the scores
+        of John and Pedro?
+    \end{manualProbExample}
+
+    \note{
+
+        - examples
+
+        - uncountable sample space
+
+    }
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example 7.1}
+
+    \begin{alignat*}{2}
+        \Omega&=\{&&(J,P,R):1\le J,P,R\le 6\}\\
+        N&=&&6^3=216\\
+        A&=\{&&(J,P,R)\in\Omega:R=J+P)\}\\
+         &=\{&&(1,1,2),(1,2,3),(1,3,4),(1,4,5),(1,5,6),\\
+         &   &&(2,1,3),(2,2,4),(2,3,5),(2,4,6),\\
+         &   &&(3,1,4),(3,2,5),(3,3,6),(4,1,5),(4,2,6),(5,1,6)\}\\
+        N(A)&=&&15\\
+        P(A)&=&&\frac{N(A)}{N}=\frac{15}{216}=0.0694
+    \end{alignat*}
+
+\end{frame}
+
 \setstretch{1.00}
 
 \begin{frame}
@@ -459,7 +512,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 
 	\footnotesize
 	\begin{proof}
-		Denote by $\emptyset$ the empty set. We will firt prove that
+		Denote by $\emptyset$ the empty set. We will first prove that
         $P(\emptyset)=0$. Take $A_i=\emptyset$ for $i=1, 2, \ldots$. Then
         $\emptyset=\bigcup_{i=1}^\infty A_i$. Next, by Axiom~3, $P(\emptyset)=\sum_{i=1}^\infty P(A_i)=\sum_{i=1}^\infty P(\emptyset)$. This implies that $P(\emptyset)=0$.
 
@@ -517,7 +570,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
             P\left(A\right)&=P\left(A\setminus B\right)+P\left(A\cap B\right)\rightarrow P\left(A\setminus B\right)=P\left(A\right)-P\left(A\cap B\right)\\
             P\left(B\right)&=P\left(B\setminus A\right)+P\left(A\cap B\right)\rightarrow P\left(B\setminus A\right)=P\left(B\right)-P\left(A\cap B\right)
 		\end{align*}
-        Replazing the equations on the right of the second and third line in
+        Replacing the equations on the right of the second and third line in
         the equation on the first line the rule is proved.
 		\begin{align*}
             P\left(A\cup B\right)&=P\left(A\right)-P\left(A\cap B\right)+P\left(B\right)-P\left(A\cap B\right)+P\left(A\cap B\right)\\
@@ -531,7 +584,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
     \frametitle{Example 7.7: Chevalier de Mere to Blaise Pascal}
 
     The gambler Chevalier de Mere posed the following problem to the famous
-    French mathematician Blaise Pascal in 1654. This problem marks the begining
+    French mathematician Blaise Pascal in 1654. This problem marks the beginning
     of probability theory.
 
     \begin{manualProbExample}{7.7}
@@ -549,7 +602,7 @@ He created a set of axioms. Axioms state a number of minimal requirements that t
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 7.7a}
+    \frametitle{Analytical solution of example 7.7a}
 
 	(a)
     \begin{itemize}[<+->]
@@ -577,7 +630,7 @@ the die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Simulated solution to example 7.7a}
+    \frametitle{Simulated solution of example 7.7a}
 
     Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example7_7a.html#sphx-glr-auto-examples-foundations-plot-example7-7a-py}{here}.
 
@@ -592,7 +645,7 @@ the die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 
 \begin{comment}
 \begin{frame}
-    \frametitle{Analytical solution to example 7.7b}
+    \frametitle{Analytical solution of example 7.7b}
 
 	(b)
     \begin{itemize}[<+->]
@@ -648,7 +701,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 7.9: setup}
+    \frametitle{Analytical solution of example 7.9: setup}
     \begin{itemize}[<+->]
         \item Let $T$ be the set of eight teams
             $T=\{E_1,E_2,G_1,G_2,I_1,I_2,S_1,S_2\}$
@@ -670,7 +723,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 7.9a}
+    \frametitle{Analytical solution of example 7.9a}
     \begin{itemize}[<+->]
         \item The event A=``\textit{two teams from the same country play against
             each other in each of the four matches}'' contains only one outcome
@@ -683,7 +736,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 7.9b}
+    \frametitle{Analytical solution of example 7.9b}
     \begin{itemize}[<+->]
         \scriptsize
         \item The event $B$=``\textit{there is a match between the two teams from
@@ -714,7 +767,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Simulated solution to example 7.9a}
+    \frametitle{Simulated solution of example 7.9a}
 
     Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example7_9a.html#sphx-glr-auto-examples-foundations-plot-example7-9a-py}{here}.
 
@@ -737,7 +790,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
 \end{frame}
 \end{comment}
 
-\section{Conditional probability and Bayes}
+\section{Conditional probability}
 
 \subsection{Conditional probability}
 
@@ -750,7 +803,7 @@ the jth die on the kth roll. The outcomes in $\Omega$ are equiprobable.
             This model provides us the unconditioned probability of $A$, $P(A)$.
 
 		\item Our colleague performs an experiment and tells us that event $B$
-ocurred. How does the fact that $B$ occurred changes the probability of $A$?
+occurred. How does the fact that $B$ occurred changes the probability of $A$?
 
             \begin{figure}
                 \begin{tikzpicture}
@@ -821,7 +874,7 @@ as  well?
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 8.1}
+    \frametitle{Analytical solution of example 8.1}
 
     \begin{itemize}[<+->]
 
@@ -844,7 +897,7 @@ $\{(6,6)\}$. $N(A\cap B)=1$. $P(A\cap B)=\frac{N(A\cap B)}{N}=\frac{1}{36}$.
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Simulated solution to example 8.1}
+    \frametitle{Simulated solution of example 8.1}
 
     Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example8_1.html#sphx-glr-auto-examples-foundations-plot-example8-1-py}{here}.
 
@@ -903,7 +956,7 @@ as  well?
         \item in the first equality in $P_n\rightarrow P_{n+1}$ we defined the
             event $B=A_1\cap\ldots\cap A_n$.
         \item in the second equality in $P_n\rightarrow P_{n+1}$ we used the
-            definition of conditional proability.
+            definition of conditional probability.
         \item in the third equality in $P_n\rightarrow P_{n+1}$ we replaced $B$
             by its definition.
         \item in the fourth equality in $P_n\rightarrow P_{n+1}$ we used the
@@ -935,12 +988,12 @@ as  well?
     \footnotesize
     \begin{manualProbExample}{8.3}
         A group of 15 tourists is stranded in a city with four hotels of the
-        same class. Each of the hotels has enough room available to accomodate
+        same class. Each of the hotels has enough room available to accommodate
         the 15 tourists. The group's guide, who has a good working relationship
         with each of the four hotels, assigns the tourists to the hotels as
         follows. First, he randomly determines how many tourists will go to
         hotel A, then how many of the remaining tourists will go to hotel B, and
-        next how many of the still reamining tourists will go to hotel C. All
+        next how many of the still remaining tourists will go to hotel C. All
         remaining tourists are sent to hotel D. At each stage of the assignment
         the guide draws a random number between zero and the number of tourists
         left.
@@ -958,7 +1011,7 @@ as  well?
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 8.3}
+    \frametitle{Analytical solution of example 8.3}
 
     \tiny
     Let $i$, $j$ and $k$ be the number of tourists assigned to hotels A, B an C
@@ -996,7 +1049,7 @@ with $W\in\{A,B,C,D\}$.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 8.3}
+    \frametitle{Analytical solution of example 8.3}
 
     \tiny
     Let $i$, $j$ and $k$ be the number of tourists assigned to hotels A, B an C
@@ -1025,7 +1078,7 @@ with $W\in\{A,B,C,D\}$.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analytical solution to example 8.3}
+    \frametitle{Analytical solution of example 8.3}
 
     \tiny
     \begin{enumerate}[a]
@@ -1054,7 +1107,7 @@ with $W\in\{A,B,C,D\}$.
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Simulated solution to example 8.3}
+    \frametitle{Simulated solution of example 8.3c}
 
     Please see code \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_example8_3.html#sphx-glr-auto-examples-foundations-plot-example8-3-py}{here}.
 
@@ -1064,56 +1117,206 @@ with $W\in\{A,B,C,D\}$.
 
 \begin{frame}
     \frametitle{Independent events}
+    \scriptsize
 
-- motivation of independence definition with conditional probabilities
+    If event $A$ is independent from event $B$, then knowing that $B$ has
+    occurred does not change the probability that event $A$ occurs.
 
-- Definition 8.2
+    \begin{probDef}
+        Two events $A$ and $B$ are independent if
+        \begin{align*}
+            P(A|B)=P(A)
+        \end{align*}
+    \end{probDef}
+    
+    \onslide<2->{
+    \begin{claim*}
+        If events $A$ and $B$ are independent if and only if
+        \begin{align*}
+            P(A\cap B)=P(A)P(B)
+        \end{align*}
+    \end{claim*}
+    }
+
+    \onslide<3->{
+    \begin{proof}
+        $\rightarrow$: $P(A\cap B)=P(A|B)P(B)=P(A)P(B)$
+
+        \vspace{0.1in}
+        $\leftarrow$: $P(A|B)=\frac{P(A\cap B)}{P(B)}=\frac{P(A)P(B)}{P(B)}=P(A)$
+    \end{proof}
+    }
+
+    \normalsize
+
+    \note{
+
+        - motivation of independence definition with conditional probabilities
+
+        - Definition 8.2
+
+    }
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example}
+    \frametitle{Example 8.5: independent dice events?}
 
-- Example 8.5
+    \begin{manualProbExample}{8.5}
+        Two fair dice are thrown. Let $A$ be the event that the number shown in
+        die one is even, and $B$ the event that the sum of the two dice
+        is odd. Are $A$ and $B$ independent?
+    \end{manualProbExample}
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{Analytical solution of example 8.5}
+
+    \scriptsize
+    The sample space is
+
+    \begin{alignat*}{3}
+        \Omega&=\{&&(d_1, s): d_1\text{ number shown in die one, }s\text{ sum of the two dice}\}\\
+              &=\{&&(1,2),(1,3),\ldots,(1,7),\\
+              &   &&(2,3),(2,4),\ldots,(2,8),\\
+              &   &&\ldots,\\
+              &   &&(6,7),(6,8),\ldots,(6,12)\}\\
+        N(\Omega)&=&&36,N(A)=N(B)=18,N(A\cap B)=9\\
+        P(B)&=     &&\frac{N(B)}{N(\Omega)}=\frac{18}{36}=\frac{1}{2}\\
+        P(B|A)&=   &&\frac{N(A\cap B)}{N(A)}=\frac{9}{18}=\frac{1}{2}
+    \end{alignat*}
+
+    Since $P(B)=P(B|A)$, events $A$ and $B$ are independent.
+    \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise: independence-related proofs}
+
+    Prove the following claims:
+
+    \begin{claim*}[disjoint events are generally not independent]
+
+        Let $A$ and $B$ be two events and $P$ a probability measure such that
+        $P(A)\ne 0$ and $P(B)\ne 0$. Then, it is always true that the fact that
+        $A$ and $B$ are disjoint implies that $A$ and $B$ are not independent.
+
+    \end{claim*}
+
+    \begin{claim*}[symmetry of independence]
+        $P(A|B)=P(A)$ if and only if $P(B|A)=P(B)$.
+    \end{claim*}
+\end{frame}
+
+\begin{comment}
 \begin{frame}
     \frametitle{Example}
 
 - Example 8.6 (uses birthday problem, example 7.10)
 
 \end{frame}
+\end{comment}
 
 \subsection{Law of conditional probability}
 
 \begin{frame}
+    \frametitle{Example p86: dice followed by coin tosses}
+
+    \begin{manualProbExample}{page 266}
+        A fair die is rolled to yield a number between one and six, and then a
+        coin is tossed that many times. What is the probability that heads will
+        not appear?
+    \end{manualProbExample}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example p86}
+    \tiny
+    \begin{align*}
+        P(\text{no\_heads})&=P(\text{no\_heads}\cap\Omega)\\
+                           &=P(\text{no\_heads}\cap\left(\text{die\_equals\_1}\cup\text{die\_equals\_2}\cup\dots\cup\text{die\_equals\_6}\right))\\
+                           &=P((\text{no\_heads}\cap\text{die\_equals\_1})\cup (\text{no\_heads}\cap\text{die\_equals\_2})\cup\ldots\cup (\text{no\_heads}\cap\text{die\_equals\_6})))\\
+                           &=\sum_{i=1}^6P(\text{no\_heads}\cap\text{die\_equals\_i})=\sum_{i=1}^6P(\text{no\_heads}|\text{die\_equals\_i})P(\text{die\_equals\_i})\\
+                           &=P(T)P(\text{die\_equals\_1})+
+                           P(TT)P(\text{die\_equals\_2})+\ldots +
+                           P(TTTTTT)P(\text{die\_equals\_6})\\
+                           &=\frac{1}{2}\frac{1}{6}+\left(\frac{1}{2}\right)^2\frac{1}{6}+\ldots+\left(\frac{1}{2}\right)^6\frac{1}{6}=0.1640625
+    \end{align*}
+    \normalsize
+
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+    \frametitle{Analytical solution of example p86}
+    \tiny
+    \begin{align*}
+        \Omega=\{&(d=1,c=H),(d=1,c=T),\\
+                 &(d=2,c=HH),(d=2,c=TH),(d=2,c=HT),(d=2,c=TT),\\
+                 &\ldots,\\
+                 &(d=6,c=HHHHHH),\ldots,(d=6,c=TTTTTT)\}
+    \end{align*}
+
+    Let's define a few events
+
+    \begin{align*}
+        \text{no\_heads}=\{((d=1,c=H),(d=2,c=TT),(d=3,c=TTT),\ldots\}
+    \end{align*}
+    \normalsize
+
+\end{frame}
+\end{comment}
+
+\begin{frame}[fragile]
+    \frametitle{Simulated solution of example p86}
+
+    Please see code
+    \href{https://joacorapela.github.io/gcnuBridging2023/auto_examples/foundations/plot_examplep86.html#sphx-glr-auto-examples-foundations-plot-examplep86-py}{here}.
+
+\end{frame}
+
+\begin{frame}
     \frametitle{Law of conditional probability}
 
-- example of die followed by coin tosses
-
-    \begin{description}
-
-        \item{Rule 5} law of conditional probability. Let $A$ be an event that
+    \begin{probRule}
+        \textbf{Law of conditional probability} Let $A$ be an event that
             can only occur if one of the mutually exclusive events
             $B_1,\ldots,B_n$ occurs. Then
 
             \begin{align*}
                 P(A) = P(A|B_1) P(B_1) + \ldots + P(A|B_n) P(B_n)  
             \end{align*}
-
-    \end{description}
+    \end{probRule}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example}
+    \frametitle{Exercise: proof of law of conditional probability}
 
-- example 8.6: tour the France (difficult!)
+    Prove the law of conditional probability. Hint: use induction as in the
+    proof of rule 5.
 
 \end{frame}
 
-\subsection{Baye's rule in odds form}
+\begin{frame}
+    \frametitle{Exercise: tour de France}
+
+    \begin{manualProbExample}{8.6}
+        The upcoming Tour the France bicycle tournament will take place from
+        July 1 through July 23. One hundred and eighty cyclists will
+        participate in event. What is the probability that two or more
+        participating cyclists will have birthdays on the same day during the
+        tournament?
+    \end{manualProbExample}
+
+\end{frame}
+
+\section{Statistical inference}
+
+\begin{comment}
+\subsection{Bayes's rule in odds form}
 
 \begin{frame}
     \frametitle{Bayes rule in odds form}
@@ -1162,23 +1365,207 @@ with $W\in\{A,B,C,D\}$.
 
         - assume that a woman who has been murdered by some other than her husband had the same same chance of being abused by her husband as a randomly selected woman
 
-        - Alan Dershowitz admitted that a substantial percentage of the husbands who murder their wives, previous to the murder, also physically abuse their wives. Given this statement, we assume that the proability that a husband physically abused his wife, given that he killed her, is 50 percent.
+        - Alan Dershowitz admitted that a substantial percentage of the husbands who murder their wives, previous to the murder, also physically abuse their wives. Given this statement, we assume that the probability that a husband physically abused his wife, given that he killed her, is 50 percent.
 
 \end{frame}
+
+\end{comment}
 
 \subsection{Bayesian inference -- discrete case}
 
 \begin{frame}
-    \frametitle{Bayesian inference -- discrete case}
+    \frametitle{Bayesian inference}
 
-- explain posterior sequential update
+    \begin{itemize}
+
+        \item In Bayesian statistics parameters of a model, $\theta$ are considered random quantities. They are assigned a (subjective) probability $P(\theta)$.
+
+        \item The probability of parameters is subject to change as new data arrives, $P(\theta|D)$.
+
+            \begin{figure}
+                \begin{tikzpicture}
+                    % Place nodes
+                    \node (pTheta) {$P(\theta)$};
+                    \node [right=3cm of pTheta] (pThetaGivenD) {$P(\theta|D)$};
+                    % Draw edges
+                    \path[->] (pTheta) edge node [above] {data observed} (pThetaGivenD);
+                \end{tikzpicture}
+            \end{figure}
+
+        \item How to calculate the posterior probability $P(\theta|D)$?
+
+            \begin{align*}
+                P(\theta|D)&=\frac{P(\theta\cap D)}{P(D)}\\
+                P(\theta\cap D)&=P(D|\theta)P(\theta)\\
+%                 \text{Thus}&\\
+                P(\theta|D)&=\frac{P(D|\theta)P(\theta)}{P(D)}\propto P(D|\theta)P(\theta)\\
+            \end{align*}
+
+    \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example}
+    \frametitle{Bayesian inference}
 
-- example 8.13 (solve it analytically and by sampling)
+    \begin{itemize}
+
+        \item Sequential update
+
+        \begin{align*}
+            P(\theta|D_1\cap D_2)&=\frac{P(\theta\cap D_1\cap D_2)}{P(D_1\cap D_2)}\\
+                                 &=\frac{P(D_2|D_1\cap\theta)P(D_1\cap\theta)}{P(D_1\cap D_2)}\\
+                                 &=\frac{P(D_2|\theta)P(D_1|\theta)P(\theta)}{P(D_1\cap D_2)}\\
+                                 &\propto P(D_2|\theta)P(\theta|D_1)
+        \end{align*}
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise: sequential posterior probability for arbitrary number of observations}
+
+    For any $n\in\mathbb{N}$, prove that
+
+    \begin{align*}
+        P(\theta|D_1\cap\ldots\cap D_{n+1})=P(D_{n+1}|\theta)P(\theta|D_1\cap D_2\cap\ldots\cap D_n)
+    \end{align*}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example 8.13: disease treatment effect}
+
+	\small
+    \begin{manualProbExample}{8.13}
+
+        A new treatment is tried out for a disease. A standard treatment has a
+        success probability of 35\%. The discrete uniform distribution on 0.00,
+        0.01, \ldots, 0.99, 1.00 is taken as prior for the success probability
+        of the new treatment. The experiment design is to make exactly ten
+        observations by treating ten patients. The experimental study yield
+        seven successes and three failures~\citep{berry06}.
+
+		\begin{enumerate}[a]
+
+			\item Plot the prior of the success probability of the new treatment.
+			\item Plot the likelihood of the success probability of the new treatment.
+			\item Plot the posterior of the success probability of the new treatment.
+			\item What is the posterior probability that the new treatment is
+			more effective than the standard one?
+
+		\end{enumerate}
+
+    \end{manualProbExample}
+	\normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example 8.13}
+
+    \scriptsize
+	\begin{enumerate}[a]
+
+		\item prior:
+
+			\begin{align*}
+				p(\theta) = \frac{1}{101},\quad\text{for}\;\theta=0.00,0.01,\ldots,0.99,1.00
+			\end{align*}
+            \seti
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example 8.13}
+
+    \tiny
+	\begin{enumerate}[a]
+        \conti
+		\item likelihood:
+
+			\begin{align*}
+				\Omega&=\{(r_1,\ldots,r_{10}):r_i\in\{S,F\}\}
+			\end{align*}
+
+			Define the events \textit{k\_successes}=``experiments where k out of the 10 observations were successes'', with $k\in\{0,1,\ldots,10\}$.
+
+            \begin{alignat*}{2}
+                \text{0\_successes}&=\{&&(F,F,F,F,F,F,F,F,F,F)\}\\
+                \text{1\_successes}&=\{&&(S,F,F,F,F,F,F,F,F,F),(F,S,F,F,F,F,F,F,F,F),\ldots,\\
+                                   &   &&(F,F,F,F,F,F,F,F,F,S)\}\\
+                \text{2\_successes}&=\{&&(S,S,F,F,F,F,F,F,F,F),(S,F,S,F,F,F,F,F,F,F),\ldots,\\
+                                   &   &&(F,F,F,F,F,F,F,F,S,S)\}
+            \end{alignat*}
+
+            Calculate the events probabilities
+
+			\begin{alignat*}{2}
+				P(0\_successes|\theta)=&P(\{&&(F,F,F,F,F,F,F,F,F,F)\})=(1-\theta)^{10}\\
+				P(1\_successes|\theta)=&P(\{&&(S,F,F,F,F,F,F,F,F,F),(F,S,F,F,F,F,F,F,F,F),\ldots,\\
+                                      &    &&(F,F,F,F,F,F,F,F,F,S)\}\})\\
+                                     =&P(\{&&(S,F,F,F,F,F,F,F,F,F)\})+P(\{(F,S,F,F,F,F,F,F,F,F)\})+\ldots+\\
+                                      &P(\{&&(F,F,F,F,F,F,F,F,F,S)\})=10P(\{(S,F,F,F,F,F,F,F,F,F)\})\\
+                                     =&10&&\theta(1-\theta)^9
+			\end{alignat*}
+
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example 8.13}
+
+    \tiny
+	\begin{enumerate}[a]
+        \conti
+		\item likelihood:
+			\begin{alignat*}{2}
+				P(2\_successes|\theta)=&P(\{&&(S,S,F,F,F,F,F,F,F,F),(S,F,S,F,F,F,F,F,F,F),\ldots,\\
+                                      &    &&(F,F,F,F,F,F,F,F,S,S)\}\})\\
+                                     =&P(\{&&(S,S,F,F,F,F,F,F,F,F)\})+\\
+                                      &P(\{&&(S,F,S,F,F,F,F,F,F,F)\})+\ldots+\\
+                                      &P(\{&&(F,F,F,F,F,F,F,F,S,S)\})\\
+                                     =&\binom{10}{2}&&P(\{(S,F,F,F,F,F,F,F,F,F)\})\\
+                                     =&\binom{10}{2}&&\theta^2(1-\theta)^8\\
+			    P(k\_successes|\theta)=&\binom{10}{k}&&\theta^k(1-\theta)^{10-k},\quad k\in\{0,1,\ldots,10\}
+			\end{alignat*}
+            \seti
+
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example 8.13}
+
+    \tiny
+	\begin{enumerate}[a]
+        \conti
+		\item posterior:
+
+			\begin{align*}
+				P(\theta|\text{7\_successes})&=K_1P(\text{7\_successes}|\theta)P(\theta)=K_1\binom{10}{7}\theta^7(1-\theta)^3\frac{1}{101}=K_2\theta^7(1-\theta)^3\\
+                1&=\sum_{k=0}^{100}P(\theta_k|\text{7\_successes})=K_2\sum_{k=0}^{100}\theta_k^7(1-\theta_k)^3;\quad\theta_k=\frac{k}{100}\\
+                K_2&=\frac{1}{\sum_{k=0}^{100}\theta_k^7(1-\theta_k)^3}\\
+                P(\theta|\text{7\_successes})&=\frac{\theta^7(1-\theta)^3}{\sum_{k=0}^{100}\theta_k^7(1-\theta_k)^3}
+			\end{align*}
+
+		\item 
+
+            \begin{align*}
+                P(\text{new treatment more effective than standard one})=\sum_{k=36}^{100}P(\theta_k|\text{7\_successes})
+            \end{align*}
+
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exercise: sequential posterior probability}
+
+    Continuing example 8.13, calculate the posterior probability of the new
+    treatment after a second observation with six successes and a first
+    observation with seven successes.
 
 \end{frame}
 
