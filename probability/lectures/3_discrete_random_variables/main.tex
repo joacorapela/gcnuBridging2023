@@ -107,6 +107,16 @@ In our red ball example, we could also use separate random variables for the out
 \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]{The Chain Rule and Independence}
+\textit{A hint for the problem set questions:}
+
+Whilst we won't be dealing with dependent random variables today, some problem set questions will still require you to work with conditional probabilities. Take note that
+\begin{equation*}
+    \mathbb{P}\left(X \in A \mid X \in B\right) = \frac{\mathbb{P}\left(X \in A, X \in B\right)}{\mathbb{P}\left(X \in B\right)}\,.
+\end{equation*}
+There is nothing special about this. We are simply looking at the probability of one event conditioned on the occurrence of another.
+\end{frame}
+
 \begin{frame}[fragile]{Discrete and Continuous Random Variables}
 Discrete random variables can take a countable number of values. For example:
 \begin{itemize}
@@ -429,6 +439,22 @@ Intermission
 \onslide<3>{After the lecture on continuous distributions, I'd recommend doing some \href{http://www.math.wm.edu/~leemis/chart/UDR/UDR.html}{\color{mLightBrown}{exploring}} of these distributions and their relationships.}
 \end{frame}
 
+\begin{frame}[fragile]{Functions of Random Variables}
+The next few slides will deal with simple functions of random variables. We have an entire lecture later on which will cover this topic in much more depth. For now, all you need to know are the following:
+\begin{itemize}[<+->]
+    \item Functions of random variables are also random variables. E.g. if \(g\) is a function and \(X, Y\) are random variables, then \(Z = g\left(X, Y\right)\) is also a random variable. The distribution of \(Z\) can often be pretty complicated!
+    \item The realisation of \(Z\) is given by the realisations of \(X\) and \(Y\) passed through \(g\). I.e. \(z = g\left(x, y\right)\). So sampling can often be pretty easy!
+\end{itemize}\onslide<3>{
+
+\textit{A hint for the problem set questions:}
+
+If \(X\) and \(Y\) are discrete and independent, then \(Z = X + Y\) has the PMF
+\begin{equation*}
+    p_Z\left(z\right) = \sum_{x \in \mathcal{X}}p_X\left(x\right)p_Y\left(z - x\right)\,.
+\end{equation*}
+You may use this without proof. A summation of this form is called a convolution.}
+\end{frame}
+
 \begin{frame}[fragile]{Discrete Uniform Distribution}
 If a random variable takes any integer between \(a\) and \(b\) inclusive with equal probability, then it follows a discrete uniform distribution.
 
@@ -647,6 +673,75 @@ Intermission
 \end{frame}
 
 \section{Introduction to Stochastic Processes}
+
+\begin{frame}[fragile]{What is a Stochastic Process?}
+A stochastic process describes how a system with some underlying randomness evolves over space or time. Mathematically, we define this by a set of random variables
+\begin{equation*}
+    \left\{X\left(t\right) \;\middle|\; t \in T\right\}
+\end{equation*}
+or more precisely
+\begin{equation*}
+    \left\{X\left(t, \omega\right) \;\middle|\; t \in T\right\}\,,
+\end{equation*}
+where \(T\) is referred to as the index set.\onslide<2->{
+
+Very often, \(T\) is chosen to represent points in time. In discrete-time, we may have \(T = \mathbb{N}\), leading to a countably infinite set of random variables. In continuous-time, usually \(T = \left[0, \infty\right)\), producing an uncountably infinite set of random variables. Whether these random variables are independent or not is determined by the underlying process.}\onslide<3>{
+
+Sometimes, the notation \(X_t\) is used instead of \(X\left(t\right)\).}
+\end{frame}
+
+\begin{frame}[fragile]{Examples of Stochastic Processes}
+\begin{itemize}[<+->]
+    \item \href{https://en.wikipedia.org/wiki/Brownian_motion}{\color{mLightBrown}{Brownian motion}}: describes the random motion of small particles in fluids.
+    \item \href{https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo}{\color{mLightBrown}{Markov chain Monte Carlo}}: used to generate samples from complicated distributions.
+    \item \href{https://en.wikipedia.org/wiki/Diffusion_process}{\color{mLightBrown}{Diffusion processes}}: used in machine learning for image generation (e.g. \href{https://en.wikipedia.org/wiki/Stable_Diffusion}{\color{mLightBrown}{Stable Diffusion}}).
+    \item \href{https://en.wikipedia.org/wiki/Galves%E2%80%93L%C3%B6cherbach_model}{\color{mLightBrown}{Galves–L\"ocherbach model}}: models the dynamics of networks of biological neurons.
+\end{itemize}\onslide<5>{
+Today we will focus on two of the simplest stochastic processes: the Bernoulli process and the Poisson process.}
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+If \(T = \mathbb{N}\) and \(X\left(t\right) \sim \textrm{Bern}\left(p\right)\) for all \(t \in T\), then \(\left\{X\left(t\right) \;\middle|\; t \in T\right\}\) is a Bernoulli process. It has the following important properties:
+\begin{itemize}[<+->]
+    \item The number of successes in any window in time, \(N\) time steps long, is binomial distributed:
+    \begin{equation*}
+        \sum_{t = \tau}^{\tau + N - 1} X\left(t\right) \sim \textrm{Bin}\left(N, p\right) \textrm{ for all } \tau \in \mathbb{N}
+    \end{equation*}
+    \item The waiting time until the next success, at any point in time, is geometrically distributed:
+    \begin{equation*}
+        \min\left\{t \in \mathbb{N} \;\middle|\; X\left(\tau + t - 1\right) = 1\right\} \sim \textrm{Geo}\left(p\right) \textrm{ for all } \tau \in \mathbb{N}
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+We can also consider an equivalent counting process \(\left\{N\left(t\right) \;\middle|\; t \in T\right\}\) which is given by
+\begin{equation*}
+    N\left(t\right) = \sum_{s = 1}^t X\left(s\right)\,.
+\end{equation*}
+
+In general, a counting process represents the total number of occurrences of something up to and including time \(t\). It is non-negative, non-decreasing, and takes integer values.
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+How would you simulate a Bernoulli process? There are a couple of simple ways, one more efficient than the other. This will be a coding exercise at the end of the lecture.
+\end{frame}
+
+\begin{frame}[fragile]{The Poisson Process}
+The Poisson process is the stochastic process that results from chopping the Bernoulli process into finer and finer intervals. Consider a Bernoulli process with success probability \(\lambda\) and each Bernoulli random variable representing the probability of a success occurring in a 1 second interval.\onslide<2>{ Now replace each random variable with \(N\) Bernoulli random variables with success probability \(\frac{\lambda}{N}\), each representing the probability of a success occurring in sequential \(\frac{1}{N}\) second intervals. Letting \(N\rightarrow\infty\) gives us the Poisson process. We have moved from discrete-time to continuous time!}
+\end{frame}
+
+\begin{frame}[fragile]{The Poisson Process}
+Consider a counting process with \(T = \left[0, \infty\right)\). If:
+\begin{itemize}[<+->]
+    \item \(N\left(0\right) = 0\),
+    \item \(N\left(t + \tau\right) - N\left(t\right) \sim \textrm{Pois}\left(\tau\lambda\right)\) for all \(t \in T\),
+    \item and \(N\left(\tau_2\right) - N\left(\tau_1\right)\) and \(N\left(\tau_4\right) - N\left(\tau_3\right)\) are independent for all disjoint intervals \(\left(\tau_1, \tau_2\right]\) and \(\left(\tau_3, \tau_4\right]\),
+\end{itemize}\onslide<4->{
+then \(\left\{N\left(t\right) \;\middle|\; t \in T\right\}\) is a Poisson process with rate \(\lambda\). Other equivalent definitions exist, but are outside the scope of this lecture.}\onslide<5>{
+
+At any time \(t\), what is the waiting time until the next increment in \(N\left(t\right)\)? Find out in the next lecture.}
+\end{frame}
 
 
 
