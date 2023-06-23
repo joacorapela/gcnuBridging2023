@@ -55,6 +55,27 @@ fig
 
 #%%
 # computer and plot posteriors for 1 observation
+i = 0
+an_obs_num_successes = obs_num_successes[i]
+current_likelihood = np.array([likelihood(num_successes=an_obs_num_successes,
+                                          success_rate=success_rate)
+                               for success_rate in success_rates])
+current_posterior = current_prior * current_likelihood
+current_posterior /= np.sum(current_posterior)
+current_prior = current_posterior
+
+fig = go.Figure()
+trace = go.Bar(x=success_rates, y=current_posterior)
+fig.add_trace(trace)
+fig.add_vline(x=true_success_rate, line_color="red")
+fig.update_layout(xaxis_title="Success Rate",
+                  yaxis_title="Probability",
+                  title=(f"Number Observations {i+1}, "
+                         f"True Prob. Success {true_success_rate}"))
+fig
+
+#%%
+# computer and plot posteriors for 1 observation
 i = 1
 an_obs_num_successes = obs_num_successes[i]
 current_likelihood = np.array([likelihood(num_successes=an_obs_num_successes,
