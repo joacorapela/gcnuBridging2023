@@ -1,4 +1,4 @@
-\documentclass[10pt]{beamer} 
+\documentclass[9pt]{beamer} 
 \usetheme{PaloAlto} % \usetheme{Madrid}
 \usecolortheme{default}
 \usepackage{statex2} % for uniform dist. symbol
@@ -27,7 +27,7 @@
 \usepackage{natbib}
 \usepackage{apalike}
 \usepackage{comment}
-% \usepackage{enumitem}
+ \usepackage{enumitem}
 % \setlist[itemize]{topsep=0pt,before=\leavevmode\vspace{-1.5em}}
 % \setlist[description]{style=nextline}
 \usepackage{amsthm}
@@ -46,7 +46,8 @@
 
 %\newtheorem{probDef}{Definition}
 %\newtheorem*{probDef*}{Definition}
-%\newtheorem{claim}{Claim}
+\newtheorem{claim}{Claim}
+\newtheorem{proposition}{Proposition}
 %\newtheorem{probExample}{Example}
 %\newtheorem{probRule}{Rule}
 %\newtheorem{probAxiom}{Axiom}
@@ -158,7 +159,7 @@ Unlike discrete random variables, which can take on a countable number of possib
 
 \begin{definition} 
 A random variable $X$ is continuous if:
-\begin{enumerate}
+\begin{enumerate}[label=\arabic*.]
 \item possible values comprise either a single interval on the number line (i.e. for some $a < b$, any number $x$ between $a$ and $b$ is a possible value) or a union of disjoint intervals, and
 \item  $P(X = c) = 0$ for any number $c$ that is a possible value of $X$.
 \end{enumerate}
@@ -206,10 +207,10 @@ That is, the probability that $X$ takes on a value in the interval [a, b] is the
 \vspace{0.3cm}
 
 \onslide<2->{
-A valid probability density function $f(x)$ has the following properties:
+A valid probability density function $f(x)$ must have the following properties to respect the axioms of probability:
 
 \begin{equation}
-f(x) \geq 0 \textrm{ for all } x
+f(x) \geq 0 \text{ for all } x
 \end{equation}
 
 \begin{equation}
@@ -222,41 +223,47 @@ f(x) \geq 0 \textrm{ for all } x
 \begin{frame}
 \frametitle{Probabilities as integrals}
 
-The probability that a continuous random variable $X$ takes on a value in the interval [a, b] is given by the area under the probability density function $f(x)$.
+The probability that a continuous random variable $X$ takes on a value in the interval [a, b] is given by the area under the probability density function $f(x)$:
 
-\vspace{-0.25cm}
+\vspace{-0cm}
 
 \begin{equation*}
 P(a \leq X \leq b) = \int_a^b f(x) dx
 \end{equation*}
 
-\vspace{-0.5cm}
+\vspace{-0.2cm}
 \begin{center}
-\includegraphics[height=4cm]{images/normal_area.png}
+\includegraphics[height=3cm]{images/normal_area.png}
 \end{center}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Density as probability per unit length}
+\frametitle{Density as probability per unit of $x$}
 
-The probability of a small interval $\delta$ is approximately the density
-$\times \ \delta$:
+If $f(x)$ is not the probability of $x$, what is it?
+
+\
+
+\onslide<2->{
+The probability that $X$ will lie in an infinitesimal interval $dx$ about $x$ is
+$f(x) dx$:
 
 \vspace{-0.3cm}
 
 \begin{align*}
-P(x \leq X \leq x + \delta) &= \int_x^{x+\delta} f(t) dt\\
-& \approx f(x) \times \delta\\
+P(x \leq X \leq x +dx) &= \int_x^{x+dx} f(t) dt\\
+&= f(x) dx\\
 \end{align*}
+}
 
-\vspace{-0.5cm}
+\vspace{-0.8cm}
 
-\onslide<2->{
-Thus density is probability per unit length (rate of probability accumulation):
+\onslide<3->{
+Thus, density is probability per unit of $x$ (rate of probability accumulation):
 
 \begin{align*}
-\frac{P(x \leq X \leq x + \delta)}{\delta} &\approx f(x) \ \ \ \ \ \ \ \ \ \ \ 
+\frac{P(x \leq X \leq x + dx)}{dx} &= f(x) \ \ \ \ \ \ \ \ \ \ \ \
 \end{align*} 
 }
 
@@ -323,8 +330,15 @@ The cumulative distribution function (CDF) $F(x)$ is the area under the probabil
 \end{center}
 
 \onslide<2->{
-The CDF is a monotonically-increasing continuous function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
+%The CDF is a non-decreasing (monotonic) function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
+The CDF $F(x)$ has the following properties:
+\begin{enumerate}[label=\alph*.]
+\item $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$
+\item $F(x)$ is a non-decreasing (monotonic) function of $x$.
+%\item $F(x)$ is right-continuous: $ \lim\limits_{\epsilon \to 0, \epsilon > 0}  F(x + \epsilon) = F(x)$ for any $x \in \mathbb{R}$.
+\end{enumerate}
 }
+Collectively, a. and b. imply that $F: \mathbb{R} \mapsto [0, 1]$.
 
 \end{frame}
 
@@ -355,7 +369,7 @@ F(x) &= P(X \leq x)\\
 
 %For any two numbers $a$ and $b$ with $a < b$,
 
-\vspace{-.9cm}
+\vspace{-.7cm}
 
 \begin{align*}
 P(a \leq X \leq b) = F(b) - F(a).
@@ -363,11 +377,11 @@ P(a \leq X \leq b) = F(b) - F(a).
 
 %\vspace{-1cm}
 
-\vspace{-.7cm}
+\vspace{-.4cm}
 
 \center \includegraphics[height=2.5cm]{images/normal_ab_a_b.png}
 
-\vspace{-.5cm}
+\vspace{0cm}
 
 %%For any number $a$,
 
@@ -377,7 +391,7 @@ P(X > a) &= F(\infty) - F(a)\\
 &= 1 - F(a).
 \end{align*} 
 
-\vspace{-.7cm}
+\vspace{-.5cm}
 
 \center \includegraphics[height=2.5cm]{images/normal_a_inf.png}
 }
@@ -402,25 +416,74 @@ P(X > a) &= F(\infty) - F(a)\\
 \begin{frame}
 \frametitle{Obtaining the PDF from the CDF}
 
-At every $x$ at which the derivative $F^\prime(x)$ exists, $F^\prime(x) = f(x)$.
+How would you obtain the PDF from the CDF?
+
+\
+
+\onslide<2->{
+The CDF is the integral of the PDF, and so the PDF is the derivative of the CDF.
+}
+
+\onslide<3->{
+\begin{center} 
+\includegraphics[height=2.5cm]{images/pdf_cdf_nofill.png}
+\end{center} 
+}
+
+\
+
+%At every $x$ at which the derivative $F^\prime(x)$ exists, $F^\prime(x) = f(x)$.
+%At every $x$ at which the derivative $\frac{\delta F(x)}{\delta x}$ exists, $\frac{\delta F(x)}{\delta x} = f(x)$.
+\onslide<4->{
+At every $x$ at which the derivative $\frac{\delta F(x)}{\delta x}$ exists, $\frac{\delta F(x)}{\delta x} = f(x)$.
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the uniform distribution}
+
+\begin{definition}
+A random variable $X$ is said to have a \textbf{uniform distribution} on the interval ${[a, b]}$ if the PDF of $X$ is
+
+\vspace{-.5cm}
+
+\begin{align*}
+    f(x; a, b) &= 
+    \begin{cases}
+      \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
+      0 & \text{otherwise.}
+    \end{cases}
+\end{align*}
+When $X$ has a uniform distribution on the interval [$a, b$], we write this as $X \sim \U{a,b}$. The CDF of $X$ is given by
+\begin{align*}
+F(x; a, b) &= 
+    \begin{cases}
+      0 & \text{if}\ x < a \\
+      \frac{x-a}{b-a} & \text{if}\ a \leq x \leq b \\
+      1 &\text{if}\ x > b \\
+    \end{cases}
+\end{align*}
+\end{definition}
+
+%\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
 
 \
 \onslide<2->{
-\begin{examples}
-When $X$ has a uniform distribution, for $a < x < b$:
+\begin{example}
+When $X$ has a uniform distribution on the interval [a, b], for $a \leq x \leq b$:
 
 \vspace{-0.3cm}
 
 \begin{align*}
-F^\prime(x) = \frac{d}{dx}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
+%F^\prime(x) = \frac{d}{dx}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
+\frac{\delta F(x)}{\delta x} = \frac{\delta}{\delta x}\bigg(\frac{x-a}{b-a}\bigg) = \frac{1}{b-a} = f(x)
 \end{align*}
-\end{examples}
+\end{example}
 }
 %F(x) is differentiable except at and where the graph of F(x) has sharp corners.
 
 \
-
-%TODO: show Gaussians of different widths.
 
 \end{frame}
 
@@ -436,7 +499,7 @@ p = F(\eta(p)) = \int_{-\infty}^{\eta(p)}f(x) dx
 \end{definition}
 
 \onslide<2->{
-\center \includegraphics[height=2.5cm]{images/percentiles.png} % 85th percentile
+\center \includegraphics[height=3cm]{images/percentiles.png}
 }
 
 \end{frame}
@@ -448,7 +511,58 @@ p = F(\eta(p)) = \int_{-\infty}^{\eta(p)}f(x) dx
 The \textbf{median} of a continuous distribution, denoted by $\tilde{\mu}$, is the 50th percentile, so $\tilde{\mu}$ satisfies $F( \tilde{\mu}) = 0.5$. That is, half the are area under the probability density function is to the left of $\tilde{\mu}$ and half is to the right of $\tilde{\mu}$.
 \end{definition}
 
-\center \includegraphics[height=2.5cm]{images/median.png} % 85th percentile
+\center \includegraphics[height=3cm]{images/median.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the exponential distribution}
+
+\begin{definition}
+A random variable $X$ is said to have an \textbf{exponential distribution} on the interval [0, $\infty$) if the PDF of $X$ is:
+
+\vspace{-.5cm}
+
+\begin{align*}
+    f(x; \lambda) &= 
+    \begin{cases}
+      \lambda e ^{-\lambda x} & \text{if}\ x \geq 0 \\
+      0 & \text{otherwise},
+    \end{cases}
+\end{align*}
+where $\lambda > 0$ is a rate parameter that governs the rate of decay of $f(x)$. When $X$ has an exponential distribution with parameter $\lambda$, we write $X \sim \Exp{\lambda}$. 
+\end{definition}
+
+\center \includegraphics[height=3cm]{images/exp_pdf.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: the exponential distribution}
+
+\begin{example}
+Write down the formula for the (100$p$)th percentile of the distribution of $X \sim \Exp{\lambda}$, and use it to find the median of $X$.
+\begin{align*}
+\onslide<2->{
+p &= \int^{\eta(p)}_0 \lambda e^{-\lambda x}dx\\
+}
+\onslide<3->{
+&=  - e^{-\lambda x}\Big|_0^{\eta(p)}\\
+}
+\onslide<4->{
+&=  1 - e^{-\lambda \eta(p)}.
+}
+\onslide<5->{
+\intertext{Therefore,}
+\eta(p) &=  -\frac{\log{(1 - p)}}{\lambda}
+}
+\onslide<6->{
+\intertext{and}
+\eta(0.5) &=  -\frac{\log{(0.5)}}{\lambda}.
+}
+ \end{align*}
+ 
+\end{example}
 
 \end{frame}
 
@@ -479,8 +593,9 @@ The variance of $X$ is:
 
 \begin{align*}
 % var[X] &= \mathbb{E}[(X - \mathbb{E}[X])^2]\\
-\mathrm{Var}[X] &= \mathbb{E}[(x - \mathbb{E}[X])^2] \\
-&= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x.
+\mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
+&= \mathbb{E}[(x - \mathbb{E}[X])^2] \\
+&= \mathbb{E}[X^2] - \mathbb{E}[X]^2.
 \end{align*}
 }
 % var[X] is an example of g(x)
@@ -500,51 +615,42 @@ The variance of $X$ is:
 \begin{frame}
 \frametitle{Example: the uniform distribution}
 
-\begin{definition}
-$X$ is said to have a \textbf{uniform distribution} on the interval [a, b] if the PDF of $X$ is:
-
-\vspace{-.5cm}
-
-\begin{align*}
-    f(x; a, b) &= 
-    \begin{cases}
-      \frac{1}{b-a} & \text{if}\ a \leq x \leq b \\
-      0 & \text{otherwise.}
-    \end{cases}
-\end{align*}
-\end{definition}
-
-\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Example: the uniform distribution}
-
-When $X$ has a uniform distribution, its expected value is:
+\begin{example}
+When $X$ has a uniform distribution on the interval [a,b], its expected value is:
 
 \vspace{-.3cm}
 
 \begin{align*}
     \mathbb{E}[X] &= \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
+    \onslide<2->{
     &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\
-    &= \frac{a + b}{2}.
+    }
+    \onslide<3->{
+    &= \frac{a + b}{2},
+    }
 \end{align*}
 
-\onslide<2->{
-Its variance is:
+\onslide<4->{
+and its variance is:
 
 \vspace{-.3cm}
 
 \begin{align*}
     \mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
+    }
+    \onslide<5->{
     &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x \\
+    }
+    \onslide<6->{
     &= \frac{(b-a)^2}{12}.
+    }
 \end{align*}
-}
+
+\end{example}
 
 \end{frame}
 
+\section{Sampling}
 \begin{frame}
 \frametitle{The inverse transform method}
 
@@ -553,7 +659,7 @@ Let $U \sim \U{0,1}$ be a continuous random variable having a standard uniform d
 \begin{equation*}
 X = F^{-1}(U)
 \end{equation*}
-is distributed as the cumulative distribution function  $F$, that is $P(X \leq x) = F(x)$.
+is distributed as the cumulative distribution function $F$, that is $P(X \leq x) = F(x)$.
 \end{theorem}
 
 \onslide<2->{
@@ -561,14 +667,22 @@ is distributed as the cumulative distribution function  $F$, that is $P(X \leq x
 \begin{equation*}
 \begin{aligned}
 P(X \leq x) &= P(F^{-1}(U) \leq x)\\
-\vspace{1cm}
+}
+\onslide<3->{
+&= P(F(F^{-1}(U)) \leq F(x)) \\
+}
+\onslide<4->{
 &= P(U \leq F(x)) \\
-&= F(x).
+}
+\onslide<5->{
+&= F(x).\qedhere
 \end{aligned} 
 \end{equation*}
-\text{because} $\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.
+\text{because} 1) $F$ is non-decreasing (monotonic)
+%$\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
+\text{and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
 \end{proof}
-}
+
 
 \end{frame}
 
@@ -584,7 +698,7 @@ given the inverse of its cumulative distribution function.
 %To draw a sample $x$ of a continuous random variable $X$ with CDF $F$:
 \onslide<2->{
 To draw a sample $x \sim f(x)$:
-\begin{enumerate}
+\begin{enumerate}[label=\arabic*.]
     \item Sample $u \sim \U{0,1}$ (recall that $F: \mathbb{R} \mapsto [0, 1]$)
     \item Let $x = F^{-1}(u)$
 \end{enumerate}
@@ -595,29 +709,7 @@ To draw a sample $x \sim f(x)$:
 \begin{frame}
 \frametitle{Example: the exponential distribution}
 
-\begin{definition}
-$X$ is said to have an \textbf{exponential distribution} on the interval [0, $\infty$) if the PDF of $X$ is:
-
-\vspace{-.5cm}
-
-\begin{align*}
-    f(x; \lambda) &= 
-    \begin{cases}
-      \lambda e ^{-\lambda x} & \text{if}\ x \geq 0 \\
-      0 & \text{otherwise},
-    \end{cases}
-\end{align*}
-where $\lambda$ is a rate parameter that governs the rate of decay of $f(x)$. 
-%If a random variable X has this distribution, we write $X \sim Exp(\lambda)$.
-\end{definition}
-
-\center \includegraphics[height=3.6cm]{images/exp_pdf.png}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Example: the exponential distribution}
-
+\begin{example}
 For $x \geq 0$, the PDF of the exponential distribution is:
 
 \begin{equation*}
@@ -625,7 +717,7 @@ For $x \geq 0$, the PDF of the exponential distribution is:
 \end{equation*}
 
 \onslide<2->{
-which implies that the CDF is:
+which implies the CDF is:
 
 \begin{equation*}
 F(x) = 1 - e^{- \lambda x} = u,
@@ -642,11 +734,12 @@ F^{-1}(u) = -\frac{ \log(1 -u) } {\lambda}  = x.
 
 \onslide<4->{
 Hence, to sample $x \sim f(x)$:
-\begin{enumerate}
+\begin{enumerate}[label=\arabic*.]
     \item Sample $u \sim \U{0,1}$ (using a pseudo-random number generator)
     \item Let $x = -\frac{ \log(1 -u) } {\lambda} $
 \end{enumerate}
 }
+\end{example}
 
 \end{frame}
 
@@ -664,9 +757,119 @@ Hence, to sample $x \sim f(x)$:
 % \end{frame}
 
 \begin{frame}
-\frametitle{The normal (Gaussian) distribution}
+\frametitle{The normal distribution}
 % An approximation to various discrete distributions.
+
+\begin{definition}
+A continuous random variable $X$ has a \textbf{normal distribution} with parameters $\mu$ and $\sigma$ (or $\sigma^2$), where $-\infty < \mu < \infty$ and $0 < \sigma$, if the probability density function of $X$ is:
+\begin{equation*}
+f(x; \mu, \sigma) = \frac{1}{\sigma\sqrt{2 \pi}} e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2} \quad -\infty < x < \infty
+\end{equation*}
+\end{definition}
+
+\onslide<2->{
+\begin{center}
+\includegraphics[height=3cm]{images/normal_mu_sig.png}
+\end{center}
+}
+
+\onslide<3->{
+The normal distribution is the most important distribution in all of probability theory. It is ubiquitous in statistical analysis (central limit theorem). 
+}
+
+%\onslide<2->{
+%This density function is a bell-shaped curve that is symmetric about $\mu$.
+%}
+
 \end{frame}
+
+\begin{frame}
+\frametitle{Linear transformation of a normal random variable}
+
+\vspace{-0.2cm}
+
+\begin{claim}
+If $X$ is normally distributed with parameters $\mu$ and $\sigma$, then $Y = aX + b$ is normally distributed with parameters $a\mu + b$ and $a\sigma$.
+\end{claim}
+
+\onslide<2->{
+\begin{proof}
+\onslide<2->{
+Let $F_Y$ denote the CDF of $Y = a X + b$, then}
+\begin{align*}
+%F_Y(x) &= P(Y \leq x)\\
+\onslide<2->{
+F_Y(x) &= P(aX + b \leq x)\\
+}
+\onslide<3->{
+&= P(X \leq (x-b)/a)\\
+}
+\onslide<4->{
+&= F_X((x-b)/a),
+}
+\end{align*}
+\onslide<4->{where $F_X$ is the CDF of $X$. }\onslide<5->{By differentiation, the PDF of $Y$ is
+\begin{align*}
+f_Y(x) &= \frac{1}{a}f_X((x-b)/a)\\
+}
+\onslide<6->{
+&= \frac{1}{a\sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\big(\frac{\frac{x-b}{a}-\mu}{\sigma}\big)^2}\\
+}
+\onslide<7->{
+&= \frac{1}{a\sigma \sqrt{2 \pi}} e^{-\frac{1}{2}\big(\frac{x-(a\mu+b)}{a\sigma}\big)^2} \qedhere.}
+\end{align*}
+\vspace{-0.2cm}
+\end{proof}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The standard normal random variable}
+
+When $X$ is a normal random variable with parameters $\mu$ and $\sigma$, the computation of $P(a \leq X \leq b)$ requires evaluating
+
+\begin{equation*}
+\int_a^b \frac{1}{\sigma\sqrt{2 \pi}} e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2} dx.
+\end{equation*}
+
+\onslide<2->{
+This cannot be calculated in closed form. However, for $\mu = 0$ and $\sigma = 1$, this integral has been approximated and tabulated for certain values of $a$ and $b$. This table can also be used to compute probabilities for any other values of $\mu$ and $\sigma$.
+}
+
+\onslide<3->{
+\begin{definition}
+The normal distribution with parameter values $\mu = 0$ and $\sigma = 1$ is called the \textbf{standard normal distribution}. A random variable $Z$ having a standard normal distribution is called a \textbf{standard normal random variable} and has probability density function given by
+\begin{equation*}
+f(z; 0, 1) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}z^2} .
+\end{equation*}
+\end{definition}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Standardising a normal random variable}
+
+%For a nonstandard normal random variable, when $X \sim \mathcal{N}(\mu, \sigma^2)$, probabilities involving $X$ are computed by standardising. The \textbf{standardised variable} is $(X-\mu)/\sigma$. 
+
+Probabilities involving a nonstandard normal random variable are computed by standardising.
+
+%Subtracting $\mu$ shifts the mean from $\mu$ to 0, and then dividing by $\sigma$ scales the variable so that the standard deviation is 1 rather than $\sigma$.
+
+\onslide<2->{
+\begin{proposition}
+If $X$ has a normal distribution with mean $\mu$ and standard deviation $\sigma$, then the \textbf{standardised variable} $Z=(X-\mu)/\sigma$ has a standard normal distribution. Thus
+\begin{align*}
+P(a \leq X \leq b) &= P\Big(\frac{a-\mu}{\sigma} \leq Z \leq \frac{b-\mu}{\sigma}\Big)\\
+&= \Phi\Big(\frac{b-\mu}{\sigma}\Big) - \Phi\Big(\frac{a-\mu}{\sigma}\Big),
+\end{align*}
+where $\Phi$ is the cumulative distribution function of a standard normal random variable.
+\end{proposition}
+}
+
+\end{frame}
+
 
 % \begin{frame}
 % \frametitle{The Dirac delta}
