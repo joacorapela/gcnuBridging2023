@@ -728,7 +728,7 @@ How would you simulate a Bernoulli process? There are a couple of simple ways, o
 \end{frame}
 
 \begin{frame}[fragile]{The Poisson Process}
-The Poisson process is the stochastic process that results from chopping the Bernoulli process into finer and finer intervals. Consider a Bernoulli process with success probability \(\lambda\) and each Bernoulli random variable representing the probability of a success occurring in a 1 second interval.\onslide<2>{ Now replace each random variable with \(N\) Bernoulli random variables with success probability \(\frac{\lambda}{N}\), each representing the probability of a success occurring in sequential \(\frac{1}{N}\) second intervals. Letting \(N\rightarrow\infty\) gives us the Poisson process. We have moved from discrete-time to continuous time!}
+The Poisson process is the stochastic process that results from chopping the Bernoulli process into finer and finer intervals. Consider a Bernoulli process with success probability \(\lambda\) and each Bernoulli random variable representing the probability of a success occurring in a 1 second interval.\onslide<2>{ Now replace each random variable with \(N\) Bernoulli random variables with success probability \(\frac{\lambda}{N}\), each representing the probability of a success occurring in sequential \(\frac{1}{N}\) second intervals. Letting \(N\rightarrow\infty\) gives us the Poisson process. We have moved from discrete-time to continuous-time!}
 \end{frame}
 
 \begin{frame}[fragile]{The Poisson Process}
@@ -740,7 +740,7 @@ Consider a counting process with \(T = \left[0, \infty\right)\). If:
 \end{itemize}\onslide<4->{
 then \(\left\{N\left(t\right) \;\middle|\; t \in T\right\}\) is a Poisson process with rate \(\lambda\). Other equivalent definitions exist, but are outside the scope of this lecture.}\onslide<5>{
 
-At any time \(t\), what is the waiting time until the next increment in \(N\left(t\right)\)? Find out in the next lecture.}
+At any time \(t\), what is the distribution on the waiting time until the next increment in \(N\left(t\right)\)? Find out in the next lecture.}
 \end{frame}
 
 
