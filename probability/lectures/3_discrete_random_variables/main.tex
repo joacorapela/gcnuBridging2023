@@ -38,15 +38,15 @@
 \begin{frame}[fragile]{What is a Random Variable?}
 Random variables are functions which map the possible outcomes of an experiment to numerical values. In general, for random variable \(X\) and sample space \(\Omega\), we have that \(X: \Omega \rightarrow \mathbb{R}\).
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1}
-Consider a bag containing 3 red balls (R) and 5 green balls (G). In our experiment, we are going to draw 2 balls from the bag, with replacement. The sample space is \(\Omega = \left\{\text{RR}, \text{RG}, \text{GR}, \text{GG}\right\}\).
+Consider a bag containing 3 red balls (R) and 5 green balls (G). In our experiment, we are going to draw 2 balls from the bag, with replacement. The sample space is \(\Omega = \left\{\textrm{RR}, \textrm{RG}, \textrm{GR}, \textrm{GG}\right\}\).
 
 We are interested in determining the probabilities of drawing various numbers of red balls. To do this, we could start by defining a random variable \(X: \Omega \rightarrow \left\{0, 1, 2\right\}\) such that
 \begin{equation*}
     X\left(\omega\right) =
     \begin{cases}
-        0 & \text{if } \omega = \text{GG}\\
-        1 & \text{if } \omega \in \left\{\text{RG, GR}\right\}\\
-        2 & \text{if } \omega = \text{RR}
+        0 & \textrm{if } \omega = \textrm{GG}\\
+        1 & \textrm{if } \omega \in \left\{\textrm{RG, GR}\right\}\\
+        2 & \textrm{if } \omega = \textrm{RR}
     \end{cases}\,.
 \end{equation*}
 \end{exampleblock}}
@@ -55,7 +55,7 @@ We are interested in determining the probabilities of drawing various numbers of
 \begin{frame}[fragile]{What is a Random Variable?}
 Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\).
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
-What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\text{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
+What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\textrm{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
 \begin{equation*}\begin{aligned}
     \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
     &= \frac{15}{32}\,.
@@ -73,7 +73,7 @@ In a previous lecture, we covered the following relationship for events \(E\) an
 \metroset{block=fill}\begin{alertblock}{Chain Rule for Two Random Variables}
 \begin{equation*}
 \begin{aligned}
-    \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\text{Joint Prob.}} &= \overbrace{\mathbb{P}\left(X \in A \mid Y \in B\right)}^{\text{Conditional Prob.}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\text{Marginal Prob.}}\\
+    \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\substack{\textrm{Joint}\\\textrm{Probability}}} &= \overbrace{\mathbb{P}\left(X \in A \mid Y \in B\right)}^{\substack{\textrm{Conditional}\\\textrm{Probability}}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\substack{\textrm{Marginal}\\\textrm{Probability}}}\\
     &= \mathbb{P}\left(Y \in B \mid X \in A\right)\mathbb{P}\left(X \in A\right)
 \end{aligned}
 \end{equation*}
@@ -136,7 +136,7 @@ Discrete distributions can be defined by their probability mass function (PMF). 
 \begin{frame}[fragile]{Probability Mass Functions}
 Probabilities can't be negative and must sum to 1 over the set of all possible values \(\mathcal{X}\), so we have the following constraints:
 \begin{equation*}
-    f_X\left(x\right) \geq 0 \text{ for all } x
+    f_X\left(x\right) \geq 0 \textrm{ for all } x
 \end{equation*}
 and
 \begin{equation*}
@@ -151,10 +151,10 @@ Let's continue with our red ball example. What is the PMF of \(X\)? First, we re
 \begin{equation*}
     f_X\left(x\right) =
     \begin{cases}
-        \frac{25}{64} & \text{if } x = 0\\
-        \frac{15}{32} & \text{if } x = 1\\
-        \frac{9}{64} & \text{if } x = 2\\
-        0 & \text{otherwise}
+        \frac{25}{64} & \textrm{if } x = 0\\
+        \frac{15}{32} & \textrm{if } x = 1\\
+        \frac{9}{64} & \textrm{if } x = 2\\
+        0 & \textrm{otherwise}
     \end{cases}\,,
 \end{equation*}
 and that this function satisfies the conditions for a PMF on the previous slide.
@@ -170,7 +170,7 @@ which, in the discrete case, means that \(X\) has the PMF \(f_x\). Variations of
 
 \onslide<2>{Sometimes you will see
 \begin{equation*}
-    X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\,,
+    X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\,,
 \end{equation*}
 which implies that all \(N\) random variables are independent and identically distributed (i.i.d.) with PMF \(f_x\).}
 \end{frame}
@@ -206,20 +206,20 @@ Back to the red ball example. What is the CDF of \(X\)? Previously, we found tha
 \begin{equation*}
     f_X\left(x\right) =
     \begin{cases}
-        \frac{25}{64} & \text{if } x = 0\\
-        \frac{15}{32} & \text{if } x = 1\\
-        \frac{9}{64} & \text{if } x = 2\\
-        0 & \text{otherwise}
+        \frac{25}{64} & \textrm{if } x = 0\\
+        \frac{15}{32} & \textrm{if } x = 1\\
+        \frac{9}{64} & \textrm{if } x = 2\\
+        0 & \textrm{otherwise}
     \end{cases}\,.
 \end{equation*}
 Hence, the CDF is
 \begin{equation*}
     F_X\left(x\right) =
     \begin{cases}
-        0 & \text{if } x < 0\\
-        \frac{25}{64} & \text{if } 0 \leq x < 1\\
-        \frac{55}{64} & \text{if } 1 \leq x < 2\\
-        1 & \text{if } x \geq 2
+        0 & \textrm{if } x < 0\\
+        \frac{25}{64} & \textrm{if } 0 \leq x < 1\\
+        \frac{55}{64} & \textrm{if } 1 \leq x < 2\\
+        1 & \textrm{if } x \geq 2
     \end{cases}\,.
 \end{equation*}
 \end{exampleblock}
@@ -249,7 +249,7 @@ Hence, the CDF is
 \begin{frame}[fragile]{Sampling}
 Similarly to how we refer to realisations of random variables, we can also talk about samples of distributions. Sampling from a discrete distribution with PMF \(f_x\) simply implies that we randomly generate a number \(x\) with probability \(f_x\left(x\right)\).
 
-\onslide<2->{To be entirely correct, drawing \(N\) samples from \(f_x\) involves running \(N\) random experiments with \(N\) associated random variables \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\) and generating \(N\) realisations \(x_1, \dots, x_N\).}
+\onslide<2->{To be entirely correct, drawing \(N\) samples from \(f_x\) involves running \(N\) random experiments with \(N\) associated random variables \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\) and generating \(N\) realisations \(x_1, \dots, x_N\).}
 
 \onslide<3>{As \(N \rightarrow \infty\), we will observe that
 \begin{equation*}
@@ -264,12 +264,12 @@ Intermission
 \section{Expectation and Variance}
 
 \begin{frame}[fragile]{Expectations}
-Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_N\right)\right\}\). As \(N\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
+Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_N\right)\right\}\). As \(N\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
 
 \onslide<2->{We can estimate the expectation for finite \(N\) as follows:
 \metroset{block=fill}\begin{alertblock}{Empirical Estimates of Expectations}
 \begin{equation*}
-    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{N}\sum_{n = 1}^N g\left(x_n\right)\qquad\text{for large }N
+    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{N}\sum_{n = 1}^N g\left(x_n\right)\qquad\textrm{for large }N
 \end{equation*}
 \end{alertblock}}
 \end{frame}
@@ -315,8 +315,8 @@ Suppose we roll a six-sided die. Let \(X \in \left\{1, 2, 3, 4, 5, 6\right\}\) r
 \begin{equation*}
 f_X\left(x\right) =
 \begin{cases}
-    \frac{1}{6} & \text{if } x \in \mathcal{X}\\
-    0 & \text{otherwise}
+    \frac{1}{6} & \textrm{if } x \in \mathcal{X}\\
+    0 & \textrm{otherwise}
 \end{cases}\,.
 \end{equation*}}
 
@@ -344,7 +344,7 @@ Why care about expectations?
 % \metroset{block=fill}\begin{exampleblock}{Example 3}
 %     Suppose we roll \(N\) dice. Let \(X_1, \dots, X_N \in \left\{1, 2, 3, 4, 5, 6\right\}\) represent the \(N\) rolls. What is the expected value of the average of \(\{X_1, \dots, X_N\}\)?
     
-%     The support and PMF for each random variable are the same as in the last example. That is, \(X_1, \dots, X_N \overset{\text{i.i.d.}}{\sim} f_x\).
+%     The support and PMF for each random variable are the same as in the last example. That is, \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\).
 
 % Then the expected value of the average is given by
 % \begin{equation*}\begin{aligned}
@@ -359,7 +359,7 @@ Why care about expectations?
 How about if we want to know how "spread out" a distribution is? A way of measuring this is with the variance. It measures the expected deviation from the mean.
 \metroset{block=fill}\begin{alertblock}{Variance of a Random Variable}
 \begin{equation*}\begin{aligned}
-    \text{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
+    \textrm{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
     &= \mathbb{E}\left[X^2 - 2X\mathbb{E}\left[X\right] + \mathbb{E}\left[X\right]^2\right]\\
     &= \mathbb{E}\left[X^2\right] - 2\mathbb{E}\left[X\right]\mathbb{E}\left[X\right] + \mathbb{E}\left[X\right]^2\\
     &= \mathbb{E}\left[X^2\right] - \mathbb{E}\left[X\right]^2
@@ -369,9 +369,9 @@ How about if we want to know how "spread out" a distribution is? A way of measur
 
 \begin{frame}[fragile]{Properties of Variance}
 \begin{itemize}[<+->]
-    \item \(\text{Var}\left(aX + b\right) = a^2\text{Var}\left(X\right)\) for constants \(a, b\).
-    \item \(\text{Var}\left(a\right) = 0\) for constant \(a\).
-    \item \(\text{Var}\left(X\right) \geq 0\).
+    \item \(\textrm{Var}\left(aX + b\right) = a^2\textrm{Var}\left(X\right)\) for constants \(a, b\).
+    \item \(\textrm{Var}\left(a\right) = 0\) for constant \(a\).
+    \item \(\textrm{Var}\left(X\right) \geq 0\).
 \end{itemize}
 \onslide<4>{\href{https://en.wikipedia.org/wiki/Variance\#Properties}{\color{mLightBrown}{Additional properties}} exist for multivariate distributions.}
 \end{frame}
@@ -383,7 +383,7 @@ How about if we want to know how "spread out" a distribution is? A way of measur
 \onslide<2->{We will compute the variance of \(X\) in two separate ways. Method 1:
 \begin{equation*}
 \begin{aligned}
-    \text{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
+    \textrm{Var}\left(X\right) &= \mathbb{E}\left[\left(X - \mathbb{E}\left[X\right]\right)^2\right]\\
      &= \mathbb{E}\left[\left(X - 3.5\right)^2\right]\\
      &= \sum_{x \in \mathcal{X}} f_X\left(x\right)\left(x - 3.5\right)^2\\
      &= \frac{1}{6}\left(1 - 3.5\right)^2 + \frac{1}{6}\left(2 - 3.5\right)^2 + \frac{1}{6}\left(3 - 3.5\right)^2 + \frac{1}{6}\left(4 - 3.5\right)^2\\
@@ -398,7 +398,7 @@ How about if we want to know how "spread out" a distribution is? A way of measur
 \metroset{block=fill}\begin{exampleblock}{Example 2 Cont.}
 Method 2:
 \begin{equation*}\begin{aligned}
-    \text{Var}\left(X\right) &= \mathbb{E}\left[X^2\right] - \mathbb{E}\left[X\right]^2\\
+    \textrm{Var}\left(X\right) &= \mathbb{E}\left[X^2\right] - \mathbb{E}\left[X\right]^2\\
      &= \sum_{x \in \mathcal{X}} f_X\left(x\right)x^2 - 3.5^2\\
      &= \frac{1}{6}\cdot 1^2 + \frac{1}{6}\cdot 2^2 + \frac{1}{6}\cdot 3^2 + \frac{1}{6}\cdot 4^2 + \frac{1}{6}\cdot 5^2 + \frac{1}{6}\cdot 6^2 - 3.5^2\\
      &= 2.91\dot{6}
@@ -410,7 +410,7 @@ Method 2:
 It is typical to see the notations \(\mu\), \(\sigma^2\), and \(\sigma\) used for the mean, variance, and standard deviation of a distribution respectively. Clearly, the standard deviation is just the square root of the variance. In other words, we have:
 \begin{equation*}\begin{aligned}
     \mu &= \mathbb{E}\left[X\right]\\
-    \sigma^2 &= \text{Var}\left(X\right)\,.
+    \sigma^2 &= \textrm{Var}\left(X\right)\,.
 \end{aligned}\end{equation*}
 \end{frame}
 
@@ -418,7 +418,229 @@ It is typical to see the notations \(\mu\), \(\sigma^2\), and \(\sigma\) used fo
 Intermission
 \end{frame}
 
-\section{Common Discrete Distributions}
+\section{Important Discrete Distributions}
+
+\begin{frame}[fragile]{Why Study Specific Distributions?}
+\begin{itemize}[<+->]
+    \item Many real-world scenarios can be modelled with a few simple distributions. E.g. modelling the chance of success, the number of successes in a finite number of trials, the number of failures until a success, the waiting time until an event happens, and the uncertainty in an estimate after multiple measurements.
+    \item A large number of these simple distributions have very nice mathematical properties, including important relationships between them.
+\end{itemize}
+
+\onslide<3>{After the lecture on continuous distributions, I'd recommend doing some \href{http://www.math.wm.edu/~leemis/chart/UDR/UDR.html}{\color{mLightBrown}{exploring}} of these distributions and their relationships.}
+\end{frame}
+
+\begin{frame}[fragile]{Discrete Uniform Distribution}
+If a random variable takes any integer between \(a\) and \(b\) inclusive with equal probability, then it follows a discrete uniform distribution.
+
+\metroset{block=fill}\begin{alertblock}{Discrete Uniform Distribution}
+Discrete uniform random variable \(X \sim \mathcal{U}\left\{a, b\right\}\) has the following properties:
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Parameters & \(a, b \in \mathbb{Z} \mid b \geq a\)\\
+      Support & \(\mathcal{X} = \{a,\dots, b\}\)\\
+      PMF & \(f_X\left(x\right) = \frac{1}{b - a + 1}\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = \frac{a + b}{2}\)\\
+      Variance & \(\textrm{Var}\left(X\right) = \frac{\left(b - a + 1\right)^2 - 1}{12}\)\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Discrete Uniform Distribution}
+\metroset{block=fill}\begin{exampleblock}{Example 2 Cont.}
+Back to the die roll example. Is \(X\) uniformly distributed?
+
+\onslide<2->{Yes, it is uniformly distributed with \(a = 1\) and \(b = 6\).}\onslide<3>{ We can easily confirm our previous calculations with the formulas on the last slide:
+\begin{equation*}
+\begin{aligned}
+    \mathbb{E}\left[X\right] &= \frac{1 + 6}{2}\\
+    &= 3.5
+\end{aligned}
+\end{equation*}
+and
+\begin{equation*}
+\begin{aligned}
+    \textrm{Var}\left(X\right) &= \frac{(6 - 1 + 1)^2 - 1}{12}\\
+    &= 2.91\dot{6}\,.
+\end{aligned}
+\end{equation*}}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Bernoulli Distribution}
+If a random variable takes the value \(1\) with probability \(p\), and \(0\) otherwise, then it follows a Bernoulli distribution. It models the probability of "success".
+
+\metroset{block=fill}\begin{alertblock}{Bernoulli Distribution}
+Bernoulli random variable \(X \sim \textrm{Bern}\left(p\right)\) has the following properties:
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Parameters & \(p \in \left[0,1\right]\)\\
+      Support & \(\mathcal{X} = \{0,1\}\)\\
+      PMF & \(f_X\left(x\right) = p^x\left(1 - p\right)^{1 - x}\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = p\)\\
+      Variance & \(\textrm{Var}\left(X\right) = p\left(1 - p\right)\)\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Binomial Distribution}
+If \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = X_1 + \dots + X_N\), then \(X\) is a binomial random variable. It models the number of successes in \(N\) Bernoulli trials.
+
+\metroset{block=fill}\begin{alertblock}{Binomial Distribution}
+Binomial random variable \(X \sim \textrm{Bin}\left(N, p\right)\) has the following properties:
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Parameters & \(n \in \left\{0, 1, 2 \dots\right\}\) and \(p \in \left[0,1\right]\)\\
+      Support & \(\mathcal{X} = \{0,\dots, N\}\)\\
+      PMF & \(f_X\left(x\right) = \binom{N}{x}p^x\left(1 - p\right)^{N - x}\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = Np\)\\
+      Variance & \(\textrm{Var}\left(X\right) = Np\left(1 - p\right)\)\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{alertblock}
+
+Clearly, if \(X \sim \textrm{Bin}\left(1, p\right)\) then \(X\) is also Bernoulli distributed.
+\end{frame}
+
+\begin{frame}[fragile]{Binomial Distribution}
+Why is the binomial PMF given by \(\binom{N}{x}p^x\left(1 - p\right)^{N - x}\)?\onslide<2->{
+
+In \(N\) trials we have \(x\) successes and \(N - x\) failures. The \(p^x\left(1 - p\right)^{N - x}\) term gives the probability of observing the successes at specific times. E.g. the probability of running 3 trials and having only trials 1 and 3 produce successes.}\onslide<3->{
+
+More precisely,
+\begin{equation*}
+\begin{aligned}
+    \mathbb{P}\left(X_1 = x_1, \dots, X_N = x_N\right) &= \prod_{n = 1}^N\mathbb{P}\left(X_n = x_n\right)\\
+    &= \prod_{n = 1}^N p^{x_n}\left(1 - p\right)^{1 - x_n}\\
+    &= p^{x_1 + \dots + x_N}\left(1 - p\right)^{N - \left(x_1 + \dots + x_N\right)}\,.
+\end{aligned}
+\end{equation*}}
+\end{frame}
+
+\begin{frame}[fragile]{Binomial Distribution}
+However, we have to consider all possible ways in which \(x\) successes can occur. If we run 3 trials and get 2 successes, we have three different possibilities:
+\begin{itemize}[<+->]
+    \item Trials 1 and 2 were successes.
+    \item Trials 1 and 3 were successes.
+    \item Trials 2 and 3 were successes.
+\end{itemize}
+\onslide<4>{In general, we have \(\binom{N}{x}\) ways in which \(N\) trials can produce \(x\) successes. Adding the probabilities from these cases together gives the binomial PMF.}
+\end{frame}
+
+\begin{frame}[fragile]{Binomial Distribution}
+\metroset{block=fill}\begin{exampleblock}{Example 3}
+An avid card collector wishes to purchase 10 packs of trading cards in hopes of finding a rare card. A rare card is known to exist in 1\% of card packs. No more than 1 rare card is ever in a pack. What is the probability the collector receives at least 1 rare card?\onslide<2->{
+
+We can model the distribution of received rare cards with a binomial random variable. Let \(X \sim \textrm{Bin}\left(10, 0.01\right)\) with PMF \(f_X\). Then the probability of receiving at least 1 rare card is given by:
+\begin{equation*}
+\begin{aligned}
+    \mathbb{P}\left(X \geq 1\right) &= 1 - \mathbb{P}\left(X = 0\right)\\
+    &= 1 - f_X\left(0\right)\\
+    &= 1 - \binom{10}{0}0.01^0\left(1 - 0.01\right)^{10 - 0}\\
+    &\approx 0.0956\,.
+\end{aligned}
+\end{equation*}}
+\end{exampleblock}
+\end{frame}
+
+% \begin{frame}[fragile]{Binomial Distribution}
+% \textit{Proof:}
+
+% Given \(x \in \left\{0, \dots, N\right\}\), let \(A = \left\{\left(x_1, \dots, x_N\right) \in \left\{0, 1\right\}^N \;\middle|\; \sum_{n = 1}^N x_n = x\right\}\). Then
+% \begin{equation*}
+% \begin{aligned}
+%     \mathbb{P}\left(X = x\right) &= \sum_{\left(x_1, \dots, x_N\right) \in A}\;\mathbb{P}\left(X_1 = x_1, \dots, X_N = x_N\right)\biggr|_{\sum_{n = 1}^N x_n = x}\\
+%     &= \sum_{\left(x_1, \dots, x_N\right) \in A}\;\prod_{n = 1}^N\mathbb{P}\left(X_n = x_n\right)\biggr|_{\sum_{n = 1}^N x_n = x}\\
+%     &= \sum_{\left(x_1, \dots, x_N\right) \in A}\;\prod_{n = 1}^N p^{x_n}\left(1 - p\right)^{1 - x_n}\biggr|_{\sum_{n = 1}^N x_n = x}\\
+%     &= \sum_{\left(x_1, \dots, x_N\right) \in A}\;p^{\sum_{n = 1}^N x_n}\left(1 - p\right)^{N - \sum_{n = 1}^N x_n}\biggr|_{\sum_{n = 1}^N x_n = x}\\
+%     &= \binom{N}{x}p^{x}\left(1 - p\right)^{n - x}\\
+% \end{aligned}
+% \end{equation*}
+% \end{frame}
+
+\begin{frame}[fragile]{Geometric Distribution}
+If \(X_1, X_2, \dots \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = \min\left\{n \in \mathbb{N} \;\middle|\; X_n = 1\right\}\), then \(X\) is a geometric random variable. It models the number of sequential Bernoulli trials performed until getting a success.
+
+\metroset{block=fill}\begin{alertblock}{Geometric Distribution}
+Geometric random variable \(X \sim \textrm{Geo}\left(p\right)\) has the following properties:
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Parameters & \(p \in \left[0,1\right]\)\\
+      Support & \(\mathcal{X} = \mathbb{N}\)\\
+      PMF & \(f_X\left(x\right) = \left(1 - p\right)^{x - 1}p\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = \frac{1}{p}\)\\
+      Variance & \(\textrm{Var}\left(X\right) = \frac{1 - p}{p^2}\)\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Geometric Distribution}
+\metroset{block=fill}\begin{exampleblock}{Example 3 Cont.}
+The card collector was disappointed to find no rare cards in the 10 opened packs. They decide to continue purchasing packs until they find a rare card. What is the expected number of packs they will open from this point onward?\onslide<2->{
+
+The geometric distribution is perfect for modelling this problem. Let \(Y \sim \textrm{Geo}\left(0.01\right)\). Then the expected number of packs opened is simply
+\begin{equation*}
+\begin{aligned}
+    \mathbb{E}\left[Y\right] &= \frac{1}{0.01}\\
+    &= 100\,,
+\end{aligned}
+\end{equation*}
+which makes sense intuitively.}\onslide<3>{
+
+The collector opens 100 packs, but still doesn't find a rare card. What is the expected number of packs they will open from this point onward? Still 100; the geometric distribution is memoryless.}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Poisson Distribution}
+If \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(\frac{\lambda}{N}\right)\), \(X = X_1 + \dots + X_N\), and \(N \rightarrow \infty\), then \(X\) is a Poisson random variable. It models the number of independently occurring events in a fixed interval of time or space, where \(\lambda\) is the mean rate of occurrence.
+
+\metroset{block=fill}\begin{alertblock}{Poisson Distribution}
+Poisson random variable \(X \sim \mathrm{Pois}\left(\lambda\right)\) has the following properties:
+  \begin{table}
+    \begin{tabular}{ll}
+      \toprule
+      Parameters & \(\lambda \in \left(0, \infty\right)\)\\
+      Support & \(\mathcal{X} = \mathbb{N}\)\\
+      PMF & \(f_X\left(x\right) = \frac{\lambda^x e^{-\lambda}}{x!}\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = \lambda\)\\
+      Variance & \(\textrm{Var}\left(X\right) = \lambda\)\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{alertblock}
+
+Clearly, we can also say if \(X \sim \textrm{Bin}\left(N, \frac{\lambda}{N}\right)\) and \(N \rightarrow \infty\) then \(X\) is Poisson distributed. The proof of this is a problem set question.
+\end{frame}
+
+\begin{frame}[fragile]{Poisson Distribution}
+\metroset{block=fill}\begin{exampleblock}{Example 4}
+Consider a single neuron in isolation, which we inject with some current. We find the timings of the spikes to be highly random and almost independent of one another. The timings aren't entirely independent (partly due to a refractory period after a spike), but we consider this a negligible factor. The mean firing rate is 2 Hz. What is the probability of observing at least 1 spike in a 3 second window?
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{Poisson Distribution}
+\metroset{block=fill}\begin{exampleblock}{Example 4}
+Given our assumptions, we can model the number of spikes in this window with a Poisson distribution. Let \(X \sim \textrm{Pois}\left(6\right)\) with PMF \(f_X\), as the average number of spikes occurring in this window is \(3\times2\). Then the probability of observing at least 1 spike is:
+\begin{equation*}
+\begin{aligned}
+    \mathbb{P}\left(X \geq 1\right) &= 1 - \mathbb{P}\left(X = 0\right)\\
+    &= 1 - f_X\left(0\right)\\
+    &= 1 - \frac{6^0e^{-6}}{0!}\\
+    &\approx 0.998\,.
+\end{aligned}
+\end{equation*}
+\end{exampleblock}
+\end{frame}
 
 \begin{frame}[standout]
 Intermission
