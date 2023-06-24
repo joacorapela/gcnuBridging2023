@@ -2,6 +2,12 @@
 \usetheme{PaloAlto} % \usetheme{Madrid}
 \usecolortheme{default}
 \usepackage{statex2} % for uniform dist. symbol
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\makeatletter
+\renewcommand{\fnum@algorithm}{\fname@algorithm} % don't number algorithms
+\makeatother
 
 % remove title and author from left panel
  \makeatletter
@@ -137,7 +143,7 @@
 \begin{frame}
 \frametitle{Discrete vs. continuous random variables}
 
-Unlike discrete random variables, which can take on a countable number of possible values (e.g. faces of a die or cards of a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in an interval).
+Unlike discrete random variables, which can take on a finite or countable number of possible values (e.g. faces of a die or cards of a deck), continuous random variables can take on an uncountable number of possible values (e.g. all the real numbers in an interval).
 
 \
 
@@ -151,6 +157,13 @@ Unlike discrete random variables, which can take on a countable number of possib
 \end{itemize}
 \end{examples}
 }
+
+\
+
+\onslide<3->{
+Many concepts introduced for discrete random variables (e.g. probability mass functions, cumulative distributions functions) have analogs in the continuous setting (sums replaced by integrals).
+}
+
 
 \end{frame}
 
@@ -333,12 +346,17 @@ The cumulative distribution function (CDF) $F(x)$ is the area under the probabil
 %The CDF is a non-decreasing (monotonic) function $F: \mathbb{R} \mapsto [0, 1]$ satisfying $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
 The CDF $F(x)$ has the following properties:
 \begin{enumerate}[label=\alph*.]
-\item $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$
-\item $F(x)$ is a non-decreasing (monotonic) function of $x$.
+\item $F(x)$ is a non-decreasing (monotonic) function of $x$
+\item $\lim\limits_{x \to -\infty} F(x) = 0$ and $\lim\limits_{x \to \infty} F(x) = 1$.
 %\item $F(x)$ is right-continuous: $ \lim\limits_{\epsilon \to 0, \epsilon > 0}  F(x + \epsilon) = F(x)$ for any $x \in \mathbb{R}$.
 \end{enumerate}
 }
+
+\
+
+\onslide<3->{
 Collectively, a. and b. imply that $F: \mathbb{R} \mapsto [0, 1]$.
+}
 
 \end{frame}
 
@@ -443,6 +461,8 @@ At every $x$ at which the derivative $\frac{\delta F(x)}{\delta x}$ exists, $\fr
 \begin{frame}
 \frametitle{Example: the uniform distribution}
 
+\vspace{-.05cm}
+
 \begin{definition}
 A random variable $X$ is said to have a \textbf{uniform distribution} on the interval ${[a, b]}$ if the PDF of $X$ is
 
@@ -455,20 +475,20 @@ A random variable $X$ is said to have a \textbf{uniform distribution} on the int
       0 & \text{otherwise.}
     \end{cases}
 \end{align*}
-When $X$ has a uniform distribution on the interval [$a, b$], we write this as $X \sim \U{a,b}$. The CDF of $X$ is given by
+The CDF of $X$ is given by
 \begin{align*}
 F(x; a, b) &= 
     \begin{cases}
       0 & \text{if}\ x < a \\
       \frac{x-a}{b-a} & \text{if}\ a \leq x \leq b \\
-      1 &\text{if}\ x > b \\
+      1 &\text{if}\ x > b. \\
     \end{cases}
 \end{align*}
+When $X$ has a uniform distribution on [$a, b$], we write this as $X \sim \U{a,b}$. 
 \end{definition}
 
 %\center \includegraphics[height=3.6cm]{images/uniform_pdf.png}
 
-\
 \onslide<2->{
 \begin{example}
 When $X$ has a uniform distribution on the interval [a, b], for $a \leq x \leq b$:
@@ -621,9 +641,9 @@ When $X$ has a uniform distribution on the interval [a,b], its expected value is
 \vspace{-.3cm}
 
 \begin{align*}
-    \mathbb{E}[X] &= \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
+    \mathbb{E}[X] &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\% \int_{-\infty}^\infty x f(x) \mathrm{d}x \\
     \onslide<2->{
-    &= \int_{a}^b x \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{b^2 - a^2}{2(b-a)}\\
     }
     \onslide<3->{
     &= \frac{a + b}{2},
@@ -636,10 +656,10 @@ and its variance is:
 \vspace{-.3cm}
 
 \begin{align*}
-    \mathrm{Var}[X] &= \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
+    \mathrm{Var}[X] &= \int_a^b x^2 \frac{1}{b-a} \mathrm{d}x - \bigg( \frac{a + b}{2}\bigg)^2\\ % \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f(x) \mathrm{d}x\\
     }
     \onslide<5->{
-    &= \int_a^b \bigg(x - \frac{a + b}{2}\bigg)^2 \frac{1}{b-a} \mathrm{d}x \\
+    &= \frac{b^3 - a^3}{3(b-a)} - \bigg( \frac{a + b}{2}\bigg)^2\\
     }
     \onslide<6->{
     &= \frac{(b-a)^2}{12}.
@@ -650,58 +670,115 @@ and its variance is:
 
 \end{frame}
 
+%\section{Sampling}
+%\begin{frame}
+%\frametitle{The inverse transform method}
+%
+%\begin{theorem}
+%Let $U \sim \U{0,1}$ be a continuous random variable having a standard uniform distribution on the interval [0,1]. Then, the random variable
+%\begin{equation*}
+%X = F^{-1}(U)
+%\end{equation*}
+%is distributed as the cumulative distribution function $F$, that is $P(X \leq x) = F(x)$.
+%\end{theorem}
+%
+%\onslide<2->{
+%\begin{proof}
+%\begin{equation*}
+%\begin{aligned}
+%P(X \leq x) &= P(F^{-1}(U) \leq x)\\
+%}
+%\onslide<3->{
+%&= P(F(F^{-1}(U)) \leq F(x)) \\
+%}
+%\onslide<4->{
+%&= P(U \leq F(x)) \\
+%}
+%\onslide<5->{
+%&= F(x).\qedhere
+%\end{aligned} 
+%\end{equation*}
+%\text{because} 1) $F$ is non-decreasing (monotonic)
+%%$\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
+%\text{and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
+%\end{proof}
+%
+%
+%\end{frame}
+
 \section{Sampling}
 \begin{frame}
-\frametitle{The inverse transform method}
+\frametitle{The probability integral transform}
 
 \begin{theorem}
-Let $U \sim \U{0,1}$ be a continuous random variable having a standard uniform distribution on the interval [0,1]. Then, the random variable
-\begin{equation*}
-X = F^{-1}(U)
-\end{equation*}
-is distributed as the cumulative distribution function $F$, that is $P(X \leq x) = F(x)$.
+Suppose $X$ is a continuous random variable having PDF $f_X(x)$ and CDF $F_X(x)$, and suppose further that $f_X(x) > 0$ on an interval ($a, b$) and $f_X(x) = 0$ otherwise. Then, if $U \sim \U{0,1}$, the random variable $Y = F_X^{-1}(U)$ has the same distribution as $X$, that is its CDF $F_Y$ satisfies $ F_Y(y) = F_X(y)$ for all y.
 \end{theorem}
 
 \onslide<2->{
 \begin{proof}
 \begin{equation*}
 \begin{aligned}
-P(X \leq x) &= P(F^{-1}(U) \leq x)\\
+F_Y(y) &= P(Y \leq y)\\
 }
 \onslide<3->{
-&= P(F(F^{-1}(U)) \leq F(x)) \\
+&= P(F_X^{-1}(U) \leq y)\\
 }
 \onslide<4->{
-&= P(U \leq F(x)) \\
+&= P(F_X(F_X^{-1}(U)) \leq F_X(y)) \\
 }
 \onslide<5->{
-&= F(x).\qedhere
+&= P(U \leq F_X(y)) \\
+}
+\onslide<6->{
+&= F_X(y)\qedhere
 \end{aligned} 
 \end{equation*}
-\text{because} 1) $F$ is non-decreasing (monotonic)
-%$\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
-\text{and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
+}
+\onslide<7->{
+because
+\begin{enumerate}[label=\textbullet]
+    \item $F_X$ is strictly increasing on ($a, b$) and
+    \item $P(U \leq F_X(y)) = F_X(y)$ when $U \sim \U{0,1}$.}
+\end{enumerate}
+%\text{because} 1) $F_X$ is strictly increasing on ($a, b$)
+%%$\{F^{-1}(U) \leq x\} = \{U \leq F(x)\}$ \text{(equality of events) and} $2) \ P(U \leq F(x)) = F(x)$ \text{when} $U \sim \U{0,1}$.}
+%\text{and} $2) \ P(U \leq F_X(y)) = F_X(y)$ \text{when} $U \sim \U{0,1}$.}
 \end{proof}
 
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Sampling using the CDF}
+\frametitle{The inverse transform method}
 
-The inverse transform method can be used to sample a continuous random variable
-%with arbitrary probability distribution 
-given the inverse of its cumulative distribution function.
+The probability integral transform forms the basis of the inverse transform method, a procedure for sampling a continuous random variable given the inverse of its cumulative distribution function.
 
-\ 
+%inverse transform method can be used to sample a continuous random variable given the inverse of its cumulative distribution function.
+
+\vspace{0.1cm}
 
 %To draw a sample $x$ of a continuous random variable $X$ with CDF $F$:
+%\onslide<2->{
+%To draw a sample $x \sim f(x)$:
+%\begin{enumerate}[label=\arabic*.]
+%    \item Sample $u \sim \U{0,1}$ (recall that $F: \mathbb{R} \mapsto [0, 1]$)
+%    \item Let $x = F^{-1}(u)$
+%\end{enumerate}
+%}
+
 \onslide<2->{
-To draw a sample $x \sim f(x)$:
-\begin{enumerate}[label=\arabic*.]
-    \item Sample $u \sim \U{0,1}$ (recall that $F: \mathbb{R} \mapsto [0, 1]$)
-    \item Let $x = F^{-1}(u)$
-\end{enumerate}
+\begin{algorithm}[H]
+%\caption{Sampling a continuous random variable that is distributed as the cumulative distribution function $F$}
+\caption{The inverse transform method}
+Sample $u \sim \U{0,1}$\\
+Let $x = F^{-1}(u)$
+\end{algorithm}
+}
+
+\vspace{0.1cm}
+
+\onslide<3->{
+The inverse transform method draws samples that are distributed as the cumulative distribution function $F$.
 }
 
 \end{frame}
@@ -732,13 +809,25 @@ F^{-1}(u) = -\frac{ \log(1 -u) } {\lambda}  = x.
 \end{equation*}
 }
 
+%\onslide<4->{
+%Hence, to sample $x \sim f(x)$:
+%\begin{enumerate}[label=\arabic*.]
+%    \item Sample $u \sim \U{0,1}$
+%    \item Let $x = -\frac{ \log(1 -u) } {\lambda} $
+%\end{enumerate}
+%}
+
+\vspace{-0.2cm}
+
 \onslide<4->{
-Hence, to sample $x \sim f(x)$:
-\begin{enumerate}[label=\arabic*.]
-    \item Sample $u \sim \U{0,1}$ (using a pseudo-random number generator)
-    \item Let $x = -\frac{ \log(1 -u) } {\lambda} $
-\end{enumerate}
+\begin{algorithm}[H]
+%\caption{Sampling a continuous random variable that is distributed as the cumulative distribution function $F$}
+\caption{The inverse transform method for the exponential distribution}
+Sample $u \sim \U{0,1}$\\
+Let $x = -\frac{ \log(1 -u) } {\lambda} $
+\end{algorithm}
 }
+
 \end{example}
 
 \end{frame}
@@ -757,7 +846,7 @@ Hence, to sample $x \sim f(x)$:
 % \end{frame}
 
 \begin{frame}
-\frametitle{The normal distribution}
+\frametitle{The normal distribution (`bell-shaped curve')}
 % An approximation to various discrete distributions.
 
 \begin{definition}
@@ -849,6 +938,15 @@ f(z; 0, 1) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}z^2} .
 \end{frame}
 
 \begin{frame}
+\frametitle{Tabulated CDF of the standard normal distribution}
+
+\begin{center}
+\includegraphics[height=7cm]{images/table.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Standardising a normal random variable}
 
 %For a nonstandard normal random variable, when $X \sim \mathcal{N}(\mu, \sigma^2)$, probabilities involving $X$ are computed by standardising. The \textbf{standardised variable} is $(X-\mu)/\sigma$. 
@@ -867,6 +965,66 @@ P(a \leq X \leq b) &= P\Big(\frac{a-\mu}{\sigma} \leq Z \leq \frac{b-\mu}{\sigma
 where $\Phi$ is the cumulative distribution function of a standard normal random variable.
 \end{proposition}
 }
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Approximating the binomial and Poisson distributions}
+
+The binomial and Poisson distributions are approximately normal for large $n$ or large $\lambda$.
+
+\
+
+\begin{center}
+\includegraphics[height=3cm]{images/biniomial_poisson.png}
+\end{center}
+
+\onslide<2->{
+For the binomial with parameters $n$ and $p$, $\mu = np$ and $\sigma = \sqrt{np(1 - p)}$, and for the Poisson with parameter $\lambda$, $\mu = \lambda$ and $\sigma =\sqrt{\lambda}$.
+}
+
+\
+
+\onslide<3->{
+These approximations are a great convenience, especially in conjunction with the `$2/3-95\%$ rule'.
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The exponential distribution: memorylessness}
+
+\begin{theorem}
+A random variable $X$ satisfies $X \sim \Exp{\lambda}$ for some $\lambda > 0$ if for all positive $t$ and $h$ the following equation is satisfied:
+\begin{equation*}
+P(X > t + h | X > t) = P(X > h),
+\end{equation*}
+that is, if $X$ is memoryless.
+\end{theorem}
+
+\onslide<2->{
+\begin{proof}
+\begin{align*}
+\onslide<2->{
+P(X > t + h | X > t) &= \frac{P(X > t + h, X > t)}{P(X > t)}\\
+}
+\onslide<3->{
+&= \frac{P(X > t + h)}{P(X > t)}\\
+}
+\onslide<4->{
+&= \frac{e^{- \lambda (t+h)}}{e^{- \lambda t}}\\
+}
+\onslide<5->{
+&= e^{- \lambda h}\\
+}
+\onslide<6->{
+&= P(X > h). \qedhere
+}
+\end{align*}
+\end{proof}
+}
+
+%The exponential distributions are the only distributions7 that satisfy Eq. (5.10).
 
 \end{frame}
 
