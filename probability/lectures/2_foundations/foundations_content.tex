@@ -871,6 +871,7 @@ occurred. How does the fact that $B$ occurred changes the probability of $A$?
 
 \begin{frame}
     \frametitle{Definition of conditional probability}
+    \label{slide:defCondProb}
 
     \begin{probDef}[Conditional probability]
 
@@ -949,7 +950,7 @@ as  well?
 
     \scriptsize
     \begin{probRule}
-
+        \label{rule:assignProByCond}
         For any $n\in\mathbb{N}$, $n\ge 2$, and any sequence of events $A_1,\ldots,A_n$,
             \begin{align*}
                 P(A_1\cap\ldots\cap A_n) = P(A_n|A_{n-1}\cap\ldots\cap A_1)
@@ -1248,6 +1249,184 @@ with $W\in\{A,B,C,D\}$.
 \end{frame}
 \end{comment}
 
+\subsection{Conditionally independent events}
+
+\begin{frame}
+    \frametitle{Conditionally independent events}
+
+    \begin{probDef}
+        Events $A$ and $B$ are conditionally independent given event $C$ if and
+        only if $P(A|B\cap C)=P(A|C)$.
+    \end{probDef}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example on conditional independence}
+
+    \scriptsize
+    \begin{manualProbExample}{tossing a possibly unfair coin}
+
+        Suppose both Martin and Norman toss the same coin. Let $A$ be the event
+        ``Norman's toss resulted in heads'', and $B$ the event ``Martin's toss
+        resulted in heads.'' Assume also that there is a possibility that the
+        coin in biased towards heads but we do not know this for certain.  In
+        this case events $A$ and $B$ are not independent. For example, observing
+        that B occurred causes us to increase our belief that A occurred (i.e.,
+        $P(A|B)>P(A)$).
+
+        In the above, events $A$ and $B$ are dependent on event $C$, ``the coin
+        is biased towards heads''. Although events $A$ and $B$ are not
+        independent, it turns out that they are conditionally independent given
+        event $C$, i.e., once we know for certain that event C occurred then
+        any evidence about $B$ cannot change our belief about $A$ (i.e.,
+        $P(A|C) = P(A|B,C)$).
+
+    \end{manualProbExample}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example on conditional independence}
+
+    \scriptsize
+    \begin{manualProbExample}{tossing a possibly unfair coin}
+
+        \begin{enumerate}[a]
+
+            \item list the elements of the sample space $\Omega$, and of events $A$, $B$ and $C$.
+
+            \item assign probabilities to events containing only one element of
+                $\Omega$, so that 
+
+                \begin{itemize}
+                    \scriptsize
+
+                    \item events $A$ and $B$  and events $A$ and $B^c$ are
+                        conditionally independent given that the coin is biased
+                        or given that the coin is unbiased,
+
+                    \item the probability of heads given that the coin is
+                        biased is 0.7
+
+                    \item the coin is equally likely biased or unbiaed.
+
+                \end{itemize}
+
+            \item with the previous assigned probabilities, check that events
+                $A$ and $B$ are not independent but that they are independent
+                given $C$.
+
+        \end{enumerate}
+
+    \end{manualProbExample}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \scriptsize
+    \begin{enumerate}[a]
+
+        \item
+            \begin{align*}
+                \Omega&=\{\text{HHU,HTU,THU,TTU,HHB,HTB,THB,TTB}\}\\
+                A&=\{\text{HHU,HTU,HHB,HHB}\}\\
+                B&=\{\text{HHU,THU,HHB,HHB}\}\\
+                C&=\{\text{HHB,HTB,THB,TTB}\}
+            \end{align*}
+
+            In the above, for
+            example, HTB means that Norman toss a heads, Martin a tail and the
+            coin was biased towards heads.
+
+            \seti
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \scriptsize
+    \begin{enumerate}[a]
+        \conti
+        \item
+
+            Given the example setup we know that
+
+            \begin{align*}
+                P(A|C^c)&=P(B|C^c)=\frac{1}{2}\\
+                P(A|C)&=P(B|C)=\frac{1}{7}\\
+                P(C)&=P(C^c)=\frac{1}{2}\\
+                P(A|B,C^c)&=P(A|B^c,C^c)=P(A|C^c)\\
+                P(A|B,C)&=P(A|B^c,C)=P(A|C)
+            \end{align*}
+            
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \scriptsize
+    \begin{enumerate}[a]
+
+        \conti
+        \item
+            Next we will assign probabilities uing
+            Rule~\ref{rule:assignProByCond},
+
+            \begin{align*}
+                P(\{HHU\})&=P(A\cap B\cap C^c)=P(A|B\cap C^c)P(B|C^c)P(C^c)\\
+                          &=P(A|C^c)P(B|C^c)P(C^c)=\frac{1}{2}\frac{1}{2}\frac{1}{2}=\frac{1}{8}
+                % P(\{HTU\})=P(A\cap B^c\cap C^c)=P(A|B^c\cap C^c)P(B^c|C^c)P(C^c)=P(A|C^c)P(B^c|C^c)P(C^c)=\frac{1}{2}\frac{1}{2}\frac{1}{2}=\frac{1}{8}
+            \end{align*}
+
+            The second equality above uses Rule~\ref{rule:assignProByCond}, and
+            the third equality uses the fact that $A$ is conditionally
+            independent from $B$ given $C^c$.
+
+            In the same way we can see that
+            $P(\{HTU\})=P(\{THU\})=P(\{TTU\})=\frac{1}{8}$.
+
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \scriptsize
+    \begin{enumerate}[a]
+
+        \conti
+        \item
+            For a biased coin we have
+
+            \begin{align*}
+                P(\{HHB\})&=P(A\cap B\cap C)=P(A|B\cap C)P(B|C)P(C)\\
+                          &=P(A|C)P(B|C)P(C)=\frac{7}{10}\frac{7}{10}\frac{1}{2}=\frac{49}{200}\\
+                P(\{HTB\})&=P(A\cap B^c\cap C)=P(A|B^c\cap C)P(B^c|C)P(C)\\
+                          &=P(A|C)P(B^c|C)P(C)=P(A|C)(1-P(B|C))P(C)\\
+                          &=\frac{7}{10}\frac{3}{10}\frac{1}{2}=\frac{21}{200}\\
+                P(\{THB\})&=P(A^c\cap B\cap C)=P(A^c|B\cap C)P(B|C)P(C)\\
+                          &=P(A^c|C)P(B|C)P(C)=(1-P(A|C))P(B|C)P(C)\\
+                          &=\frac{3}{10}\frac{7}{10}\frac{1}{2}=\frac{21}{200}\\
+                P(\{TTB\})&=P(A^c\cap B^c\cap C)=P(A^c|B^c\cap C)P(B^c|C)P(C)\\
+                          &=P(A^c|C)P(B^c|C)P(C)=(1-P(A|C))(1-P(B|C))P(C)\\
+                          &=\frac{3}{10}\frac{3}{10}\frac{1}{2}=\frac{9}{200}
+            \end{align*}
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
 \subsection{Law of conditional probability}
 
 \begin{frame}
@@ -1438,6 +1617,7 @@ with $W\in\{A,B,C,D\}$.
 \begin{frame}
     \frametitle{Bayesian inference}
 
+    \scriptsize
     \begin{itemize}
 
         \item Sequential update
@@ -1446,10 +1626,24 @@ with $W\in\{A,B,C,D\}$.
             P(\theta|D_1\cap D_2)&=\frac{P(\theta\cap D_1\cap D_2)}{P(D_1\cap D_2)}\\
                                  &=\frac{P(D_2|D_1\cap\theta)P(D_1\cap\theta)}{P(D_1\cap D_2)}\\
                                  &=\frac{P(D_2|\theta)P(D_1|\theta)P(\theta)}{P(D_1\cap D_2)}\\
-                                 &\propto P(D_2|\theta)P(\theta|D_1)
+                                 &=K\;P(D_2|\theta)P(\theta|D_1)\propto P(D_2|\theta)P(\theta|D_1)
         \end{align*}
 
+        Notes:
+
+        \begin{enumerate}
+
+            \item the first and second equalities use the
+                \hyperlink{slide:defCondProb}{definition of conditional
+                probability}.
+            \item the third equality assumes that the datasets $D_1$ and $D_2$
+                are conditionally independent given $\theta$.
+            \item the last equality groups all factors that don't depend on
+                $\theta$ in the proportionality constant $K$.
+        \end{enumerate}
+
     \end{itemize}
+    \normalsize
 
 \end{frame}
 
