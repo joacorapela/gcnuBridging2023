@@ -28,7 +28,7 @@
 
 \maketitle
 
-\begin{frame}{Table of contents}
+\begin{frame}{Today's Lecture Topics}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents%[hideallsubsections]
 \end{frame}
@@ -90,10 +90,10 @@ taking note that independence implies
 \begin{equation*}
     \mathbb{P}\left(X \in A \mid Y \in B\right) = \mathbb{P}\left(X \in A\right)\,.
 \end{equation*}}
-\onslide<3>{For \(N\) independent random variables, this generalises to:
-\metroset{block=fill}\begin{alertblock}{Independence of \(N\) Random Variables}
+\onslide<3>{For \(n\) independent random variables, this generalises to:
+\metroset{block=fill}\begin{alertblock}{Independence of \(n\) Random Variables}
 \begin{equation*}
-    \mathbb{P}\left(X_1 \in A_1, \dots, X_N \in A_N\right) = \prod_{n=1}^N\mathbb{P}\left(X_n \in A_n\right)
+    \mathbb{P}\left(X_1 \in A_1, \dots, X_n \in A_n\right) = \prod_{i=1}^n\mathbb{P}\left(X_i \in A_i\right)
 \end{equation*}\end{alertblock}}
 \end{frame}
 
@@ -105,6 +105,16 @@ In our red ball example, we could also use separate random variables for the out
 
 \onslide<4->{What if we had the same experimental setup, but without replacing the ball after the first draw?}\onslide<5>{ In this case they are not independent, as the colour of the first drawn ball will dictate the probabilities of the second drawn ball.}
 \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{The Chain Rule and Independence}
+\textit{A hint for the problem set questions:}
+
+Whilst we won't be dealing with dependent random variables today, some problem set questions will still require you to work with conditional probabilities. Take note that
+\begin{equation*}
+    \mathbb{P}\left(X \in A \mid X \in B\right) = \frac{\mathbb{P}\left(X \in A, X \in B\right)}{\mathbb{P}\left(X \in B\right)}\,.
+\end{equation*}
+There is nothing special about this. We are simply looking at the probability of one event conditioned on the occurrence of another.
 \end{frame}
 
 \begin{frame}[fragile]{Discrete and Continuous Random Variables}
@@ -170,9 +180,9 @@ which, in the discrete case, means that \(X\) has the PMF \(f_x\). Variations of
 
 \onslide<2>{Sometimes you will see
 \begin{equation*}
-    X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\,,
+    X_1, \dots, X_n \overset{\textrm{i.i.d.}}{\sim} f_x\,,
 \end{equation*}
-which implies that all \(N\) random variables are independent and identically distributed (i.i.d.) with PMF \(f_x\).}
+which implies that all \(n\) random variables are independent and identically distributed (i.i.d.) with PMF \(f_x\).}
 \end{frame}
 
 \begin{frame}[fragile]{Cumulative Distribution Functions}
@@ -249,11 +259,11 @@ Hence, the CDF is
 \begin{frame}[fragile]{Sampling}
 Similarly to how we refer to realisations of random variables, we can also talk about samples of distributions. Sampling from a discrete distribution with PMF \(f_x\) simply implies that we randomly generate a number \(x\) with probability \(f_x\left(x\right)\).
 
-\onslide<2->{To be entirely correct, drawing \(N\) samples from \(f_x\) involves running \(N\) random experiments with \(N\) associated random variables \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\) and generating \(N\) realisations \(x_1, \dots, x_N\).}
+\onslide<2->{To be entirely correct, drawing \(n\) samples from \(f_x\) involves running \(n\) random experiments with \(n\) associated random variables \(X_1, \dots, X_n \overset{\textrm{i.i.d.}}{\sim} f_x\) and generating \(n\) realisations \(x_1, \dots, x_n\).}
 
-\onslide<3>{As \(N \rightarrow \infty\), we will observe that
+\onslide<3>{As \(n \rightarrow \infty\), we will observe that
 \begin{equation*}
-    \frac{\sum_{n = 1}^N \href{https://en.wikipedia.org/wiki/Iverson_bracket}{\color{mLightBrown}{\left[x_n = x\right]}}}{N} \rightarrow f_x\left(x\right)
+    \frac{\sum_{i = 1}^n \href{https://en.wikipedia.org/wiki/Iverson_bracket}{\color{mLightBrown}{\left[x_i = x\right]}}}{n} \rightarrow f_x\left(x\right)
 \end{equation*}}
 \end{frame}
 
@@ -264,12 +274,12 @@ Intermission
 \section{Expectation and Variance}
 
 \begin{frame}[fragile]{Expectations}
-Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_N\right)\right\}\). As \(N\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
+Suppose we want to know the average value of a function \(g\left(x\right)\) evaluated at samples from a distribution. More precisely, we wish to draw realisations of \(X_1, \dots, X_n \overset{\textrm{i.i.d.}}{\sim} f_x\) and then compute the mean of \(\left\{g\left(x_1\right), \dots, g\left(x_n\right)\right\}\). As \(n\) increases, this will converge to a value which we call the expectation (or expected value). This theorem is referred to as the law of large numbers.
 
-\onslide<2->{We can estimate the expectation for finite \(N\) as follows:
+\onslide<2->{We can estimate the expectation for finite \(n\) as follows:
 \metroset{block=fill}\begin{alertblock}{Empirical Estimates of Expectations}
 \begin{equation*}
-    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{N}\sum_{n = 1}^N g\left(x_n\right)\qquad\textrm{for large }N
+    \underset{X \sim f_X}{\mathbb{E}}\left[g\left(X\right)\right] \approx \frac{1}{n}\sum_{i = 1}^n g\left(x_i\right)\qquad\textrm{for large }n
 \end{equation*}
 \end{alertblock}}
 \end{frame}
@@ -429,6 +439,22 @@ Intermission
 \onslide<3>{After the lecture on continuous distributions, I'd recommend doing some \href{http://www.math.wm.edu/~leemis/chart/UDR/UDR.html}{\color{mLightBrown}{exploring}} of these distributions and their relationships.}
 \end{frame}
 
+\begin{frame}[fragile]{Functions of Random Variables}
+The next few slides will deal with simple functions of random variables. We have an entire lecture later on which will cover this topic in much more depth. For now, all you need to know are the following:
+\begin{itemize}[<+->]
+    \item Functions of random variables are also random variables. E.g. if \(g\) is a function and \(X, Y\) are random variables, then \(Z = g\left(X, Y\right)\) is also a random variable. The distribution of \(Z\) can often be pretty complicated!
+    \item The realisation of \(Z\) is given by the realisations of \(X\) and \(Y\) passed through \(g\). I.e. \(z = g\left(x, y\right)\). So sampling can often be pretty easy!
+\end{itemize}\onslide<3>{
+
+\textit{A hint for the problem set questions:}
+
+If \(X\) and \(Y\) are discrete and independent, then \(Z = X + Y\) has the PMF
+\begin{equation*}
+    p_Z\left(z\right) = \sum_{x \in \mathcal{X}}p_X\left(x\right)p_Y\left(z - x\right)\,.
+\end{equation*}
+You may use this without proof. A summation of this form is called a convolution.}
+\end{frame}
+
 \begin{frame}[fragile]{Discrete Uniform Distribution}
 If a random variable takes any integer between \(a\) and \(b\) inclusive with equal probability, then it follows a discrete uniform distribution.
 
@@ -489,18 +515,18 @@ Bernoulli random variable \(X \sim \textrm{Bern}\left(p\right)\) has the followi
 \end{frame}
 
 \begin{frame}[fragile]{Binomial Distribution}
-If \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = X_1 + \dots + X_N\), then \(X\) is a binomial random variable. It models the number of successes in \(N\) Bernoulli trials.
+If \(X_1, \dots, X_n \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = X_1 + \dots + X_n\), then \(X\) is a binomial random variable. It models the number of successes in \(n\) Bernoulli trials.
 
 \metroset{block=fill}\begin{alertblock}{Binomial Distribution}
-Binomial random variable \(X \sim \textrm{Bin}\left(N, p\right)\) has the following properties:
+Binomial random variable \(X \sim \textrm{Bin}\left(n, p\right)\) has the following properties:
   \begin{table}
     \begin{tabular}{ll}
       \toprule
       Parameters & \(n \in \left\{0, 1, 2 \dots\right\}\) and \(p \in \left[0,1\right]\)\\
-      Support & \(\mathcal{X} = \{0,\dots, N\}\)\\
-      PMF & \(f_X\left(x\right) = \binom{N}{x}p^x\left(1 - p\right)^{N - x}\qquad\textrm{for }x \in \mathcal{X}\)\\
-      Mean & \(\mathbb{E}\left[X\right] = Np\)\\
-      Variance & \(\textrm{Var}\left(X\right) = Np\left(1 - p\right)\)\\
+      Support & \(\mathcal{X} = \{0,\dots, n\}\)\\
+      PMF & \(f_X\left(x\right) = \binom{n}{x}p^x\left(1 - p\right)^{n - x}\qquad\textrm{for }x \in \mathcal{X}\)\\
+      Mean & \(\mathbb{E}\left[X\right] = np\)\\
+      Variance & \(\textrm{Var}\left(X\right) = np\left(1 - p\right)\)\\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -510,16 +536,16 @@ Clearly, if \(X \sim \textrm{Bin}\left(1, p\right)\) then \(X\) is also Bernoull
 \end{frame}
 
 \begin{frame}[fragile]{Binomial Distribution}
-Why is the binomial PMF given by \(\binom{N}{x}p^x\left(1 - p\right)^{N - x}\)?\onslide<2->{
+Why is the binomial PMF given by \(\binom{n}{x}p^x\left(1 - p\right)^{n - x}\)?\onslide<2->{
 
-In \(N\) trials we have \(x\) successes and \(N - x\) failures. The \(p^x\left(1 - p\right)^{N - x}\) term gives the probability of observing the successes at specific times. E.g. the probability of running 3 trials and having only trials 1 and 3 produce successes.}\onslide<3->{
+In \(n\) trials we have \(x\) successes and \(n - x\) failures. The \(p^x\left(1 - p\right)^{n - x}\) term gives the probability of observing the successes at specific times. E.g. the probability of running 3 trials and having only trials 1 and 3 produce successes.}\onslide<3->{
 
 More precisely,
 \begin{equation*}
 \begin{aligned}
-    \mathbb{P}\left(X_1 = x_1, \dots, X_N = x_N\right) &= \prod_{n = 1}^N\mathbb{P}\left(X_n = x_n\right)\\
-    &= \prod_{n = 1}^N p^{x_n}\left(1 - p\right)^{1 - x_n}\\
-    &= p^{x_1 + \dots + x_N}\left(1 - p\right)^{N - \left(x_1 + \dots + x_N\right)}\,.
+    \mathbb{P}\left(X_1 = x_1, \dots, X_n = x_n\right) &= \prod_{i = 1}^n\mathbb{P}\left(X_i = x_i\right)\\
+    &= \prod_{i = 1}^n p^{x_i}\left(1 - p\right)^{1 - x_i}\\
+    &= p^{x_1 + \dots + x_n}\left(1 - p\right)^{n - \left(x_1 + \dots + x_n\right)}\,.
 \end{aligned}
 \end{equation*}}
 \end{frame}
@@ -531,7 +557,7 @@ However, we have to consider all possible ways in which \(x\) successes can occu
     \item Trials 1 and 3 were successes.
     \item Trials 2 and 3 were successes.
 \end{itemize}
-\onslide<4>{In general, we have \(\binom{N}{x}\) ways in which \(N\) trials can produce \(x\) successes. Adding the probabilities from these cases together gives the binomial PMF.}
+\onslide<4>{In general, we have \(\binom{n}{x}\) ways in which \(n\) trials can produce \(x\) successes. Adding the probabilities from these cases together gives the binomial PMF.}
 \end{frame}
 
 \begin{frame}[fragile]{Binomial Distribution}
@@ -566,7 +592,7 @@ We can model the distribution of received rare cards with a binomial random vari
 % \end{frame}
 
 \begin{frame}[fragile]{Geometric Distribution}
-If \(X_1, X_2, \dots \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = \min\left\{n \in \mathbb{N} \;\middle|\; X_n = 1\right\}\), then \(X\) is a geometric random variable. It models the number of sequential Bernoulli trials performed until getting a success.
+If \(X_1, X_2, \dots \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(p\right)\) and \(X = \min\left\{i \in \mathbb{N} \;\middle|\; X_i = 1\right\}\), then \(X\) is a geometric random variable. It models the number of sequential Bernoulli trials performed until getting a success.
 
 \metroset{block=fill}\begin{alertblock}{Geometric Distribution}
 Geometric random variable \(X \sim \textrm{Geo}\left(p\right)\) has the following properties:
@@ -602,7 +628,7 @@ The collector opens 100 packs, but still doesn't find a rare card. What is the e
 \end{frame}
 
 \begin{frame}[fragile]{Poisson Distribution}
-If \(X_1, \dots, X_N \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(\frac{\lambda}{N}\right)\), \(X = X_1 + \dots + X_N\), and \(N \rightarrow \infty\), then \(X\) is a Poisson random variable. It models the number of independently occurring events in a fixed interval of time or space, where \(\lambda\) is the mean rate of occurrence.
+If \(X_1, \dots, X_n \overset{\textrm{i.i.d.}}{\sim} \textrm{Bern}\left(\frac{\lambda}{n}\right)\), \(X = X_1 + \dots + X_n\), and \(n \rightarrow \infty\), then \(X\) is a Poisson random variable. It models the number of independently occurring events in a fixed interval of time or space, where \(\lambda\) is the mean rate of occurrence.
 
 \metroset{block=fill}\begin{alertblock}{Poisson Distribution}
 Poisson random variable \(X \sim \mathrm{Pois}\left(\lambda\right)\) has the following properties:
@@ -619,7 +645,7 @@ Poisson random variable \(X \sim \mathrm{Pois}\left(\lambda\right)\) has the fol
   \end{table}
 \end{alertblock}
 
-Clearly, we can also say if \(X \sim \textrm{Bin}\left(N, \frac{\lambda}{N}\right)\) and \(N \rightarrow \infty\) then \(X\) is Poisson distributed. The proof of this is a problem set question.
+Clearly, we can also say if \(X \sim \textrm{Bin}\left(n, \frac{\lambda}{n}\right)\) and \(n \rightarrow \infty\) then \(X\) is Poisson distributed. The proof of this is a problem set question.
 \end{frame}
 
 \begin{frame}[fragile]{Poisson Distribution}
@@ -647,6 +673,79 @@ Intermission
 \end{frame}
 
 \section{Introduction to Stochastic Processes}
+
+\begin{frame}[fragile]{What is a Stochastic Process?}
+A stochastic process describes how a system with some underlying randomness evolves over space or time. Mathematically, we define this by a set of random variables
+\begin{equation*}
+    \left\{X\left(t\right) \;\middle|\; t \in T\right\}
+\end{equation*}
+or more precisely
+\begin{equation*}
+    \left\{X\left(t, \omega\right) \;\middle|\; t \in T\right\}\,,
+\end{equation*}
+where \(T\) is referred to as the index set.\onslide<2->{
+
+Very often, \(T\) is chosen to represent points in time. In discrete-time, we may have \(T = \mathbb{N}\), leading to a countably infinite set of random variables. In continuous-time, usually \(T = \left[0, \infty\right)\), producing an uncountably infinite set of random variables. Whether these random variables are independent or not is determined by the underlying process.}\onslide<3>{
+
+Sometimes, the notation \(X_t\) is used instead of \(X\left(t\right)\).}
+\end{frame}
+
+\begin{frame}[fragile]{Examples of Stochastic Processes}
+\begin{itemize}[<+->]
+    \item \href{https://en.wikipedia.org/wiki/Brownian_motion}{\color{mLightBrown}{Brownian motion}}: describes the random motion of small particles in fluids.
+    \item \href{https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo}{\color{mLightBrown}{Markov chain Monte Carlo}}: used to generate samples from complicated distributions.
+    \item \href{https://en.wikipedia.org/wiki/Diffusion_process}{\color{mLightBrown}{Diffusion processes}}: used in machine learning for image generation (e.g. \href{https://en.wikipedia.org/wiki/Stable_Diffusion}{\color{mLightBrown}{Stable Diffusion}}).
+    \item \href{https://en.wikipedia.org/wiki/Galves%E2%80%93L%C3%B6cherbach_model}{\color{mLightBrown}{Galves–L\"ocherbach model}}: models the dynamics of networks of biological neurons.
+\end{itemize}\onslide<5>{
+Today we will focus on two of the simplest stochastic processes: the Bernoulli process and the Poisson process.}
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+If \(T = \mathbb{N}\) and \(X\left(t\right) \sim \textrm{Bern}\left(p\right)\) for all \(t \in T\), then \(\left\{X\left(t\right) \;\middle|\; t \in T\right\}\) is a Bernoulli process. It has the following important properties:
+\begin{itemize}[<+->]
+    \item The number of successes in any window in time, \(n\) time steps long, is binomially distributed:
+    \begin{equation*}
+        \sum_{i = t}^{t + n - 1} X\left(i\right) \sim \textrm{Bin}\left(n, p\right) \textrm{ for all } t \in T
+    \end{equation*}
+    \item The waiting time until the next success, at any point in time, is geometrically distributed:
+    \begin{equation*}
+        \min\left\{i \in \mathbb{N} \;\middle|\; X\left(t + i - 1\right) = 1\right\} \sim \textrm{Geo}\left(p\right) \textrm{ for all } t \in T
+    \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+We can also consider an equivalent counting process \(\left\{N\left(t\right) \;\middle|\; t \in T\right\}\) which is given by
+\begin{equation*}
+    N\left(t\right) = \sum_{i = 1}^t X\left(i\right)\,.
+\end{equation*}
+
+In general, a counting process represents the total number of occurrences of something up to and including time \(t\). It is non-negative, non-decreasing, and takes integer values.
+\end{frame}
+
+\begin{frame}[fragile]{The Bernoulli Process}
+How would you simulate a Bernoulli process? There are a couple of simple ways, one more efficient than the other. This will be a coding exercise at the end of the lecture.
+\end{frame}
+
+\begin{frame}[fragile]{The Poisson Process}
+The Poisson process is the stochastic process that results from chopping the Bernoulli process into finer and finer intervals. Consider a Bernoulli process with success probability \(\lambda\) and each Bernoulli random variable representing the probability of a success occurring in a 1 second interval.\onslide<2>{ Now replace each random variable with \(n\) Bernoulli random variables with success probability \(\frac{\lambda}{n}\), each representing the probability of a success occurring in sequential \(\frac{1}{n}\) second intervals. Letting \(n\rightarrow\infty\) gives us the Poisson process. We have moved from discrete-time to continuous-time!}
+\end{frame}
+
+\begin{frame}[fragile]{The Poisson Process}
+Consider a counting process with \(T = \left[0, \infty\right)\). If:
+\begin{itemize}[<+->]
+    \item \(N\left(0\right) = 0\),
+    \item \(N\left(t + s\right) - N\left(t\right) \sim \textrm{Pois}\left(s\lambda\right)\) for all \(t \in T\),
+    \item and \(N\left(t_2\right) - N\left(t_1\right)\) and \(N\left(t_4\right) - N\left(t_3\right)\) are independent for all disjoint intervals \(\left(t_1, t_2\right]\) and \(\left(t_3, t_4\right]\),
+\end{itemize}\onslide<4->{
+then \(\left\{N\left(t\right) \;\middle|\; t \in T\right\}\) is a Poisson process with rate \(\lambda\). Other equivalent definitions exist, but are outside the scope of this lecture.}\onslide<5>{
+
+At any time \(t\), what is the distribution on the waiting time until the next increment in \(N\left(t\right)\)? Find out in the next lecture.}
+\end{frame}
+
+\begin{frame}[standout]
+The End
+\end{frame}
 
 
 
