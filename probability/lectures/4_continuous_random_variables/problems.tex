@@ -43,7 +43,7 @@ continuous random variable with probability density function given by
     f_X(x) &= 
     \begin{cases}
       \lambda e^{-x/100} & \text{if}\ x \geq 0 \\
-      0 & \text{if}\ x < 0 \\
+      0 & \text{if}\ x < 0.\\
     \end{cases}
 \end{align*}
 What is the probability that
@@ -100,7 +100,7 @@ In commuting to work, a professor must first get on a bus near her house and the
     \end{cases}
 \end{align*}
 \begin{enumerate}[label=(\alph*)]
-\item Obtain an expression for the $(100p)$th percentile $\eta(p)$ [Hint: consider $0 \leq \eta(p) < 5$ and $5 \leq \eta(p) \leq 10$ separately];
+\item Obtain an expression for the $(100p)$th percentile $\eta(p)$ [Hint: consider $0 \leq \eta(p) < 5$ and $5 \leq \eta(p) \leq 10$ separately].
 \item Find the median.
 \end{enumerate}
 \end{problem}
@@ -223,7 +223,7 @@ and hence $C =  \frac{3}{8}$.\\
 \begin{proof}[Solution: Problem 2]
 \text{}\\
 \text{}\\
-(a) First calculate the value of $\lambda$ that ensures that $\int_{-\infty}^\infty f_X(x) dx = 1$:
+(a) First find the value of $\lambda$ such that $\int_{-\infty}^\infty f_X(x) dx = 1$.
 \begin{align*}
 \lambda \int_0^\infty e^{-x/100}dx &=  1\\
 -\lambda(100)e^{-x/100} \bigg|^{x=\infty}_{x=0}  &=  1\\
@@ -265,18 +265,20 @@ P(0 \leq X < 5) &= \int^{5}_{0} \frac{x}{25}dx\\
 &= \frac{1}{50}x^2\bigg|^5_0 \\
 &= 0.5.
 \end{align*}
-Therefore, when $0 \leq p \leq 0.5$, we find the value of $\eta(p)$ that satisfies
+%and $5 \leq \eta(p) \leq 10$
+Therefore, $0 \leq \eta(p) < 5$ when $0 \leq p \leq 0.5$. In this scenario, the $(100p)$th percentile is the value of $\eta(p)$ that satisfies
 \begin{align*}
 p &= \int^{\eta(p)}_0 \frac{x}{25}dx\\
 &= \frac{1}{50}x^2\bigg|^{\eta(p)}_0,
 \end{align*}
-which is $\eta(p) = \sqrt{50p}$. When $0.5 < p \leq 1$, we find the value of $\eta(p)$ that satisfies
+which is $\eta(p) = \sqrt{50p}$. 
+In contrast,  $5 \leq \eta(p) \leq 10$ when $0.5 < p \leq 1$. In this scenario, the $(100p)$th percentile is the value of $\eta(p)$ that satisfies
 \begin{align*}
 p &= 0.5 + \int^{\eta(p)}_5 \bigg(\frac{2}{5} -\frac{x}{25}\bigg)dx\\
 &=  0.5 + \bigg[\frac{2x}{5} -\frac{x^2}{50}\bigg]\bigg|^{\eta(p)}_5\\
 &=  0.5 + \bigg(\frac{2\eta(p)}{5} -\frac{\eta(p)^2}{50}\bigg) - \bigg(2 -\frac{1}{2}\bigg).
 \end{align*}
-The term 0.5 is added to the right-hand side as this is the probability that the total waiting time is less than 5 minutes (calculated above). After some algebraic rearranegment, the quadratic formula can be used to solve the equation $\eta(p)^2 - 20\eta(p) + 50p + 50 = 0$ to give $\eta(p) = 10 - \sqrt{50(1-p)}$. Therefore, the expression for the $(100p)$th percentile is
+Here, the term 0.5 has been added to the right-hand side to account for the probability that the total waiting time is less than 5 minutes. After some algebraic rearranegment, the quadratic formula can be used to solve the equation $\eta(p)^2 - 20\eta(p) + 50p + 50 = 0$. This gives $\eta(p) = 10 - \sqrt{50(1-p)}$. Thus, the expression for the $(100p)$th percentile is
 \begin{align*}
     \eta(p) &= 
     \begin{cases}
@@ -372,7 +374,7 @@ P(|X - 3| > 6) &= P(X - 3 > 6)  + P(X - 3 < -6) \\
 \begin{proof}[Solution: Problem 9]
 \text{}\\
 \text{}\\
-According to the probability integral transform, $\Phi = F_X^{-1}$, the inverse of the cumulative distribution function. Therefore, to find $\Phi = F_X^{-1}$, set $U = F_X(x)$ and solve for $x$ as a function of $U$. This gives $\Phi  = \sigma(-\log(1-U))^{1/k}$.
+The probability integral transform tells us that $\Phi = F_X^{-1}$, the inverse of the cumulative distribution function. Therefore, to find $\Phi = F_X^{-1}$, set $U = F_X(x)$ and solve for $x$ as a function of $U$. This gives $\Phi  = \sigma(-\log(1-U))^{1/k}$.
 \end{proof}
 
 \vspace{0.2cm}
