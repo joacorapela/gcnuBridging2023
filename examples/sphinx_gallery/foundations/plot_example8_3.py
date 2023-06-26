@@ -24,7 +24,7 @@ def sample():
 # This function checks if the sample belongs to the event
 #
 def sample_in_event(assignments):
-    # is any of the two dice equal to six?
+    # all hotels have at least one guest?
     answer = (assignments[0] > 0 and assignments[1] > 0 and 
               assignments[2] > 0 and assignments[3] > 0)
     return answer
