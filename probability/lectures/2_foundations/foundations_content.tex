@@ -1253,6 +1253,7 @@ with $W\in\{A,B,C,D\}$.
 
 \begin{frame}
     \frametitle{Conditionally independent events}
+    \label{slide:conditionallyIndependentEvents}
 
     \begin{probDef}
         Events $A$ and $B$ are conditionally independent given event $C$ if and
@@ -1276,11 +1277,11 @@ with $W\in\{A,B,C,D\}$.
         $P(A|B)>P(A)$).
 
         In the above, events $A$ and $B$ are dependent on event $C$, ``the coin
-        is biased towards heads''. Although events $A$ and $B$ are not
+        is biased towards heads.'' Although events $A$ and $B$ are not
         independent, it turns out that they are conditionally independent given
         event $C$, i.e., once we know for certain that event C occurred then
         any evidence about $B$ cannot change our belief about $A$ (i.e.,
-        $P(A|C) = P(A|B,C)$).
+        $P(A|C) = P(A|B\cap C)$).
 
     \end{manualProbExample}
     \normalsize
@@ -1292,6 +1293,11 @@ with $W\in\{A,B,C,D\}$.
 
     \scriptsize
     \begin{manualProbExample}{tossing a possibly unfair coin}
+
+        Let's assign probabilities to the events above and verify the claims
+        that (a) events $A$ and $B$ are dependent (i.e., $P(A|B)>P(A)$) and
+        that (b) events $A$ and $B$ are conditionally independent given event
+        $C$ (i.e., $P(A|B\cap C)=P(A|B)$).
 
         \begin{enumerate}[a]
 
@@ -1315,8 +1321,8 @@ with $W\in\{A,B,C,D\}$.
                 \end{itemize}
 
             \item with the previous assigned probabilities, check that events
-                $A$ and $B$ are not independent but that they are independent
-                given $C$.
+                $A$ and $B$ are not independent but that they are conditionally
+                independent given $C$.
 
         \end{enumerate}
 
@@ -1339,9 +1345,8 @@ with $W\in\{A,B,C,D\}$.
                 C&=\{\text{HHB,HTB,THB,TTB}\}
             \end{align*}
 
-            In the above, for
-            example, HTB means that Norman toss a heads, Martin a tail and the
-            coin was biased towards heads.
+            In the above, for example, HTB means that Norman tossed a heads,
+            Martin tossed a tail and the coin was biased towards heads.
 
             \seti
     \end{enumerate}
@@ -1421,6 +1426,74 @@ with $W\in\{A,B,C,D\}$.
                 P(\{TTB\})&=P(A^c\cap B^c\cap C)=P(A^c|B^c\cap C)P(B^c|C)P(C)\\
                           &=P(A^c|C)P(B^c|C)P(C)=(1-P(A|C))(1-P(B|C))P(C)\\
                           &=\frac{3}{10}\frac{3}{10}\frac{1}{2}=\frac{9}{200}
+            \end{align*}
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \tiny
+    \begin{enumerate}[a]
+
+        \conti
+        \item
+            Thus, the probabilities of single-outcome events are:
+
+            \setlength{\tabcolsep}{2pt}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                $\{HHU\}$ & $\{HTU\}$ & $\{THU\}$ & $\{TTU\}$ & $\{HHB\}$ & $\{HTB\}$ & $\{THB\}$ & $\{TTB\}$\\
+                \hline\hline
+                $\frac{1}{8}$ & $\frac{1}{8}$ & $\frac{1}{8}$ & $\frac{1}{8}$ & $\frac{49}{200}$ & $\frac{21}{200}$ & $\frac{21}{200}$ & $\frac{9}{200}$\\
+                \hline
+            \end{tabular}
+
+        \item
+            \begin{align*}
+                P(A|B)&=\frac{P(A\cap B)}{P(B)}=
+                \frac{P((A\cap B)\cap (C\cup C^c))}{P(B\cap ((A\cap C)\cup (A\cap C^c)\cup (A^c\cap C)\cup (A^c\cap C^c))}\\
+                &=\frac{P((A\cap B\cap C)\cup (A\cap B\cap C^c))}{P((B\cap A\cap C)\cup (B\cap A\cap C^c)\cup (B\cap A^c\cap C)\cup (B\cap A^c\cap C^c))}\\
+                &=\frac{P(A\cap B\cap C)+P(A\cap B\cap C^c)}{P(B\cap A\cap C)+P(B\cap A\cap C^c)+P(B\cap A^c\cap C)+P(B\cap A^c\cap C^c))}\\
+                &=\frac{P(\{HHB\})+P(\{HHU\})}{P(\{HHB\})+P(\{HHU\})+P(\{THB\})+P(\{THU\})}\\
+                &=\frac{\frac{49}{200}+\frac{1}{8}}{\frac{49}{200}+\frac{1}{8}+\frac{21}{200}+\frac{1}{8}}=\frac{\frac{74}{200}}{\frac{120}{200}}=\frac{74}{120}=0.62\\
+                P(A)&=P(B)=\frac{120}{200}=0.6<0.62=P(A|B)\quad\text{Therefore, A and B are not independent.}
+            \end{align*}
+            \seti
+    \end{enumerate}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Analytical solution of example on conditional independence}
+
+    \tiny
+    \begin{enumerate}[a]
+
+        \keepi
+        \item
+            \begin{align*}
+                P(A|B\cap C)&=\frac{P(A\cap B\cap C)}{P(B\cap C)}=
+                \frac{P(A\cap B\cap C)}{P((B\cap C)\cap (A\cup A^c))}=
+                \frac{P(A\cap B\cap C)}{P((A\cap B\cap C)\cup (A^c\cap B\cap
+                C))}\\
+                &=\frac{P(A\cap B\cap C)}{P(A\cap B\cap C)+P(A^c\cap B\cap C)}=
+                \frac{P(\{HHB\})}{P(\{HHB\}+P(\{THB\})}=\frac{\frac{49}{200}}{\frac{49}{200}+\frac{21}{200}}=\frac{7}{10}\\
+                P(A|C)&=\frac{P(A\cap C)}{P(C)}=\frac{P((A\cap C)\cap (B\cup
+                B^c))}{P(C\cap ((A\cap B)\cup (A\cap B^c)\cup (A^c\cap B)\cup
+                (A^c\cap B^c))}\\
+                &=\frac{P((A\cap B\cap C)\cup (A\cup B^c\cap C))}{P((A\cap
+                B\cap C)\cup (A\cap B^c\cap C)\cup (A^c\cap B\cap C)\cup
+                (A^c\cap B^c\cap C))}\\
+                &=\frac{P(A\cap B\cap C)+P(A\cup B^c\cap C)}{P(A\cap
+                B\cap C)+P(A\cap B^c\cap C)+P(A^c\cap B\cap C)+P(A^c\cap B^c\cap C)}\\
+                &=\frac{P(\{HHB\})+P(\{HTB\})}{P(\{HHB\})+P(\{HTB\})+P(\{THB\})+P(\{TTB\})}\\
+                &=\frac{\frac{49}{200}+\frac{21}{200}}{\frac{49}{200}+\frac{21}{200}+\frac{21}{200}+\frac{9}{200}}\\
+                &=\frac{\frac{70}{200}}{\frac{100}{200}}=\frac{7}{10}=P(A|B\cap
+                C)\quad\text{Therefore, A and B are conditionally independent given C.}
             \end{align*}
     \end{enumerate}
     \normalsize
@@ -1636,10 +1709,15 @@ with $W\in\{A,B,C,D\}$.
             \item the first and second equalities use the
                 \hyperlink{slide:defCondProb}{definition of conditional
                 probability}.
+
             \item the third equality assumes that the datasets $D_1$ and $D_2$
-                are conditionally independent given $\theta$.
+                are
+                \hyperlink{slide:conditionallyIndependentEvents}{conditionally
+                independent} given $\theta$.
+
             \item the last equality groups all factors that don't depend on
                 $\theta$ in the proportionality constant $K$.
+
         \end{enumerate}
 
     \end{itemize}
