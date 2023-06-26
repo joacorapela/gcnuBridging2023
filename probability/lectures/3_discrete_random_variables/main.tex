@@ -59,8 +59,8 @@ What is the probability of drawing one red ball? We could express this as \(\mat
 \begin{equation*}\begin{aligned}
     \mathbb{P}\left(X = 1\right) &= \mathbb{P}\left(\left\{\textrm{RG}\right\} \cup \left\{\textrm{GR}\right\}\right)\\
     &= \mathbb{P}\left(\left\{\textrm{RG}\right\}\right) + \mathbb{P}\left(\left\{\textrm{GR}\right\}\right) - \mathbb{P}\left(\left\{\textrm{RG}\right\} \cap \left\{\textrm{GR}\right\}\right)\\
-    &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8} - 0\\
-    &= \frac{15}{32}\,.
+    &= \mathbb{P}\left(\left\{\textrm{RR}, \textrm{RG}\right\}\right)\mathbb{P}\left(\left\{\textrm{RG}, \textrm{GG}\right\}\right) + \mathbb{P}\left(\left\{\textrm{GR}, \textrm{GG}\right\}\right)\mathbb{P}\left(\left\{\textrm{RR}, \textrm{GR}\right\}\right)\\
+    &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\,.
 \end{aligned}\end{equation*}
 \end{exampleblock}}
 \end{frame}
