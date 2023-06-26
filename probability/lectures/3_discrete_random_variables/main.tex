@@ -57,7 +57,9 @@ Random variables are often utilised without any explicit reference to the sample
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\textrm{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
 \begin{equation*}\begin{aligned}
-    \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
+    \mathbb{P}\left(X = 1\right) &= \mathbb{P}\left(\left\{\textrm{RG}\right\} \cup \left\{\textrm{GR}\right\}\right)\\
+    &= \mathbb{P}\left(\left\{\textrm{RG}\right\}\right) + \mathbb{P}\left(\left\{\textrm{GR}\right\}\right) - \mathbb{P}\left(\left\{\textrm{RG}\right\} \cap \left\{\textrm{GR}\right\}\right)\\
+    &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8} - 0\\
     &= \frac{15}{32}\,.
 \end{aligned}\end{equation*}
 \end{exampleblock}}
@@ -636,7 +638,7 @@ Poisson random variable \(X \sim \mathrm{Pois}\left(\lambda\right)\) has the fol
     \begin{tabular}{ll}
       \toprule
       Parameters & \(\lambda \in \left(0, \infty\right)\)\\
-      Support & \(\mathcal{X} = \mathbb{N}\)\\
+      Support & \(\mathcal{X} = \mathbb{N}_0\)\\
       PMF & \(f_X\left(x\right) = \frac{\lambda^x e^{-\lambda}}{x!}\qquad\textrm{for }x \in \mathcal{X}\)\\
       Mean & \(\mathbb{E}\left[X\right] = \lambda\)\\
       Variance & \(\textrm{Var}\left(X\right) = \lambda\)\\
