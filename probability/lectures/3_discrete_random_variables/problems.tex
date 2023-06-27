@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, margin=1in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[thinc]{esdiff}
+
+\title{Probability: Discrete Distributions Problem Set}
+\author{Cameron Stewart}
+\date{June 2023}
+
+\begin{document}
+
+\maketitle
+
+\textit{Hint}: For the following questions, there are theorems from previous calculus and probability lectures regarding sums and series which may be very helpful.
+
+\section{Random Variables, PMFs, and CDFs}
+
+\begin{enumerate}
+    \item You are playing a board game in which you must roll two 4-sided dice and sum the outcomes together to give a score. What is the PMF and CDF for the distribution of scores? What is the probability of getting a score of 6 or more? Use this question to practice using correct notation.
+    \item You have decided to run an experiment to see how likely it is for two people in a group to share the same birthday. In your setup, you start with two randomly selected volunteers in an empty room. They tell you their birthday. If they do not share a birthday, you add another randomly selected volunteer to the room. If their birthday isn't shared by either of the other two volunteers, another volunteer is added. The process continues until two people share a birthday.
+
+    Let the random variable \(X\) denote the number of people added until two people share a birthday. What is the support and PMF of \(X\)? Plot the PMF and the CDF (you can do this quickly in Wolfram Alpha). You may assume:
+    \begin{itemize}
+        \item February 29th doesn't exist.
+        \item No day of the year is more likely to be a birthday than any other day.
+        \item Your supply of volunteers does not run out and the room never runs out of space. 
+    \end{itemize}
+
+    Remember, your PMF should sum to 1 over the support. Use this to help check that you haven't made a mistake.
+    \item You are a bus enthusiast, dismayed at the lack of regular scheduling for buses in your town. Over countless hours you have modelled the probability distribution of bus arrivals at you local bus stop on weekdays between 7am and 8am. For random variable \(X\) representing the number of arrivals, you have determined the PMF to be \(f_X\left(x\right) = \frac{3^x e^{-3}}{x!}\) on support \(\mathcal{X} = \mathbb{N}_0\).
+
+    At 6:30am one morning you make a prediction that 3 buses will arrive in the hour. What is the probability that you are correct?
+
+    At 6:45am, you receive information from the transport app on your phone that at least 2 buses will arrive during the hour. Given this new information, what is the probability now that your prediction is correct?
+    \item Determine the value of \(a\) for PMF \(f\left(x\right) = -\frac{1}{10}\left(x + 1\right)\left(x - a\right)\) with support \(\left\{0, 1, 2\right\}\).
+    \item Determine the value of \(a\) for PMF \(f\left(x\right) = a\frac{\lambda^x}{x!}\) with support \(\mathbb{N}_0\). \textit{Hint}: If \(\diff{}{\lambda}g\left(\lambda\right) = g\left(\lambda\right)\), what can be said about \(g\)?
+\end{enumerate}
+
+\section{Expectation and Variance}
+
+\begin{enumerate}
+    \item Prove \(\mathbb{E}\left[ag\left(X\right) + bh\left(X\right) + c\right] = a\mathbb{E}\left[g\left(X\right)\right] + b\mathbb{E}\left[h\left(X\right)\right] + c\) for discrete random variable \(X\) with support \(\mathcal{X}\) and PMF \(f_X\), and some functions \(g\) and \(h\).
+    \item Prove \(\textrm{Var}\left(aX + b\right) = a^2\textrm{Var}\left(X\right)\) for discrete random variable \(X\) with support \(\mathcal{X}\) and PMF \(f_X\).
+    \item Calculate the expectation, variance, and standard deviation of \(X\) with support \(\mathcal{X} = \left\{-\frac{\pi}{2}, 0, \frac{\pi}{2}\right\}\) and PMF \(f_X\left(x\right) = \frac{1}{5}\left(\sin^2\left(x\right) + 1\right)\). Calculate these same statistics for \(\sqrt{5}X + \pi\).
+    \item Prove the following:
+    \begin{enumerate}
+        \item If \(X\) has support \(\mathcal{X} = \left\{0, 1\right\}\) and PMF \(f_X\left(x\right) = p^x\left(1 - p\right)^{1 - x}\), then \(\mathbb{E}\left[X\right] = p\).
+        \item If \(X\) has support \(\mathcal{X} = \mathbb{N}_0\) and PMF \(f_X\left(x\right) = \frac{\lambda^x e^{-\lambda}}{x!}\), then \(\mathbb{E}\left[X\right] = \lambda\).
+        \item If \(X\) has support \(\mathcal{X} = \{0,\dots, n\}\) and PMF \(f_X\left(x\right) = \binom{n}{x}p^x\left(1 - p\right)^{n - x}\), then \(\mathbb{E}\left[X\right] = np\).
+        \item If \(X\) has support \(\mathcal{X} = \mathbb{N}\) and PMF \(f_X\left(x\right) = \left(1 - p\right)^{x - 1}p\), then \(\mathbb{E}\left[X\right] = \frac{1}{p}\). \textit{Hint}: Rewriting an expression as a derivative of some other expression might help.
+    \end{enumerate}
+\end{enumerate}
+
+\section{Important Discrete Distributions}
+
+\begin{enumerate}
+    \item Prove that the binomial PMF sums to 1 over the support. 
+    \item Prove that the geometric PMF sums to 1 over the support.
+    \item Prove that the limit of the binomial distribution is the Poisson distribution, as mentioned in the lecture. I.e. what is the PMF of \(X \sim \textrm{Bin}\left(n, \frac{\lambda}{n}\right)\) when \(n\rightarrow\infty\).
+    \item Prove that the sum of independent Poisson random variables is also a Poisson random variable. I.e. if \(X \sim \textrm{Pois}\left(\lambda\right)\) and \(Y \sim \textrm{Pois}\left(\mu\right)\), what is the distribution of \(Z = X + Y\)?
+    \item Prove the memoryless property of the geometric distribution, showing that the distribution over the remaining trials until success is independent of the trials that have already happened. I.e. prove that \(\mathbb{P}\left(X > t + s \;\middle|\; X > s\right) = \mathbb{P}\left(X > t\right)\) for \(X \sim \textrm{Geo}\left(p\right)\).
+    \item Prove that the minimum of a set of independent geometric random variables is also geometric. \textit{Hint}: Start with \(\mathbb{P}\left(\min\left\{X_1, \dots, X_n\right\} > x\right)\) for independent random variables \(X_i \sim \textrm{Geo}\left(p_i\right)\), \(i \in \left\{1, \dots, n\right\}\). What could be an equivalent way of writing this expression?
+\end{enumerate}
+
+\section{Introduction to Stochastic Processes}
+
+We'll end the day with a coding exercise. In this exercise you will approximate a Poisson process and use it to generate samples from an approximate Poisson distribution. If you're comfortable with Python, I'd recommend using NumPy, SciPy (for the \texttt{scipy.special.factorial} function), and Matplotlib. Complete the following tasks in order:
+
+\begin{enumerate}
+    \item Plot the Poisson PMF with parameter \(\lambda = 5\) for integers 0 to 20. Matplotlib's stem plots are a good option for this.
+    \item Approximately simulate a Poisson process for \(t_{total}\) simulated seconds with rate \(\lambda = 5\) points/second. To do this, create a Bernoulli process with \(n\) Bernoulli random variables per second, each representing \(\frac{1}{n}\)th of a second. Think about the most efficient way you can simulate this process, especially for large \(n\).
+    \item Count the number of points/successes in each second. These \(t_{total}\) counts are \(t_{total}\) samples from some distribution. Plot the observed proportions of each count value. How does this compare to your plot in part 1? What happens when you increase \(t_{total}\) and/or \(n\)?
+\end{enumerate}
+
+\end{document}
