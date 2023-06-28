@@ -53,12 +53,14 @@ We are interested in determining the probabilities of drawing various numbers of
 \end{frame}
 
 \begin{frame}[fragile]{What is a Random Variable?}
-Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\).
+Random variables are often utilised without any explicit reference to the sample space. Instead of writing \(X\left(\omega\right)\), we will typically just write \(X\). Instead of writing \(\mathbb{P}\left(E\right)\) for some event \(E\), we typically write \(\mathbb{P}\left(X \in A\right)\) for some set of numerical values \(A\). To be precise, \(\mathbb{P}\left(X \in A\right) = \mathbb{P}\left(\left\{\omega \in \Omega \;\middle|\; X\left(\omega\right) \in A\right\}\right)\).
 \onslide<2>{\metroset{block=fill}\begin{exampleblock}{Example 1 Cont.}
 What is the probability of drawing one red ball? We could express this as \(\mathbb{P}\left(\left\{\textrm{RG, GR}\right\}\right)\), but it is common and accepted notation to instead write \(\mathbb{P}\left(X \in \left\{1\right\}\right)\), or \(\mathbb{P}\left(0 < X < 2\right)\), or most preferably in this case \(\mathbb{P}\left(X = 1\right)\).
 \begin{equation*}\begin{aligned}
-    \mathbb{P}\left(X = 1\right) &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\\
-    &= \frac{15}{32}\,.
+    \mathbb{P}\left(X = 1\right) &= \mathbb{P}\left(\left\{\textrm{RG}\right\} \cup \left\{\textrm{GR}\right\}\right)\\
+    &= \mathbb{P}\left(\left\{\textrm{RG}\right\}\right) + \mathbb{P}\left(\left\{\textrm{GR}\right\}\right) - \mathbb{P}\left(\left\{\textrm{RG}\right\} \cap \left\{\textrm{GR}\right\}\right)\\
+    &= \mathbb{P}\left(\left\{\textrm{RR}, \textrm{RG}\right\}\right)\mathbb{P}\left(\left\{\textrm{RG}, \textrm{GG}\right\}\right) + \mathbb{P}\left(\left\{\textrm{GR}, \textrm{GG}\right\}\right)\mathbb{P}\left(\left\{\textrm{RR}, \textrm{GR}\right\}\right)\\
+    &= \frac{3}{8}\frac{5}{8} + \frac{5}{8}\frac{3}{8}\,.
 \end{aligned}\end{equation*}
 \end{exampleblock}}
 \end{frame}
@@ -66,15 +68,15 @@ What is the probability of drawing one red ball? We could express this as \(\mat
 \begin{frame}[fragile]{The Chain Rule and Independence}
 In a previous lecture, we covered the following relationship for events \(E\) and \(F\):
 \begin{equation*}\begin{aligned}
-    \mathbb{P}\left(E \cap F\right) &= \mathbb{P}\left(E \mid F\right)\mathbb{P}\left(F\right)\\
-    &= \mathbb{P}\left(F \mid E\right)\mathbb{P}\left(E\right)\,.
+    \mathbb{P}\left(E \cap F\right) &= \mathbb{P}\left(E \;\middle|\; F\right)\mathbb{P}\left(F\right)\\
+    &= \mathbb{P}\left(F \;\middle|\; E\right)\mathbb{P}\left(E\right)\,.
 \end{aligned}\end{equation*}
-\onslide<2->{This also applies to random variables. Here we are looking at the probability of random variables \(X\) and \(Y\) taking values in sets \(A\) and \(B\) respectively:
+\onslide<2->{This also applies to random variables. Here we are looking at the probability of random variables \(X\) and \(Y\) taking values in sets \(A\) and \(B\) respectively, which of course corresponds to the probability of two events:
 \metroset{block=fill}\begin{alertblock}{Chain Rule for Two Random Variables}
 \begin{equation*}
 \begin{aligned}
-    \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\substack{\textrm{Joint}\\\textrm{Probability}}} &= \overbrace{\mathbb{P}\left(X \in A \mid Y \in B\right)}^{\substack{\textrm{Conditional}\\\textrm{Probability}}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\substack{\textrm{Marginal}\\\textrm{Probability}}}\\
-    &= \mathbb{P}\left(Y \in B \mid X \in A\right)\mathbb{P}\left(X \in A\right)
+    \overbrace{\mathbb{P}\left(X \in A, Y \in B\right)}^{\substack{\textrm{Joint}\\\textrm{Probability}}} &= \overbrace{\mathbb{P}\left(X \in A \;\middle|\; Y \in B\right)}^{\substack{\textrm{Conditional}\\\textrm{Probability}}}\overbrace{\mathbb{P}\left(Y \in B\right)}^{\substack{\textrm{Marginal}\\\textrm{Probability}}}\\
+    &= \mathbb{P}\left(Y \in B \;\middle|\; X \in A\right)\mathbb{P}\left(X \in A\right)
 \end{aligned}
 \end{equation*}
 \end{alertblock}}
@@ -88,7 +90,7 @@ In this lecture, we will only consider independent random variables. For two ran
 \end{equation*}
 taking note that independence implies
 \begin{equation*}
-    \mathbb{P}\left(X \in A \mid Y \in B\right) = \mathbb{P}\left(X \in A\right)\,.
+    \mathbb{P}\left(X \in A \;\middle|\; Y \in B\right) = \mathbb{P}\left(X \in A\right)\,.
 \end{equation*}}
 \onslide<3>{For \(n\) independent random variables, this generalises to:
 \metroset{block=fill}\begin{alertblock}{Independence of \(n\) Random Variables}
@@ -112,7 +114,7 @@ In our red ball example, we could also use separate random variables for the out
 
 Whilst we won't be dealing with dependent random variables today, some problem set questions will still require you to work with conditional probabilities. Take note that
 \begin{equation*}
-    \mathbb{P}\left(X \in A \mid X \in B\right) = \frac{\mathbb{P}\left(X \in A, X \in B\right)}{\mathbb{P}\left(X \in B\right)}\,.
+    \mathbb{P}\left(X \in A \;\middle|\; X \in B\right) = \frac{\mathbb{P}\left(X \in A, X \in B\right)}{\mathbb{P}\left(X \in B\right)}\,.
 \end{equation*}
 There is nothing special about this. We are simply looking at the probability of one event conditioned on the occurrence of another.
 \end{frame}
@@ -206,7 +208,10 @@ As probabilities must sum to 1 over the support, we have the following emergent 
 \end{aligned}\end{equation*}
 \onslide<2>{We can also see that the following is true:
 \begin{equation*}
-    \mathbb{P}\left(a < X \leq b\right) = F_X\left(b\right) - F_X\left(a\right)\,.
+\begin{aligned}
+    \mathbb{P}\left(a < X \leq b\right) &= \mathbb{P}\left(X \leq b\right) - \mathbb{P}\left(X \leq a\right)\\
+    &= F_X\left(b\right) - F_X\left(a\right)\,.
+\end{aligned}
 \end{equation*}}
 \end{frame}
 
@@ -346,7 +351,7 @@ Why care about expectations?
 \begin{itemize}[<+->]
     \item A huge number of statistical estimation problems, where we try to estimate model parameters given some data, can be written in terms of expectations.
     \item This includes machine learning problems. Training a machine learning model involves minimising a loss function. The loss function and its gradient is very often written in terms of expectations.
-    \item We can estimate these expectations simply by drawing samples!
+    \item We can approximate these expectations simply by drawing samples!
 \end{itemize}
 \end{frame}
 
@@ -450,7 +455,7 @@ The next few slides will deal with simple functions of random variables. We have
 
 If \(X\) and \(Y\) are discrete and independent, then \(Z = X + Y\) has the PMF
 \begin{equation*}
-    p_Z\left(z\right) = \sum_{x \in \mathcal{X}}p_X\left(x\right)p_Y\left(z - x\right)\,.
+    f_Z\left(z\right) = \sum_{x \in \mathcal{X}}f_X\left(x\right)f_Y\left(z - x\right)\,.
 \end{equation*}
 You may use this without proof. A summation of this form is called a convolution.}
 \end{frame}
@@ -636,7 +641,7 @@ Poisson random variable \(X \sim \mathrm{Pois}\left(\lambda\right)\) has the fol
     \begin{tabular}{ll}
       \toprule
       Parameters & \(\lambda \in \left(0, \infty\right)\)\\
-      Support & \(\mathcal{X} = \mathbb{N}\)\\
+      Support & \(\mathcal{X} = \mathbb{N}_0\)\\
       PMF & \(f_X\left(x\right) = \frac{\lambda^x e^{-\lambda}}{x!}\qquad\textrm{for }x \in \mathcal{X}\)\\
       Mean & \(\mathbb{E}\left[X\right] = \lambda\)\\
       Variance & \(\textrm{Var}\left(X\right) = \lambda\)\\
