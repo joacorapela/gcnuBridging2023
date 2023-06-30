@@ -236,7 +236,32 @@ Section 6: Vector random variables (Stark and Woods, 1994; Bishop, 2006) (Mohi S
 
 ---
 
-Section 7: Functions of random variables (Stark and Woods, 1994) (Cameron Stewart)
+Section 7: Limit theorems (Ross, 2010) (George Dimitriadis)
+===========================================================
+
+Part A Inequalities and the Weak Law of Large Numbers
+1)	Inequalities
+-	Markov
+-	Chebysnev
+2)	Weak Law of Large Numbers
+3)	Convergence in probability
+4)	Accuracy of estimations using Chebysnev Inequality
+
+Part B Central Limit Theorem
+1)	What is the Central Limit Theorem
+2)	Understanding the CLT as a convolution of density functions (coding)
+3)	Using the CLT
+
+Part C Intro to Statistics
+1)	Estimation / Estimators
+2)	Confidence Intervals
+3)	Other estimators
+4)	Maximum Likelihood Estimator (basic intro)
+
+
+---
+
+Section 8: Functions of random variables (Stark and Woods, 1994) (Cameron Stewart)
 ==================================================================================
 
 3.1 Introduction
@@ -260,31 +285,6 @@ Section 7: Functions of random variables (Stark and Woods, 1994) (Cameron Stewar
 
 ---
 
-Section 8: Limit theorems (Ross, 2010) (George Dimitriadis)
-===========================================================
-
-8.2 Chebyshev's inequality and the weak law of large numbers
-------------------------------------------------------------
-
-- Markov's inequality
-
-- Chevishev's inequality
-
-- The weak law of large numbers
-
-8.3 The central limit theorem
------------------------------
-
-- The central limit theorem for iid RVs (with proof)
-
-- The central limit theorem for independent RVs 
-
-8.4 The strong law of large numbers
------------------------------------
-
-- The strong law of large numbers
-
----
 
 Section 9: Inference (Bishop, 2006) (Joaquin Rapela)
 ====================================================
