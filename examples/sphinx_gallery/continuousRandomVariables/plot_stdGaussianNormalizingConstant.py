@@ -1,8 +1,8 @@
 
 
 """
-Derivation of the normalizing constant for standard Normal distribution
-=======================================================================
+Derivation of the normalizing constant for the standard Normal distribution
+===========================================================================
 
 Below we illustrate how to derive this constant analytically and and how to
 approximate it by sampling.
