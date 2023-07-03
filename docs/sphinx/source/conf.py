@@ -28,6 +28,7 @@ author = 'Joaquin Rapela'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.mathjax',
     'sphinx_gallery.gen_gallery',
 ]
 
