@@ -16,7 +16,10 @@ from matplotlib.ticker import LinearLocator
 #%% A function to plot the PDF and CDF surfaces for a 2D Gaussian
 def Plot_pdf_CDF_2D(Mean,Covariance):
     #plot pdf surface
-    x, y = np.mgrid[Mean[0]-3*Covariance[0,0]:Mean[0]+3*Covariance[0,0]:.1, Mean[1]-3*Covariance[1,1]:Mean[1]+3*Covariance[1,1]:.1]
+    #x, y = np.mgrid[Mean[0]-3*Covariance[0,0]:Mean[0]+3*Covariance[0,0]:.1, Mean[1]-3*Covariance[1,1]:Mean[1]+3*Covariance[1,1]:.1]
+    
+    x, y = np.mgrid[-10:10:.1, -10:10:.1]
+
     pos = np.dstack((x, y))
     rv = multivariate_normal(Mean,Covariance)
     
@@ -37,6 +40,7 @@ def Plot_pdf_CDF_2D(Mean,Covariance):
     ax0.set_ylabel('y',fontname="Arial", fontsize= fontsize)
     ax0.set_zlabel('pdf',fontname="Arial", fontsize= fontsize)
     
+    
     #plot CDF
     surf = ax[1].plot_surface(x, y, CDF, cmap=cm.coolwarm,
                            linewidth=0, antialiased=False)
@@ -50,14 +54,28 @@ def Plot_pdf_CDF_2D(Mean,Covariance):
     ax1.set_ylabel('y',fontname="Arial", fontsize= fontsize)
     ax1.set_zlabel('CDF',fontname="Arial", fontsize= fontsize)
     plt.show()
+    
+    #Plot Contours
+    fig, ax = plt.subplots(1,1)
+    cont = ax.contourf(x, y, pdf)
+    ax.set_xlabel('x',fontname="Arial", fontsize= fontsize)
+    ax.set_ylabel('y',fontname="Arial", fontsize= fontsize)
+    
+
+
 
 #%%A function to plot the PDF and CDF surfaces for a 3D Gaussian
 def Plot_pdf_CDF_3D(Mean,Covariance):
     number_of_points = 20
     Dimention = number_of_points**3
-    x_1 = np.linspace(Mean[0]-2*Covariance[0,0],Mean[0]+2*Covariance[0,0],number_of_points)
-    x_2 = np.linspace(Mean[1]-2*Covariance[1,1],Mean[1]+2*Covariance[1,1],number_of_points)
-    x_3 = np.linspace(Mean[2]-2*Covariance[2,2],Mean[2]+2*Covariance[2,2],number_of_points)
+    #x_1 = np.linspace(Mean[0]-2*Covariance[0,0],Mean[0]+2*Covariance[0,0],number_of_points)
+    #x_2 = np.linspace(Mean[1]-2*Covariance[1,1],Mean[1]+2*Covariance[1,1],number_of_points)
+   # x_3 = np.linspace(Mean[2]-2*Covariance[2,2],Mean[2]+2*Covariance[2,2],number_of_points)
+
+    x_1 = np.linspace(-5,5,number_of_points)
+    x_2 = np.linspace(-5,5,number_of_points)
+    x_3 = np.linspace(-5,5,number_of_points)
+
 
     x_1,x_2,x_3 = np.meshgrid(x_1, x_2, x_3)
 
@@ -101,9 +119,7 @@ def Plot_pdf_CDF_3D(Mean,Covariance):
     ax0.set_ylabel('y',fontname="Arial", fontsize= fontsize)
     ax0.set_zlabel('z',fontname="Arial", fontsize= fontsize)
     ax0.set_title('CDF',fontname="Arial", fontsize= fontsize)
-
-    plt.show()
-
+    
 #%% Step 1:2D
 #For this interesting distribution, implement step 1 to see what pdf and CDF look like, for different mean vector and covariance matrices!    
 Mean = np.array([0,0])
@@ -113,7 +129,7 @@ Plot_pdf_CDF_2D(Mean,Covariance)
 
 #%% Step 2: 3D
 Mean = np.array([0,0,0])
-Covariance = np.array([[3, 2, 2], [2, 3,2], [2, 2,3]])
-Plot_pdf_CDF_3D(Mean,Covariance)
+Covariance = np.array([[1, 0, 0], [0, 10,0], [0, 0,1]])
+#Plot_pdf_CDF_3D(Mean,Covariance)
 
 
