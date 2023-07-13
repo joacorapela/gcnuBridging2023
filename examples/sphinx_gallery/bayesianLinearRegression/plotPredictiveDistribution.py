@@ -63,7 +63,7 @@ sigma = 0.1
 x = np.sort(np.random.uniform(size=N))
 _, t = generateData(x=x, sigma=sigma)
 x_dense = np.linspace(0, 1, 1000)
-y_dense, _ = generateData(x=x, sigma=sigma)
+y_dense, _ = generateData(x=x_dense, sigma=sigma)
 
 #%%
 # Plot train data
