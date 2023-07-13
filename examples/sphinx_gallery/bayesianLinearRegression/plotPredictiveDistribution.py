@@ -23,11 +23,10 @@ import joacorapela_common.stats.bayesianLinearRegression
 # Define a function to generate sinusoidal regression data
 # --------------------------------------------------------
 
-def generateData(N, sigma=0.1):
-    x = np.sort(np.random.uniform(size=N))
+def generateData(x, sigma=0.1):
     y = np.sin(2*np.pi*x)
     t = y + np.random.normal(loc=0, scale=sigma, size=len(y))
-    return x, y, t
+    return y, t
 
 
 #%%
@@ -57,24 +56,28 @@ def buildGaussianDesignMatrix(x, mu, sigma):
 # Generate train data
 # -------------------
 
-N = 25
+N = 10
+# N = 25
 # N = 4
 sigma = 0.1
-x, y, t = generateData(N=N, sigma=sigma)
+x = np.sort(np.random.uniform(size=N))
+_, t = generateData(x=x, sigma=sigma)
+x_dense = np.linspace(0, 1, 1000)
+y_dense, _ = generateData(x=x, sigma=sigma)
 
 #%%
 # Plot train data
 # ---------------
 
 fig = go.Figure()
-trace_true = go.Scatter(x=x, y=y, mode="lines", line_color="green")
+trace_true = go.Scatter(x=x_dense, y=y_dense, mode="lines", line_color="green")
 trace_data = go.Scatter(x=x, y=t, mode="markers", marker_color="blue")
 fig.add_trace(trace_true)
 fig.add_trace(trace_data)
 fig.update_layout(xaxis_title="independent variable",
                   yaxis_title="dependent variable",
                   showlegend=False)
-fig
+fig.show()
 
 #%%
 # Ses estimation parameters
@@ -136,4 +139,4 @@ fig.add_trace(trace_data)
 fig.update_layout(xaxis_title="independent variable",
                   yaxis_title="dependent variable",
                   showlegend=False)
-fig
+fig.show()
