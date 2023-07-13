@@ -77,7 +77,7 @@ fig.add_trace(trace_data)
 fig.update_layout(xaxis_title="independent variable",
                   yaxis_title="dependent variable",
                   showlegend=False)
-fig.show()
+fig
 
 #%%
 # Ses estimation parameters
@@ -139,4 +139,4 @@ fig.add_trace(trace_data)
 fig.update_layout(xaxis_title="independent variable",
                   yaxis_title="dependent variable",
                   showlegend=False)
-fig.show()
+fig
