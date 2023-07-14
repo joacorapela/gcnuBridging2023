@@ -240,24 +240,29 @@ Section 7: Limit theorems (Ross, 2010) (George Dimitriadis)
 ===========================================================
 
 Part A Inequalities and the Weak Law of Large Numbers
-1)	Inequalities
--	Markov
--	Chebysnev
-2)	Weak Law of Large Numbers
-3)	Convergence in probability
-4)	Accuracy of estimations using Chebysnev Inequality
+-----------------------------------------------------
+
+1. Inequalities
+    - Markov
+    - Chebysnev
+2. Weak Law of Large Numbers
+3. Convergence in probability
+4. Accuracy of estimations using Chebysnev Inequality
 
 Part B Central Limit Theorem
-1)	What is the Central Limit Theorem
-2)	Understanding the CLT as a convolution of density functions (coding)
-3)	Using the CLT
+----------------------------
+
+1. What is the Central Limit Theorem
+2. Understanding the CLT as a convolution of density functions (coding)
+3. Using the CLT
 
 Part C Intro to Statistics
-1)	Estimation / Estimators
-2)	Confidence Intervals
-3)	Other estimators
-4)	Maximum Likelihood Estimator (basic intro)
+--------------------------
 
+1. Estimation / Estimators
+2. Confidence Intervals
+3. Other estimators
+4. Maximum Likelihood Estimator (basic intro)
 
 ---
 
