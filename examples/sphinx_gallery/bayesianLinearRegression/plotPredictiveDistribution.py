@@ -33,22 +33,30 @@ def generateData(x, sigma=0.1):
 # Define functions to generate the design matrix sinusoidal regression data
 # -------------------------------------------------------------------------
 
-def buildGaussianDesignMatrixRow(x, mu, sigma):
-    M = len(mu)
+def getGaussianBasisFunctions(mus, sigma):
+    M = len(mus)
+    basis_functions = [None for m in range(M)]
+    for m in range(M):
+        basis_functions[m] = lambda x, mu=mus[m], sigma=sigma: \
+            np.exp(-(x-mu)**2/(2.0*sigma**2))
+    return basis_functions
+
+
+def buildGaussianDesignMatrixRow(x, basis_functions):
+    M = len(basis_functions)
     design_matrix_row = np.empty(shape=M, dtype=np.double)
     for m in range(M):
-        design_matrix_row[m] = np.exp(-(x-mu[m])**2/(2.0*sigma[m]**2))
+        design_matrix_row[m] = basis_functions[m](x)
     return design_matrix_row
 
 
-def buildGaussianDesignMatrix(x, mu, sigma):
-    assert(len(mu==len(sigma)))
-    M = len(mu)
+def buildGaussianDesignMatrix(x, basis_functions):
+    M = len(basis_functions)
     N = len(x)
     design_matrix = np.empty(shape=(N, M), dtype=np.double)
     for n in range(N):
-        design_matrix[n,:] = buildGaussianDesignMatrixRow(x=x[n], mu=mu,
-                                                          sigma=sigma)
+        design_matrix[n,:] = buildGaussianDesignMatrixRow(x=x[n],
+                                                          basis_functions=basis_functions)
     return design_matrix
 
 
@@ -83,17 +91,38 @@ fig
 # Ses estimation parameters
 # -------------------------
 
-bf_mu = np.arange(0.1, 1.0, 0.1)
-bf_sigma = np.ones(len(bf_mu))*1/(N-1)
+bf_mus = np.arange(0.1, 1.0, 0.1)
+bf_sigma = 1.0/(N-1)
 prior_precision = 2.0
 likelihood_precision = 25.0
 N_new = 100
 
 #%%
+# Get and plot the basis functions
+# --------------------------------
+
+basis_functions = getGaussianBasisFunctions(mus=bf_mus, sigma=bf_sigma)
+
+fig = go.Figure()
+for i in range(len(basis_functions)):
+    basis_function_values = basis_functions[i](x_dense)
+    trace = go.Scatter(x=x_dense, y=basis_function_values, mode="lines")
+    fig.add_trace(trace)
+fig.update_layout(xaxis_title="x",
+                  yaxis_title=r"$\phi_i(x)$",
+                  showlegend=False)
+fig
+
+#%%
+# Build design matrix
+# -------------------
+
+Phi = buildGaussianDesignMatrix(x=x, basis_functions=basis_functions)
+
+#%%
 # Estimate posterior distribution
 # -------------------------------
 
-Phi = buildGaussianDesignMatrix(x=x, mu=bf_mu, sigma=bf_sigma)
 mN, SN = \
     joacorapela_common.stats.bayesianLinearRegression.batchWithSimplePrior(
         Phi=Phi, y=t, alpha=prior_precision, beta=likelihood_precision)
@@ -107,7 +136,8 @@ new_mean = np.empty(shape=N_new, dtype=np.double)
 true_mean = np.empty(shape=N_new, dtype=np.double)
 new_var = np.empty(shape=N_new, dtype=np.double)
 for n in range(N_new):
-    phi = buildGaussianDesignMatrixRow(x=new_x[n], mu=bf_mu, sigma=bf_sigma)
+    phi = buildGaussianDesignMatrixRow(x=new_x[n],
+                                       basis_functions=basis_functions)
     new_mean[n] = np.dot(mN, phi)
     true_mean[n] = np.sin(2*np.pi*new_x[n])
     new_var[n] = 1.0/likelihood_precision + np.dot(phi, np.dot(SN, phi))
@@ -131,7 +161,7 @@ trace_mean_cb = go.Scatter(x=np.concatenate((new_x, new_x[::-1])),
                            showlegend=False,
                           )
 trace_data = go.Scatter(x=x, y=t, mode="markers", marker_color="blue",
-                        marker_symbol="circle-open")
+                        marker_symbol="circle-open", marker_size=10)
 fig.add_trace(trace_true)
 fig.add_trace(trace_mean)
 fig.add_trace(trace_mean_cb)
