@@ -1,0 +1,1 @@
+- when introducting Bayesian linear regression, note that by taking the Bayesian approach we automatically select the model complexity (i.e., avoid overfitting)
