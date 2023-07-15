@@ -88,7 +88,7 @@ fig.update_layout(xaxis_title="independent variable",
 fig
 
 #%%
-# Ses estimation parameters
+# Set estimation parameters
 # -------------------------
 
 bf_mus = np.arange(0.1, 1.0, 0.1)
