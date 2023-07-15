@@ -22,6 +22,20 @@ docs/sphinx/make.bat
 *.dic
 probability/lectures/foundations/notes.md
 probability/lectures/foundations/old.tex
+probability/lectures/3_discrete_random_variables/lecture.pdf.pdf
+probability/lectures/3_discrete_random_variables/lecture.pdf.xoj
+probability/lectures/4_continuous_random_variables/lecture.pdf.pdf
+probability/lectures/4_continuous_random_variables/lecture.pdf.xoj
+probability/lectures/6_vectorsOfRandomVariables/randomVectors/Random_Vectors_Gatsby_Bridging_Programme.pdf.pdf
+probability/lectures/6_vectorsOfRandomVariables/randomVectors/Random_Vectors_Gatsby_Bridging_Programme.pdf.xoj
+probability/lectures/7_limit_theorems_and_statistics/Limit\ Theorems\ B\ Central\ Limit\ Theorem.pdf.pdf
+probability/lectures/7_limit_theorems_and_statistics/Limit\ Theorems\ B\ Central\ Limit\ Theorem.pdf.xoj
+
+
+probability/lectures/4_continuous_random_variables/comments/
+probability/lectures/6_vectorsOfRandomVariables/randomVectors/comments/
+probability/lectures/7_limit_theorems_and_statistics/comments/
+
 
 # directories
 old/
