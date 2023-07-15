@@ -1,10 +1,13 @@
+- The material is great.
+
+- It may be a bit boring for students to spend the whole day in the Socratic lecture style.
+
+- I would intercalate problem sessions and give students many breaks
+
 - Discuss the different types of stochastic convergence and their relationship?
 
-- You are using the result that the pmf of the sum of independent random variables is the convolution of their pmfs. You may want to prove it yourself, or tell the students that Cameron will prove it.
+- The example in section 7-4 from Papoullis and Pillai is very good to demonstrate the relevance of the Chebyshev's inequality and the relevance of averaging.
 
-- The example in section 7-4 from Papoullis and Pillai is very good to demonstrate the relevance of the Chebyshev's inequality and the relevance of averaging. Basically
-
-    x = a + 
 WLLN doc:
 
     - Prop 2.3 from Ross 2010
