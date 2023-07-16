@@ -1,6 +1,6 @@
 all: inference.pdf
 
-inference.pdf: inference.tex inference_content.tex
+inference.pdf: inference.tex
 
 %.pdf: %.tex
 	pdflatex $<
