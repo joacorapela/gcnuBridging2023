@@ -1,8 +1,8 @@
 
 
 """
-Root-Mean-Square error for train and test data
-==============================================
+Cross-validation for least-squares regression
+=============================================
 
 Calculate the root-mean-square error of a polynomial regression for train and
 test data.
