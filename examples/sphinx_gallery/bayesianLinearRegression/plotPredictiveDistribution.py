@@ -67,11 +67,10 @@ def buildGaussianDesignMatrix(x, basis_functions):
 N = 10
 # N = 25
 # N = 4
-sigma = 0.1
 x = np.sort(np.random.uniform(size=N))
-_, t = generateData(x=x, sigma=sigma)
+_, t = generateData(x=x)
 x_dense = np.linspace(0, 1, 1000)
-y_dense, _ = generateData(x=x_dense, sigma=sigma)
+y_dense, _ = generateData(x=x_dense)
 
 #%%
 # Plot train data
