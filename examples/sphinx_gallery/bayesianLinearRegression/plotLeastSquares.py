@@ -139,5 +139,3 @@ fig.update_layout(xaxis_title="independent variable",
                          f"true-estimated_slope={true_coefs[1]-w_hat[1]:.4f}"),
                   showlegend=False)
 fig
-
-breakpoint()

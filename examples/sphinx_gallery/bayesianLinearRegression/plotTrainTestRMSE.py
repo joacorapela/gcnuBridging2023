@@ -93,5 +93,3 @@ fig.add_trace(trace_test)
 fig.update_layout(xaxis_title="M", yaxis_title="Root-Mean-Square Error")
 fig.update_yaxes(range=[0.0, 1.0])
 fig
-
-breakpoint()
