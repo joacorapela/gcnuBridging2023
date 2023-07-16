@@ -14,18 +14,24 @@
 
         - deterministic regression
 
-            - least-squres 
+            - least squres 
+
+            - regularized least squares
 
         - probabilistic regression
 
             - maximum likelihood
 
-            - maximum a posteriori
+            - Bayesian
 
                 - batch Bayesian linear regression
 
                 - online Bayesian linear regression
 
+                - predictive distribution
+
+                - evaluation of the evidence function
+                
         - inference in the linear Gaussian model
 
 # 2.3 The Gaussian distribution
