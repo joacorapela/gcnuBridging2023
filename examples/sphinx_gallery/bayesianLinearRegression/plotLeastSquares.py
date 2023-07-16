@@ -67,11 +67,10 @@ def buildDesignMatrix(x, basis_functions):
 # N = 10
 N = 25
 true_coefs = [1.0, 2.0]
-sigma = 1.0
 x = np.sort(np.random.uniform(size=N))
-_, t = generateData(x=x, true_coefs=true_coefs, sigma=sigma)
+_, t = generateData(x=x, true_coefs=true_coefs)
 x_dense = np.linspace(0, 1, 1000)
-y_dense, _ = generateData(x=x_dense, true_coefs=true_coefs, sigma=sigma)
+y_dense, _ = generateData(x=x_dense, true_coefs=true_coefs)
 
 #%%
 # Plot train data
@@ -85,7 +84,7 @@ fig.add_trace(trace_data)
 fig.update_layout(xaxis_title="independent variable",
                   yaxis_title="dependent variable",
                   showlegend=False)
-fig.show()
+fig
 
 #%%
 # Get and plot the basis functions
@@ -101,7 +100,7 @@ for i in range(len(basis_functions)):
 fig.update_layout(xaxis_title="x",
                   yaxis_title=r"$\phi_i(x)$",
                   showlegend=False)
-fig.show()
+fig
 
 #%%
 # Build design matrix
@@ -139,6 +138,6 @@ fig.update_layout(xaxis_title="independent variable",
                   title=(f"true-estimated_intercept={true_coefs[0]-w_hat[0]:.4f}, "
                          f"true-estimated_slope={true_coefs[1]-w_hat[1]:.4f}"),
                   showlegend=False)
-fig.show()
+fig
 
 breakpoint()
