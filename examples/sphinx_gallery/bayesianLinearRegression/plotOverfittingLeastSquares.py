@@ -1,11 +1,10 @@
 
 
 """
-Predictive distribution
-=======================
+Overfitting demonstration in least squares regression
+=====================================================
 
-The code below demonstrates the use of the predictive distribution in Bayesian
-linear regression.
+The code below demonstrates overfitting in least-squares regression.
 
 """
 
@@ -96,9 +95,9 @@ def getPlotPredictions(x_dense, true_dense, x, t, predictions_dense):
 # -------------------
 
 # N = 4
-# N = 10
+N = 10
 # N = 15
-N = 100
+# N = 100
 x = np.sort(np.random.uniform(size=N))
 _, t = generateData(x=x)
 x_dense = np.linspace(0, 1, 1000)
