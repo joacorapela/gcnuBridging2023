@@ -60,9 +60,9 @@ def buildDesignMatrix(x, basis_functions):
 # ----------------------------
 
 # N = 4
-# N = 10
+N = 10
 # N = 15
-N = 100
+# N = 100
 x = np.sort(np.random.uniform(size=N))
 _, t_train = generateData(x=x)
 _, t_test = generateData(x=x)
