@@ -71,7 +71,7 @@ S0 = 1.0 / alpha * np.eye(2)
 #
 
 fig = plotly.subplots.make_subplots(rows=len(n_samples_to_plot)+1, cols=3)
-x_m1_1 = np.arange(-1.0, 1.0, 0.1)
+x_dense = np.arange(-1.0, 1.0, 0.1)
 
 # trace true coefficient
 trace_true_coef = go.Scatter(x=[a0], y=[a1], mode="markers",
@@ -99,8 +99,8 @@ samples = rv.rvs(size=n_post_samples)
 # plot regression lines corresponding to samples
 for a_sample in samples:
     sample_intercept, sample_slope = a_sample
-    sample_y = sample_intercept + sample_slope * x_m1_1
-    trace = go.Scatter(x=x_m1_1, y=sample_y, mode="lines",
+    sample_y = sample_intercept + sample_slope * x_dense
+    trace = go.Scatter(x=x_dense, y=sample_y, mode="lines",
                        line_color="red", showlegend=False)
     fig.add_trace(trace, row=1, col=3)
 fig.update_xaxes(title_text="x", row=1, col=3)
@@ -150,8 +150,8 @@ for n, t in enumerate(dependent_var):
         # plot regression lines corresponding to samples
         for a_sample in samples:
             sample_intercept, sample_slope = a_sample
-            sample_y = sample_intercept + sample_slope * x_m1_1
-            trace = go.Scatter(x=x_m1_1, y=sample_y, mode="lines",
+            sample_y = sample_intercept + sample_slope * x_dense
+            trace = go.Scatter(x=x_dense, y=sample_y, mode="lines",
                                line_color="red", showlegend=False)
             fig.add_trace(trace, row=index_sample+2, col=3)
         trace_data = go.Scatter(x=independent_var[:(n+1)], y=dependent_var[:(n+1)],
