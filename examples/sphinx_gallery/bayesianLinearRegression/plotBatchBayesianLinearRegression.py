@@ -23,50 +23,62 @@ import joacorapela_common.stats.bayesianLinearRegression
 # --------------------------------
 
 n_samples = 20
-prior_precision_coef = 2.0
+a0 = -0.3
+a1 = 0.5
 likelihood_precision_coef = (1/0.2)**2
-data_filename_pattern = "data/linearRegression_nSamples{:02d}.npz"
-fig_filename_pattern = "figures/batchBayesianLinearRegression_nSamples{:02d}.{:s}"
 
 #%%
-# Load data
-# ---------
+# Generate data
+# -------------
 
-data_filename = data_filename_pattern.format(n_samples)
-load_res = np.load(data_filename)
-independent_var = load_res["x"]
-dependent_var = load_res["t"]
-a0 = load_res["a0"]
-a1 = load_res["a1"]
+x = np.random.uniform(low=-1, high=1, size=n_samples)
+y = a0 + a1 * x
+t = y + np.random.standard_normal(size=y.shape) * 1.0/likelihood_precision_coef
+
+#%%
+# Define estimation variables
+# ---------------------------
+
+prior_precision_coef = 2.0
 
 #%%
 # Estimate posterior
 # ------------------
 
-Phi = np.column_stack((np.ones(len(independent_var)), independent_var))
-alpha = prior_precision_coef
-beta = likelihood_precision_coef
+Phi = np.column_stack((np.ones(len(x)), x))
 mN, SN = \
     joacorapela_common.stats.bayesianLinearRegression.batchWithSimplePrior(
-        Phi=Phi, y=dependent_var, alpha=alpha, beta=beta)
+        Phi=Phi, y=y, alpha=prior_precision_coef,
+        beta=likelihood_precision_coef)
 
 #%%
-# Plot the estimates
-# ------------------
+# Define plotting variables
+# -------------------------
+n_post_samples = 6
 marker_true = "cross"
 size_true = 10
-color_true = "white"
-x = np.linspace(-1, 1, 100)
-y = np.linspace(-1, 1, 100)
-X, Y = np.meshgrid(x, y)
-pos = np.dstack((X, Y))
+color_true = "red"
+marker_data = "circle-open"
+size_data = 10
+color_data = "blue"
+line_width_data = 5
+x_dense = np.arange(-1.0, 1.0, 0.1)
+
+#%%
+# Plot posterior pdf
+# ------------------
+
+x_grid = np.linspace(-1, 1, 100)
+y_grid = np.linspace(-1, 1, 100)
+X_grid, Y_grid = np.meshgrid(x_grid, y_grid)
+pos = np.dstack((X_grid, Y_grid))
 
 rv = scipy.stats.multivariate_normal(mN, SN)
 Z = rv.pdf(pos)
 
 fig = go.Figure()
 
-trace_post = go.Contour(x=x, y=y, z=Z, showscale=False)
+trace_post = go.Contour(x=x_grid, y=y_grid, z=Z, showscale=False)
 fig.add_trace(trace_post)
 
 trace_true_coef = go.Scatter(x=[a0], y=[a1], mode="markers",
@@ -77,11 +89,33 @@ trace_true_coef = go.Scatter(x=[a0], y=[a1], mode="markers",
 fig.add_trace(trace_true_coef)
 fig.update_layout(xaxis_title="Intercept",
                   yaxis_title="Slope")
+fig
 
-png_fig_filename = fig_filename_pattern.format(n_samples, "png")
-html_fig_filename = fig_filename_pattern.format(n_samples, "html")
-fig.write_image(png_fig_filename)
-fig.write_html(html_fig_filename)
+#%%
+# Plot sampled regression lines
+# -----------------------------
+
+fig = go.Figure()
+
+samples = rv.rvs(size=n_post_samples)
+for a_sample in samples:
+    sample_intercept, sample_slope = a_sample
+    sample_y = sample_intercept + sample_slope * x_dense
+    trace = go.Scatter(x=x_dense, y=sample_y, mode="lines",
+                       line_color="red", showlegend=False)
+    fig.add_trace(trace)
+fig.update_xaxes(title_text="x")
+fig.update_yaxes(title_text="y")
+
+trace_data_points = go.Scatter(x=x, y=t,
+                               mode="markers",
+                               marker_symbol=marker_data,
+                               marker_size=size_data,
+                               marker_color=color_data,
+                               marker_line_width=line_width_data,
+                               showlegend=False,
+                              )
+fig.add_trace(trace_data_points)
 
 fig
 
