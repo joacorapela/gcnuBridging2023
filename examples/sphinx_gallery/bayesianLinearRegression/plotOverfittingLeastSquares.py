@@ -22,7 +22,7 @@ import joacorapela_common.stats.bayesianLinearRegression
 # Define a function to generate sinusoidal regression data
 # --------------------------------------------------------
 
-def generateData(x, sigma=0.1):
+def generateData(x, sigma=0.3):
     y = np.sin(2*np.pi*x)
     t = y + np.random.normal(loc=0, scale=sigma, size=len(y))
     return y, t
