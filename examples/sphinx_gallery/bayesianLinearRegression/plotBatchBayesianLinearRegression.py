@@ -36,6 +36,40 @@ y = a0 + a1 * x
 t = y + np.random.standard_normal(size=y.shape) * 1.0/likelihood_precision_coef
 
 #%%
+# Define plotting variables
+# -------------------------
+n_post_samples = 6
+marker_true = "cross"
+size_true = 10
+color_true = "red"
+marker_data = "circle-open"
+size_data = 10
+color_data = "blue"
+line_width_data = 5
+x_dense = np.arange(-1.0, 1.0, 0.1)
+
+#%%
+# Plot generated data
+# -------------------
+
+y_true = a0 + a1 * x_dense
+fig = go.Figure()
+trace_true = go.Scatter(x=x_dense, y=y_true, mode="lines", line_color="green",
+                       showlegend=False)
+fig.add_trace(trace_true)
+trace_data_points = go.Scatter(x=x, y=t,
+                               mode="markers",
+                               marker_symbol=marker_data,
+                               marker_size=size_data,
+                               marker_color=color_data,
+                               marker_line_width=line_width_data,
+                               showlegend=False,
+                              )
+fig.add_trace(trace_data_points)
+fig.update_xaxes(title_text="x")
+fig.update_yaxes(title_text="y")
+
+#%%
 # Define estimation variables
 # ---------------------------
 
@@ -50,19 +84,6 @@ mN, SN = \
     joacorapela_common.stats.bayesianLinearRegression.batchWithSimplePrior(
         Phi=Phi, y=y, alpha=prior_precision_coef,
         beta=likelihood_precision_coef)
-
-#%%
-# Define plotting variables
-# -------------------------
-n_post_samples = 6
-marker_true = "cross"
-size_true = 10
-color_true = "red"
-marker_data = "circle-open"
-size_data = 10
-color_data = "blue"
-line_width_data = 5
-x_dense = np.arange(-1.0, 1.0, 0.1)
 
 #%%
 # Plot posterior pdf
@@ -87,9 +108,10 @@ trace_true_coef = go.Scatter(x=[a0], y=[a1], mode="markers",
                              marker_color=color_true,
                              name="true mean")
 fig.add_trace(trace_true_coef)
+fig.add_vline(x=0, line_color="white")
+fig.add_hline(y=0, line_color="white")
 fig.update_layout(xaxis_title="Intercept",
                   yaxis_title="Slope")
-fig
 
 #%%
 # Plot sampled regression lines
@@ -107,14 +129,6 @@ for a_sample in samples:
 fig.update_xaxes(title_text="x")
 fig.update_yaxes(title_text="y")
 
-trace_data_points = go.Scatter(x=x, y=t,
-                               mode="markers",
-                               marker_symbol=marker_data,
-                               marker_size=size_data,
-                               marker_color=color_data,
-                               marker_line_width=line_width_data,
-                               showlegend=False,
-                              )
 fig.add_trace(trace_data_points)
 
 fig
