@@ -146,6 +146,7 @@
 \newcommand{\keepi}{\addtocounter{saveenumi}{-1}\setcounter{enumi}{\value{saveenumi}}}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -161,12 +162,18 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \date{\today} % Date, can be changed to a custom date
 
 \AtBeginSection[]
-  {
-     \begin{frame}<beamer>
-     \frametitle{Contents}
-         \tableofcontents[currentsection,hideallsubsections]
-     \end{frame}
-  }
+{
+	\begin{frame}<beamer>
+    \frametitle{Contents}
+		\tableofcontents[currentsection]
+    \end{frame}
+}
+\AtBeginSubsection[]
+{
+    \begin{frame}{Outline}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
 
 \begin{document}
 
@@ -330,10 +337,10 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
 		Then
 
-		\begin{align*}
-            p(\mathbf{t})&=\mathcal{N}(\mathbf{t}|A\boldsymbol{\mu}+\mathbf{b},L^{-1}+A\Lambda^{-1}A^\intercal)\\
-			p(\mathbf{x}|\mathbf{t})&=\mathcal{N}(\mathbf{x}|\Sigma\{A^\intercal L(\mathbf{t}-\mathbf{b})+\Sigma\boldsymbol{\mu}\},\Sigma)
-		\end{align*}
+		\begin{align}
+            p(\mathbf{t})&=\mathcal{N}(\mathbf{t}|A\boldsymbol{\mu}+\mathbf{b},L^{-1}+A\Lambda^{-1}A^\intercal)\label{eq:marginalLinearGaussianModel}\\
+			p(\mathbf{x}|\mathbf{t})&=\mathcal{N}(\mathbf{x}|\Sigma\{A^\intercal L(\mathbf{t}-\mathbf{b})+\Sigma\boldsymbol{\mu}\},\Sigma)~\label{eq:conditionalLinearGaussianModel}
+		\end{align}
 
 		where
 
@@ -523,7 +530,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 	\end{claim}
 	\begin{proof}
 		\scriptsize
-		Exercise. Hint: verify that the multiplication of the inverse of the matrix in the right hand side of Eq.~\ref{eq:inversePartitionedMatrix} with the matrix in the left hand side of the same equation is the identiy matrix.
+		Exercise. Hint: verify that the multiplication of the inverse of the matrix in the right hand side of Eq.~\ref{eq:inversePartitionedMatrix} with the matrix in the left hand side of the same equation is the identity matrix.
 		\phantom\qedhere
 		\normalsize
 	\end{proof}
@@ -696,12 +703,12 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     \begin{probDef}[Least-squares problem]
         Given $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M},N\ge
         M,\mathbf{t}\in\mathbb{R}^N$, find $\mathbf{w}\in\mathbb{R}^M$ such
-        that $E_{LS}(\mathbf{w})=||\mathbf{t}-\boldsymbol{\Phi}\boldsymbol{w}||_2$ is minimized.
+        that $E_{LS}(\mathbf{w})=||\mathbf{t}-\boldsymbol{\Phi}\boldsymbol{w}||_2$ is minimised.
     \end{probDef}
     \begin{theorem}[Least-squares solution]
         Let $\boldsymbol{\Phi}\in\mathbb{R}^{N\times M} (N\ge M)$ and
         $\mathbf{t}\in\mathbb{R}^N$ be given. A vector
-        $\mathbf{w}\in\mathbb{R}^M$ minimizes
+        $\mathbf{w}\in\mathbb{R}^M$ minimises
         $||\mathbf{r}||_2=||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2$, thereby solving the
         least-squares problem, if and only if
         $\mathbf{r}\perp\text{range}(\boldsymbol{\Phi})$, that is,
@@ -721,10 +728,10 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     Given a set of $N$ observations, $\mathbf{t}$, $N>M$, we want to find model
     parameters $\mathbf{w}$ such that the model outputs,
     $\mathbf{t}(\mathbf{x},\mathbf{w})$ equal the observations. This is
-    generally impossible, because the degrees of freedom of the boservations,
+    generally impossible, because the degrees of freedom of the observations,
     $N$, is generally larger than the degrees of freedom of the model
     $\mathbf{t}(\mathbf{x},\mathbf{w})$, $M$. We instead solve the following
-    least-squares probem.
+    least-squares problem.
     }
 \end{frame}
 
@@ -738,18 +745,82 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \end{frame}
 
 \begin{frame}
-    \frametitle{Regularized least-squares estimation of model parameters}
+    \frametitle{Regularised least-squares estimation of model parameters}
 
     To cope with the overfitting of least squares, we can add to the least
-    squares optimization criterion a term that enforces coefficients to be
-    zero. The regularized least-squares optimization criterion becomes:
+    squares optimisation criterion a term that enforces coefficients to be
+    zero. The regularised least-squares optimisation criterion becomes:
 
-    \begin{align}
+    \begin{align*}
         E_{RLS}(\mathbf{w})=||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2+\lambda||\mathbf{w}||_2^2
-    \end{align}
+    \end{align*}
 
-    where $\lambda$ is the regularization parameter that weights the strength
-    of the regularization.
+    where $\lambda$ is the regularisation parameter that weights the strength
+    of the regularisation.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Regularised least-squares estimation of model parameters}
+	\scriptsize
+	\begin{claim}[Regularized least-squares estimate]
+		\begin{align*}
+			\mathbf{w}_{RLS}=\argmin_{\mathbf{w}}E_{RLS}(\mathbf{w})=\argmin_{\mathbf{w}}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2+\lambda||\mathbf{w}||_2^2=(\lambda\mathbf{I}+\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}
+		\end{align*}
+	\end{claim}
+	\tiny
+	\begin{proof}
+		Since $E_{RLS}(\mathbf{w})$ is a polynomial of order two on the elements of $\mathbf{w}$ (i.e., a quadratic form), we can use the \emph{Completing the Squares} technique below to find its minimum.
+		\begin{align}
+			\boldsymbol{\mu}&=\argmax_{\mathbf{w}}\mathcal{N}(\mathbf{w}|\boldsymbol{\mu},\Sigma)=\argmax_{\mathbf{w}}\log\mathcal{N}(\mathbf{w}|\boldsymbol{\mu},\Sigma)\nonumber\\
+                            &=\argmax_{\mathbf{w}}\{K-\frac{1}{2}(-2\boldsymbol{\mu}^\intercal\Sigma^{-1}\mathbf{w}+\mathbf{w}\Sigma^{-1}\mathbf{w})\}\label{eq:completingTheSquaresStep2}\\
+                            &=\argmin_{\mathbf{w}}\{-K+\frac{1}{2}(-2\boldsymbol{\mu}^\intercal\Sigma^{-1}\mathbf{w}+\mathbf{w}\Sigma^{-1}\mathbf{w})\}\nonumber\\
+                            &=\argmin_{\mathbf{w}}\{K_1-2\boldsymbol{\mu}^\intercal\Sigma^{-1}\mathbf{w}+\mathbf{w}\Sigma^{-1}\mathbf{w}\}\label{eq:completingTheSquares}
+		\end{align}
+
+		Note: Eq.~\ref{eq:completingTheSquaresStep2} uses Eq.~\ref{eq:gaussianQuadratic}.
+
+		To find the minimum of a quadratic form, we write it in the form of the
+terms inside the curly brackets of Eq.~\ref{eq:completingTheSquares}, and the
+term corresponding to $\boldsymbol{\mu}$ will be the minimum.
+
+		\phantom\qedhere
+	\end{proof}
+	\normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Regularised least-squares estimation of model parameters}
+	\tiny
+		\begin{proof}
+			Let's write $E_{RLS}$ in the form of the terms inside the curly brackets of Eq.~\ref{eq:completingTheSquares}.
+
+		\begin{align*}
+			E_{RLS}&=||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2+\lambda||\mathbf{w}||_2^2=(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w})^\intercal(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w})+\lambda\mathbf{w}^\intercal\mathbf{w}\\
+                   &=\mathbf{t}^\intercal\mathbf{t}-2\mathbf{t}^\intercal\boldsymbol{\Phi}\mathbf{w}+\mathbf{w}^\intercal\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\mathbf{w}+\lambda\mathbf{w}^\intercal\mathbf{w}\\
+                   &=\mathbf{t}^\intercal\mathbf{t}-2\mathbf{t}^\intercal\boldsymbol{\Phi}\mathbf{w}+\mathbf{w}^\intercal(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M)\mathbf{w}
+		\end{align*}
+		Calling
+		\begin{align*}
+			\Sigma^{-1}&=\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\\
+			\boldsymbol{\mu}^\intercal\Sigma^{-1}&=\mathbf{t}^\intercal\boldsymbol{\Phi}\;\text{or}\;\boldsymbol{\mu}^\intercal=\mathbf{t}^\intercal\boldsymbol{\Phi}\Sigma\;\text{or}\;\boldsymbol{\mu}=\Sigma\boldsymbol{\Phi}^\intercal\mathbf{t}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}
+		\end{align*}
+		we can express
+		\begin{align*}
+			E_{RLS}=K+2\boldsymbol{\mu}^\intercal\Sigma^{-1}\mathbf{w}+\mathbf{w}\Sigma^{-1}\mathbf{w}
+		\end{align*}
+		Then
+		\begin{align*}
+			 \mathbf{w}_{RLS}=\argmin_{\mathbf{w}}E_{RLS}(\mathbf{w})=\boldsymbol{\mu}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t} 
+		\end{align*}
+		\end{proof}
+	\normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Code for regularised least-squares estimation of model parameters}
+    \begin{itemize}
+        \item \href{file:///nfs/ghome/live/rapela/dev/teaching/gcnuBridging2023/repo/docs/sphinx/build/html/auto\_examples/bayesianLinearRegression/plotRegularizedLeastSquares.html\#sphx-glr-auto-examples-bayesianlinearregression-plotregularizedleastsquares-py}{control of overfitting}
+    \end{itemize}
 \end{frame}
 
 \subsection{Maximum-likelihood regression}
@@ -757,22 +828,26 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \begin{frame}
     \frametitle{Maximum-likelihood estimation of model parameters}
 
+	\scriptsize
     \begin{probDef}[Likelihood function]
-        For a statistical model characterized by a probability density
-        function $f(\mathbf{x}|\theta)$ (or probability mass function
+        For a statistical model characterised by a probability density
+        function $p(\mathbf{x}|\theta)$ (or probability mass function
         $P_\theta(X=\mathbf{x})$) the likelihood function is a function of the
-        parameters $\theta$, $\mathcal{L}(\theta)=f(\mathbf{x}|\theta)$
+        parameters $\theta$, $\mathcal{L}(\theta)=p(\mathbf{x}|\theta)$
         (or $\mathcal{L}(\theta)=P_\theta(\mathbf{x})$).
    \end{probDef}
 
     \begin{probDef}[Maximum likelihood parameters estimates]
         The maximum likelihood parameters estimates are the parameters that
-        maximimize the likelihood function.
+        maximise the likelihood function.
 
         \begin{align*}
             \theta_{ML}=\argmax_{\theta}\mathcal{L}(\theta)
         \end{align*}
    \end{probDef}
+
+	\normalsize
+
 \end{frame}
 
 \begin{frame}
@@ -780,28 +855,27 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     regression model}
 
     \footnotesize
-    If model observations as
+    We seek the parameter $\mathbf{w}_{ML}$ and $\beta_{ML}$ that maximised the following likelihood function
 
-    \begin{align*}
-        \mathbf{t}\sim\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)
-    \end{align*}
+    \begin{align}
+        \mathcal{L}(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)=\prod_{n=1}^N\mathcal{N}(t_n|\boldsymbol{\phi}^\intercal(x_n)\mathbf{w},\beta^{-1})\label{eq:linearRegressionLikelihood}
+    \end{align}
 
-    then the likelihood function is
-
-    \begin{align*}
-        \mathcal{L}(\mathbf{w},\beta)=\prod_{n=1}^N\mathcal{N}(t_n|\boldsymbol{\phi}^\intercal(x_n)\mathbf{w},\beta^{-1})
-    \end{align*}
-
-    and the maximum likelihood parameters estimates are
+    They are
 
     \begin{align}
         \mathbf{w}_{ML}&=(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}\label{eq:wML}\\
         \frac{1}{\beta_{ML}}&=\frac{1}{N}\sum_{n=1}^N(t_n-\phi(\mathbf{x}_n)^\intercal\mathbf{w}_{ML})^2\label{eq:betaML}
     \end{align}
 
-    \textcolor{red}{Note: if errors of the basis functions linear regression
-    model  are assumed to be Normal, maximum-likelihood and least-squares
-    coefficients estimates are equal.}
+	\begin{itemize}
+
+		\item first regression method that assumes random observations
+
+		\item if the likelihood function is assumed to be Normal,
+		maximum-likelihood and least-squares coefficients estimates are equal.
+
+	\end{itemize}
 
     \normalsize
 
@@ -817,6 +891,129 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
         and~\ref{eq:betaML}.
     \end{probExercise}
 
+\end{frame}
+
+\subsection{Bayesian linear regression}
+
+\begin{frame}
+    \frametitle{Bayesian linear regression: motivation}
+
+	\begin{itemize}
+		\item elegant,
+		\item naturally allows online regression,
+		\item does not require cross-validation for model selection,
+		\item it is the first step to more complex Bayesian modelling.
+	\end{itemize}
+
+\end{frame}
+
+\subsubsection{Batch Bayesian linear regression}
+
+\begin{frame}
+    \frametitle{Batch Bayesian linear regression: posterior distribution of parameters}
+
+	\scriptsize
+	In Bayesian linear regression we seek the posterior distribution of the
+weights of the linear regression model, $\mathbf{w}$, given the observations, which
+is proportional to the product of the likelihood function,
+$p(\mathbf{t}|\mathbf{w})$, and the prior, $p(\mathbf{w})$; i.e., 
+
+	\begin{align*}
+		p(\mathbf{w}|\mathbf{t})\propto p(\mathbf{t}|\mathbf{w})p(\mathbf{w})
+	\end{align*}
+
+	To calculate this posterior below we use the likelihood function defined in
+Eq.~\ref{eq:linearRegressionLikelihood} and the following prior
+
+	\begin{align*}
+		p(\mathbf{w})=\mathcal{N}(\mathbf{w}|\mathbf{0},\alpha^{-1}\mathbf{I})
+	\end{align*}
+
+	Using the expression of the conditional of the Linear Gaussian model,
+Eq.~\ref{eq:conditionalLinearGaussianModel}, we obtain
+
+	\begin{align}
+		p(\mathbf{w}|\mathbf{t})&=\mathcal{N}(\mathbf{w}|\mathbf{m}_N,\mathbf{S}_N)\nonumber\\
+		\mathbf{m}_N&=\beta\mathbf{S}_N\boldsymbol{\Phi}^\intercal\mathbf{t}\label{eq:blrPosteriorMean}\\
+		\mathbf{S}_N^{-1}&=\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\label{eq:blrPosteriorCov}
+	\end{align}
+
+	\normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Batch Bayesian linear regression: exercise}
+
+    \scriptsize
+    \begin{probExercise}
+		Derive the formulas for the Bayesian posterior mean
+(Eq.~\ref{eq:blrPosteriorMean}) and covariance (Eq.~\ref{eq:blrPosteriorCov})
+of the basis function linear regression model.
+    \end{probExercise}
+
+    \begin{probExercise}
+        Show that
+
+        \begin{align}
+            log
+            \log p(\mathbf{w}|\boldsymbol{t})&=K-\frac{\beta}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2-\frac{\alpha}{2}||\mathbf{w}||_2^2
+        \end{align}
+
+        Therefore, the maximum-a-posteriori parameters of the basis function
+        linear regression model are the solution of the regularized
+        least-squares problem with $\lambda=\alpha/\beta$.
+
+        Note that, as we will show next, Bayesian linear regression uses the
+        full posterior of the parameters to make predictions or to do model
+        selection, and not just the maximum-a-posteriori parameters.
+
+    \end{probExercise}
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Batch Bayesian linear regression: demo code}
+    Available \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotBatchBayesianLinearRegression.html\#sphx-glr-auto-examples-bayesianlinearregression-plotbatchbayesianlinearregression-py}{here}
+\end{frame}
+
+\subsubsection{Online Bayesian linear regression}
+
+\begin{frame}
+    \frametitle{Online Bayesian linear regression: recursive update of posterior distribution of parameters}
+	\scriptsize
+	\begin{claim}[recursive update]
+		If the observations, $\{\mathbf{t}_1,\ldots,\mathbf{t}_n,\dots\}$, are linearly independent when conditioned on the model parameters, $\boldsymbol{\theta}$, then for any $n\in\mathbb{N}$
+		\begin{align}
+			p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_n)=K\ p(\mathbf{t}_n|\boldsymbol{\theta})p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_{n-1})
+		\end{align}
+		where $K$ is a quantity that does not depend on $\boldsymbol{\theta}$.
+	\end{claim}
+	\normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Online Bayesian linear regression: recursive update of posterior distribution of parameters}
+	\tiny
+	\begin{proof}
+		By induction on $H_n: p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_n)=K\ p(\mathbf{t}_n|\boldsymbol{\theta})p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_{n-1})$.
+		\begin{description}
+			\item[$H_1$]
+				\begin{align*}
+					p(\boldsymbol{\theta}|\mathbf{t}_1)=\frac{p(\boldsymbol{\theta},\mathbf{t}_1)}{p(\mathbf{t}_1)}=\frac{p(\mathbf{t}_1|\boldsymbol{\theta})p(\boldsymbol{\theta})}{p(\mathbf{t}_1)}=K\ p(\mathbf{t}_1|\boldsymbol{\theta})p(\boldsymbol{\theta})
+				\end{align*}
+			\item[$H_n\rightarrow H_{n+1}$]
+				\begin{align*}
+					p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_{n+1})&=\frac{p(\boldsymbol{\theta},\mathbf{t}_1,\ldots,\mathbf{t}_{n+1})}{p(\mathbf{t}_1,\ldots,\mathbf{t}_{n+1})}\\
+                                                                               &=\frac{p(\mathbf{t}_{n+1}|\boldsymbol{\theta},\mathbf{t}_1,\ldots,\mathbf{t}_n)p(\boldsymbol{\theta},\mathbf{t}_1,\ldots,\mathbf{t}_n)}{p(\mathbf{t}_1\ldots,\mathbf{t}_{n+1})}\\
+                                                                               &=\frac{p(\mathbf{t}_{n+1}|\boldsymbol{\theta})p(\boldsymbol{\theta},\mathbf{t}_1,\ldots,\mathbf{t}_n)}{p(\mathbf{t}_1\ldots,\mathbf{t}_{n+1})}\\
+                                                                               &=\frac{p(\mathbf{t}_{n+1}|\boldsymbol{\theta})p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_n)p(\mathbf{t}_1,\ldots,\mathbf{t}_n)}{p(\mathbf{t}_1\ldots,\mathbf{t}_{n+1})}\\
+                                                                               &=K\ p(\mathbf{t}_{n+1}|\boldsymbol{\theta})p(\boldsymbol{\theta}|\mathbf{t}_1,\ldots,\mathbf{t}_n)
+				\end{align*}
+				Note: the third equality above holds because the observations are assumed to be conditional independent given the parameters.
+		\end{description}
+	\end{proof}
+	\normalsize
 \end{frame}
 
 \begin{frame}
