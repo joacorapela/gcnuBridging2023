@@ -1,0 +1,23 @@
+- probability
+    - marginals and conditionals of Gaussians are Gaussians
+    - marginals and conditionals of the linear Gaussian model
+- statistics
+    - least-squares linear regression
+    - regularized least-squares linear regression
+    - maximum-likelihood linear regression
+    - maximum-a-posteriori linear regression
+    - Bayesian linear regression
+        - batch
+        - online
+        - predictions
+        - model selection
+    - conjugate priors
+
+- proof techniques
+    - completing the squares to find the parameters of a Gaussian distribution
+    - completing the squares to maximize a quadratic function
+    - matrix inversion lemma
+    - matrix determinant lemma
+
+- programming
+    - how to do linear regression in Python
