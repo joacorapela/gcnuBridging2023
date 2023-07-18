@@ -15,7 +15,7 @@
 %	PACKAGES AND THEMES
 %----------------------------------------------------------------------------------------
 
-\documentclass{beamer}
+\documentclass[11pt]{beamer}
 
 \mode<presentation> {
 
@@ -107,6 +107,7 @@
 \usepackage{media9}
 % \usepackage{multimedia}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{tikz}
 \tikzset{
      arrow/.style={-{Stealth[]}}
@@ -122,6 +123,7 @@
 \newtheorem*{probDef*}{Definition}
 \newtheorem{claim}{Claim}
 \newtheorem*{claim*}{Claim}
+\newtheorem*{lemma*}{Lemma}
 \newtheorem{probExample}{Example}
 \newtheorem{probRule}{Rule}
 \newtheorem{probAxiom}{Axiom}
@@ -735,13 +737,42 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
     }
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Instruction to run notebooks in Google Colab}
+
+    \begin{enumerate}
+        \item open a notebook from
+            \href{https://github.com/joacorapela/gcnuBridging2023/tree/master/docs/sphinx/build/html/notebooks/auto_examples/bayesianLinearRegression}{here}
+        \item replace \textbf{github.com} by \textbf{githubtocolab.com} in the
+            URL
+        \item insert a cell at the beginning of the notebook with the following
+            content
+        \seti
+    \end{enumerate}
+
+    \tiny
+    \begin{verbatim}
+       !git clone https://github.com/joacorapela/gcnuBridging2023.git
+       %cd gcnuBridging2023
+       !pip install -e .
+    \end{verbatim}
+    \normalsize
+
+    \begin{enumerate}
+        \conti
+        \item from the menu \textbf{Runtime} select \textbf{Run all}.
+    \end{enumerate}
+\end{frame}
+
 \begin{frame}
     \frametitle{Code for least-squares estimation of model parameters}
+
     \begin{itemize}
         \item \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotOverfittingLeastSquares.html\#sphx-glr-auto-examples-bayesianlinearregression-plotoverfittingleastsquares-py}{overfitting}
         \item \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotCrossValidationLeastSquares.html\#sphx-glr-auto-examples-bayesianlinearregression-plotcrossvalidationleastsquares-py}{cross validation}
         \item \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotLackOfOverfittingInLeastSquaresForLargerDatasetSize.html\#sphx-glr-auto-examples-bayesianlinearregression-plotlackofoverfittinginleastsquaresforlargerdatasetsize-py}{larger datasets allow more complex models}
     \end{itemize}
+
 \end{frame}
 
 \begin{frame}
@@ -858,7 +889,7 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
     We seek the parameter $\mathbf{w}_{ML}$ and $\beta_{ML}$ that maximised the following likelihood function
 
     \begin{align}
-        \mathcal{L}(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)=\prod_{n=1}^N\mathcal{N}(t_n|\boldsymbol{\phi}^\intercal(x_n)\mathbf{w},\beta^{-1})\label{eq:linearRegressionLikelihood}
+        \mathcal{L}(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)=\prod_{n=1}^N\mathcal{N}(t_n|\boldsymbol{\phi}^\intercal(x_n)\mathbf{w},\beta^{-1})\label{eq:likelihoodLinearRegression}
     \end{align}
 
     They are
@@ -918,12 +949,13 @@ weights of the linear regression model, $\mathbf{w}$, given the observations, wh
 is proportional to the product of the likelihood function,
 $p(\mathbf{t}|\mathbf{w})$, and the prior, $p(\mathbf{w})$; i.e., 
 
-	\begin{align*}
-		p(\mathbf{w}|\mathbf{t})\propto p(\mathbf{t}|\mathbf{w})p(\mathbf{w})
-	\end{align*}
+	\begin{align}
+		p(\mathbf{w}|\mathbf{t})\propto
+        p(\mathbf{t}|\mathbf{w})p(\mathbf{w})\label{eq:priorLinearRegression}
+	\end{align}
 
 	To calculate this posterior below we use the likelihood function defined in
-Eq.~\ref{eq:linearRegressionLikelihood} and the following prior
+Eq.~\ref{eq:likelihoodLinearRegression} and the following prior
 
 	\begin{align*}
 		p(\mathbf{w})=\mathcal{N}(\mathbf{w}|\mathbf{0},\alpha^{-1}\mathbf{I})
@@ -960,7 +992,7 @@ of the basis function linear regression model.
         \end{align}
 
         Therefore, the maximum-a-posteriori parameters of the basis function
-        linear regression model are the solution of the regularized
+        linear regression model are the solution of the regularised
         least-squares problem with $\lambda=\alpha/\beta$.
 
         Note that, as we will show next, Bayesian linear regression uses the
@@ -1014,6 +1046,269 @@ of the basis function linear regression model.
 		\end{description}
 	\end{proof}
 	\normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conjugate priors}
+
+    \scriptsize
+    Above we showed that, if observations are independent, for the basis
+    functions linear regression model
+
+    \begin{align}
+        p(\mathbf{w}|\mathbf{t}_1)&\propto
+        p(\mathbf{t}_1|\mathbf{w})p(\mathbf{w})\label{eq:conjPrioTmp1}\\
+        p(\mathbf{w}|\mathbf{t}_1,\ldots,\mathbf{t}_{n+1})&\propto p(\mathbf{t}_{n+1}|\mathbf{w})p(\mathbf{w}|\mathbf{t}_1,\ldots,\mathbf{t}_n)\label{eq:conjPrioTmp2}
+    \end{align}
+
+    It would be helpful to choose a prior $p(\mathbf{w})$ in Eq.~\ref{eq:conjPrioTmp1} such that, for the
+    likelihood $p(\mathbf{t}_1|\mathbf{w})$, the posterior
+    $p(\mathbf{w}|\mathbf{t}_1)$ has the same functional form at the prior.
+
+    Then, the posterior in Eq.~\ref{eq:conjPrioTmp2} will have the same
+    functional form as the``prior''
+    $p(\mathbf{w}|\mathbf{t}_1,\ldots,\mathbf{t}_n)$ in the same equation.
+
+    Thus, all posteriors will have the same functional form as the prior
+    $p(\mathbf{w})$.
+
+    \begin{probDef}[Conjugate prior]
+        If the posterior distribution, $p(\theta|x)$, is in the same
+        probability distribution family as the prior probability distribution,
+        $p(\theta)$, the prior is called a conjugate prior for the likelihood
+        function $p(x|\theta)$.
+    \end{probDef}
+
+    Below we prove that the prior we chose for the coefficients of the basis
+    function linear regression model, Eq.~\ref{eq:priorLinearRegression}, is a
+    conjugate prior for the likelihood function of this model,
+    Eq.~\ref{eq:likelihoodLinearRegression}.
+
+    \normalsize
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conjugate prior for the coefficients of the basis functions
+    linear regression model}
+
+    \scriptsize
+    \begin{claim}
+        If 
+
+        \begin{align}
+            P(\mathbf{w}|\mathbf{t}_1,\ldots,\mathbf{t}_n)&=\mathcal{N}(\mathbf{w}|\mathbf{m}_n,\mathbf{S}_n)\label{eq:conjPriorPrior}\\
+            P(\mathbf{t}_{n+1}|\mathbf{w})&=\mathcal{N}(\mathbf{t}_{n+1}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}\mathbf{I})\label{eq:conjPriorLike}
+        \end{align}
+
+        then
+
+        \begin{align*}
+            P(\mathbf{w}|\mathbf{t}_1,\ldots,\mathbf{t}_{n+1})=\mathcal{N}(\mathbf{w}|\mathbf{m}_{n+1},\mathbf{S}_{n+1})
+        \end{align*}
+
+        with
+
+        \begin{align}
+            S_{n+1}=\ &S_n-(\beta^{-1}+\phi(\mathbf{x}_{n+1})^\intercal S_n\phi(\mathbf{x}_{n+1}))^{-1}S_n\phi(\mathbf{x}_{n+1})\phi(\mathbf{x}_{n+1})^\intercal
+            S_n\label{eq:Sn+1}\\
+            m_{n+1}=\ &\beta t_{n+1}S_{n+1}\phi(\mathbf{x}_{n+1})+\mathbf{m}_n-\nonumber\\
+                      &(\beta^{-1}+\phi(\mathbf{x}_{n+1})^\intercal
+                      S_n\phi(\mathbf{x}_{n+1}))^{-1}\phi(x_{n+1})^\intercal\mathbf{m}_nS_n\phi(x_{n+1})\label{eq:mn+1}
+        \end{align}
+        \label{claim:conjPriorForBayesianLinearRegression}
+    \end{claim}
+    \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conjugate prior for the coefficients of the basis functions
+    linear regression model}
+
+    \scriptsize
+    In the proof below we will use the following lemma.
+
+    \begin{lemma}[Matrix inversion lemma]
+        If $A\in\mathbb{R}^{N\times N}$, $U,V\in\mathbf{R}^{N\times M}$ and
+        $C\in\mathbb{R}^{M\times M}$ then
+        \begin{align*}
+            (A+UCV^\intercal)^{-1}=A^{-1}-A^{-1}U(C^{-1}-VA^{-1}U^\intercal)^{-1}V^\intercal A^{-1}
+        \end{align*}
+    \end{lemma}
+    \begin{proof}[Proof for Claim~\ref{claim:conjPriorForBayesianLinearRegression}]
+        Using the formula for the conditional of the linear Gaussian model,
+        Eq.~\ref{eq:conditionalLinearGaussianModel}, with the expression of the prior,
+        Eq.~\ref{eq:conjPriorPrior}, and
+        likelihood, Eq.~\ref{eq:conjPriorLike}, we obtain
+
+        \begin{align}
+            S_{n+1}&=(S_n^{-1}+\beta
+            \phi(\mathbf{x}_{n+1})\phi(\mathbf{x}_{n+1}^\intercal))^{-1}\label{eq:Sn+1Tmp}\\
+            \mathbf{m}_{n+1}&=S_{n+1}(\beta t_{n+1}\phi(\mathbf{x}_{n+1})+S_n^{-1}\mathbf{m}_n)\label{eq:mn+1Tmp}
+        \end{align}
+
+        Note that Eq.~\ref{eq:Sn+1Tmp} requires the
+        inversion and $N\times N$
+        matrix, which has a complexity of $\mathcal{O}(N^3)$. We can avoid this
+        inversion by using the matrix inversion lemma (with $A=S_n^{-1},
+        U=V=\phi(\mathbf{x}_{n+1}), C=\beta$), yielding Eq.~\ref{eq:Sn+1}.
+
+		\phantom\qedhere
+    \end{proof}
+    \normalsize
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Conjugate prior for the coefficients of the basis functions
+    linear regression model}
+
+    \scriptsize
+    \begin{proof}
+        Eq.~\ref{eq:mn+1Tmp} also requires the inversion of an $N\times N$
+        matrix. We can avoid this inversion as follows. From
+        Eq.~\ref{eq:mn+1Tmp}
+
+        \begin{align}
+            \mathbf{m}_{n+1}&=\beta t_{n+1}S_{n+1}\phi(\mathbf{x}_{n+1})+S_{n+1}S_n^{-1}\mathbf{m}_n\label{eq:mn+1Tmp2}
+        \end{align}
+
+        Now we can replace the expression of $S_{n+1}$ given in
+        Eq.~\ref{eq:Sn+1} into
+        Eq.~\ref{eq:mn+1Tmp2}
+
+        \begin{align*}
+            \mathbf{m}_{n+1}=\ &\beta t_{n+1}S_{n+1}\phi(\mathbf{x}_{n+1})+\\
+                               &(S_n-(\beta^{-1}+\phi(\mathbf{x}_{n+1})^\intercal S_n\phi(\mathbf{x}_{n+1}))^{-1}S_n\phi(\mathbf{x}_{n+1})\phi(\mathbf{x}_{n+1})^\intercal)S_n^{-1}\mathbf{m}_n\\
+                            =\ &\beta t_{n+1}S_{n+1}\phi(\mathbf{x}_{n+1})+\\
+                               &(I_n-(\beta^{-1}+\phi(\mathbf{x}_{n+1})^\intercal \phi(\mathbf{x}_{n+1}))^{-1}S_n\phi(\mathbf{x}_{n+1})\phi(\mathbf{x}_{n+1})^\intercal)\mathbf{m}_n\\
+                            =\ &\beta t_{n+1}S_{n+1}\phi(\mathbf{x}_{n+1})+\\
+                               &\mathbf{m}_n-(\beta^{-1}+\phi(\mathbf{x}_{n+1})^\intercal \phi(\mathbf{x}_{n+1}))^{-1}S_n\phi(\mathbf{x}_{n+1})\phi(\mathbf{x}_{n+1})^\intercal\mathbf{m}_n
+        \end{align*}
+
+    \end{proof}
+    \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conjugate prior for the coefficients of the basis functions
+    linear regression model}
+
+    \scriptsize
+    Note that Eqs.~\ref{eq:Sn+1Tmp} and~\ref{eq:mn+1Tmp} both required the inversion
+    of an $N\times N$ matrix, but Eqs.~\ref{eq:Sn+1} and~\ref{eq:mn+1} only
+    require the inversion of scalars.
+
+    \vspace{0.3in}
+
+    Python code implementing online Bayesian regression can be found
+    \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotOnlineBayesianLinearRegression.html\#sphx-glr-auto-examples-bayesianlinearregression-plotonlinebayesianlinearregression-py}{here}.
+
+    \normalsize
+
+\end{frame}
+
+\subsubsection{Bayesian predictions}
+
+\begin{frame}
+    \frametitle{Bayesian predictions}
+
+    \scriptsize
+    \begin{description}
+        \item[least squares]
+            \begin{align*}
+                t_{new}=\phi(\mathbf{x}_{new})^\intercal\mathbf{w}_{LS}
+            \end{align*}
+        \item[Bayesian]
+            \begin{align*}
+                p(t_{new}|\mathbf{t},\alpha,\beta)&=\int p(t_{new},\mathbf{w}|\mathbf{t},\alpha,\beta)d\mathbf{w}\\
+                                                  &=\int p(t_{new}|\mathbf{w},\beta)p(\mathbf{w}|\mathbf{t},\alpha,\beta)d\mathbf{w}\\
+                                                  % &=\int \mathcal{N}(t_{new}|\phi(\mathbf{x}_{new})^\intercal\mathbf{w},\beta^{-1}\mathbf{I})\mathcal{N}(\mathbf{w}|\mathbf{m}_N,S_N)d\mathbf{w}
+            \end{align*}
+    \end{description}
+    \begin{probExercise}
+        Derive the close form solution of the Bayesian predictive distribution.
+    \end{probExercise}
+    \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Code for Bayesian predictions}
+
+    Available \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotPredictiveDistribution.html\#sphx-glr-auto-examples-bayesianlinearregression-plotpredictivedistribution-py}{here}.
+
+\end{frame}
+
+\subsubsection{Bayesian model comparison}
+
+\begin{frame}
+    \frametitle{Model comparison}
+
+    \scriptsize
+    We want to compare which of a set of basis function linear regression
+    models $\{\mathcal{M}_1,\ldots,\mathcal{M}_Q\}$ best fits a given dataset,
+    $\mathbf{t}$ without using cross validation. For this, we will compare the
+    models evidences or marginal likelihoods:
+
+    \begin{align}
+        p(\mathbf{t}|\alpha,\beta)=\int
+        p(\mathbf{t},\mathbf{w}|\alpha,\beta)d\mathbf{w}=\int
+        p(\mathbf{t}|\mathbf{w},\beta)p(\mathbf{w}|\alpha)d\mathbf{w}\label{eq:modelComparisonTmp1}
+    \end{align}
+
+    with $p(\mathbf{t}|\mathbf{w},\beta)$ and $p(\mathbf{w}|\alpha)$ given in
+    Eqs.~\ref{eq:likelihoodLinearRegression}
+    and~\ref{eq:priorLinearRegression}, respectively.
+
+    \begin{probExercise}
+        Show that
+
+        \begin{align*}
+            \log p(\mathbf{t}|\alpha,\beta)=\frac{M}{2}\log\alpha+\frac{N}{2}\log\beta-E(\mathbf{m}_N)-\frac{1}{2}\log|\mathbf{A}|-\frac{N}{2}\log(2\pi)
+        \end{align*}
+
+        where
+        $E(\mathbf{m}_N)=\frac{\beta}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{m}_n||^2+\frac{\alpha}{2}\mathbf{m}_N^\intercal\mathbf{m}_N$,
+        $A=\alpha\mathbf{I}+\beta\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}$
+        and $\mathbf{m}_N$ is the mean of
+        $p(\mathbf{w}|\mathbf{t},\alpha,\beta)$
+
+        \vspace{0.5cm}
+        Hint: Integrate Eq.~\ref{eq:modelComparisonTmp1} using
+        Eq.~\ref{eq:marginalLinearGaussianModel}, or by completing the squares.
+
+        \end{probExercise}
+    \normalsize
+\end{frame}
+
+\begin{frame}
+    \frametitle{Code for Bayesian model comparison}
+
+    Available \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotModelsEvidences.html\#sphx-glr-auto-examples-bayesianlinearregression-plotmodelsevidences-py}{here}.
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{References}
+
+    \tiny{
+        \bibliographystyle{apalike}
+        \bibliography{probability,informationTheory,machineLearning,gaussianProcesses,latentsVariablesModels,linearDynamicalSystems,numericalMethods}
+    }
+\end{frame}
+
+\end{document}
+
+    \end{probExercise}
+    We integrate Eq.~\ref{eq:modelComparison} using the expression for the
+    marginal of the linear Gaussian model,
+    Eq.~\ref{eq:marginalLinearGaussianModel}, obtaining
+
+    \begin{align}
+        p(\mathbf{t}|\alpha,\beta)=\mathcal{N}(\mathbf{t}|\mathbf{0},\alpha^{-1}\boldsymbol{\phi}\boldsymbol{\Phi}^\intercal+\beta^{-1}\mathbf{I}_N)
+    \end{align}
+
+    \normalsize
 \end{frame}
 
 \begin{frame}

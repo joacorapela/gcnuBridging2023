@@ -43,6 +43,13 @@ old/
 results/
 figures/
 docs/sphinx/build/
+!docs/sphinx/build/html/
+docs/sphinx/build/html/*
+!docs/sphinx/build/html/notebooks/
+docs/sphinx/build/html/notebooks/*
+!docs/sphinx/build/html/notebooks/auto_examples/
+docs/sphinx/build/html/notebooks/auto_examples/*
+!docs/sphinx/build/html/notebooks/auto_examples/bayesianLinearRegression/
 docs/sphinx/source/auto_examples/
 examples/sphinx_gallery/bayesianLinearRegression/data/*
 !examples/sphinx_gallery/bayesianLinearRegression/data/.gitkeep
