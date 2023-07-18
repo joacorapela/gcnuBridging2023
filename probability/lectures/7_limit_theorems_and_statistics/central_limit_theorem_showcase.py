@@ -45,7 +45,7 @@ def pmf_for_sum_of_n_uniforms(pmf, n):
 
 
 # Test this
-n = 32
+n = 30
 pmf_conv = pmf_for_sum_of_n_uniforms(pmf_uniform, n)
 plt.scatter(np.arange(n, len(pmf_conv) + n), pmf_conv)
 
@@ -56,6 +56,6 @@ for k in np.arange(1, 9):
     pmf_geo.append(scipy.stats.geom.pmf(p=0.5, k=k))
 
 # And now check this out
-n = 32
+n = 30
 pmf_conv = pmf_for_sum_of_n_uniforms(pmf_geo, n)
 plt.scatter(np.arange(n, len(pmf_conv) + n), pmf_conv)
