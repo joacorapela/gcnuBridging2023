@@ -591,6 +591,13 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \end{frame}
 
 \begin{frame}
+    \frametitle{Estimating nonlinear receptive fields from natural images}
+
+    \href{https://jov.arvojournals.org/article.aspx?articleid=2192869}{Rapela et al., 2006}.
+
+\end{frame}
+
+\begin{frame}
     \frametitle{Linear regression model}
 
 	\scriptsize
@@ -1285,6 +1292,31 @@ of the basis function linear regression model.
     \frametitle{Code for Bayesian model comparison}
 
     Available \href{https://joacorapela.github.io/gcnuBridging2023/auto\_examples/bayesianLinearRegression/plotModelsEvidences.html\#sphx-glr-auto-examples-bayesianlinearregression-plotmodelsevidences-py}{here}.
+
+\end{frame}
+
+\subsection{Practical: decoding stimuli intensity from spiking activity of
+retinal ganglion cells}
+
+\begin{frame}
+    \frametitle{Decoding stimuli intensity from spiking activity of
+retinal ganglion cells}
+
+    Using the dataset provided for this
+    \href{https://compneuro.neuromatch.io/tutorials/W1D3_GeneralizedLinearModels/student/W1D3_Tutorial1.html}{tutorial},
+
+    \begin{enumerate}[a]
+
+        \item determine if a basis function linear regression model is adequate
+            to characterize this dataset,
+
+        \item use Bayesian model comparison to test if the 200~ms decoding time window
+    used in the tutorial is statistically optimal,
+
+        \item test if a nonlinear decoder using Gaussian basis functions
+            outperforms a linear decoder using the identity basis function.
+
+    \end{enumerate}
 
 \end{frame}
 
