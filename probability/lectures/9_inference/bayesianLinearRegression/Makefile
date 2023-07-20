@@ -1,6 +1,6 @@
-all: inference.pdf
+all: bayesianLinearRegression.pdf
 
-inference.pdf: inference.tex
+bayesianLinearRegression.pdf: bayesianLinearRegression.tex
 
 %.pdf: %.tex
 	pdflatex $<
