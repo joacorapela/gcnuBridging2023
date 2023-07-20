@@ -15,3 +15,5 @@ Please refer to the syllabus of the following program modules:
 
 Note: to install the dependencies needed to run the code provided here, please clone this repository and type ``pip install -e .`` from the root directory of the cloned repository.
 
+![group photo](images/Bridging_Group_Photo1.jpg)
+
