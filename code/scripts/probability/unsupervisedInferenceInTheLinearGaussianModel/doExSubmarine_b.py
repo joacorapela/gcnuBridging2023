@@ -112,7 +112,7 @@ def main(argv):
                             name="mean")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_measurements,
-                               name="{:.0f}% CE".format(
+                               name="{:.0f}% RE".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
