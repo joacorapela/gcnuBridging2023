@@ -334,7 +334,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 
 		\begin{align*}
 			p(\mathbf{x})&=\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\Lambda^{-1})\\
-			p(\mathbf{t}|\mathbf{x})&=\mathcal{N}(\mathbf{t}|A\boldsymbol{\mu}+\mathbf{b},L^{-1})
+			p(\mathbf{t}|\mathbf{x})&=\mathcal{N}(\mathbf{t}|A\mathbf{x}+\mathbf{b},L^{-1})
 		\end{align*}
 
 		Then
@@ -519,7 +519,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 			\left(\begin{array}{cc}
 				      A & B\\
 				      C & D
-				  \end{array}^{-1}\right)=
+				  \end{array}\right)^{-1}=
 			\left(\begin{array}{cc}
 				      M         & -MBD^{-1}\\
 					  -D^{-1}CM & D^{-1} + D^{-1}CMBD^{-1}
@@ -800,7 +800,7 @@ Gatsby Computational Neuroscience Unit\\University College London % Your institu
 \begin{frame}
     \frametitle{Regularised least-squares estimation of model parameters}
 	\scriptsize
-	\begin{claim}[Regularized least-squares estimate]
+	\begin{claim}[Regularised least-squares estimate]
 		\begin{align*}
 			\mathbf{w}_{RLS}=\argmin_{\mathbf{w}}E_{RLS}(\mathbf{w})=\argmin_{\mathbf{w}}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2+\lambda||\mathbf{w}||_2^2=(\lambda\mathbf{I}+\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}
 		\end{align*}
@@ -835,12 +835,12 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
 		\begin{align*}
 			E_{RLS}&=||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2+\lambda||\mathbf{w}||_2^2=(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w})^\intercal(\mathbf{t}-\boldsymbol{\Phi}\mathbf{w})+\lambda\mathbf{w}^\intercal\mathbf{w}\\
                    &=\mathbf{t}^\intercal\mathbf{t}-2\mathbf{t}^\intercal\boldsymbol{\Phi}\mathbf{w}+\mathbf{w}^\intercal\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}\mathbf{w}+\lambda\mathbf{w}^\intercal\mathbf{w}\\
-                   &=\mathbf{t}^\intercal\mathbf{t}-2\mathbf{t}^\intercal\boldsymbol{\Phi}\mathbf{w}+\mathbf{w}^\intercal(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M)\mathbf{w}
+                   &=\mathbf{t}^\intercal\mathbf{t}-2\mathbf{t}^\intercal\boldsymbol{\Phi}\mathbf{w}+\mathbf{w}^\intercal(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}+\lambda\mathbf{I}_M)\mathbf{w}
 		\end{align*}
 		Calling
 		\begin{align*}
-			\Sigma^{-1}&=\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\\
-			\boldsymbol{\mu}^\intercal\Sigma^{-1}&=\mathbf{t}^\intercal\boldsymbol{\Phi}\;\text{or}\;\boldsymbol{\mu}^\intercal=\mathbf{t}^\intercal\boldsymbol{\Phi}\Sigma\;\text{or}\;\boldsymbol{\mu}=\Sigma\boldsymbol{\Phi}^\intercal\mathbf{t}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}
+			\Sigma^{-1}&=\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}+\lambda\mathbf{I}_M\\
+			\boldsymbol{\mu}^\intercal\Sigma^{-1}&=\mathbf{t}^\intercal\boldsymbol{\Phi}\;\text{or}\;\boldsymbol{\mu}^\intercal=\mathbf{t}^\intercal\boldsymbol{\Phi}\Sigma\;\text{or}\;\boldsymbol{\mu}=\Sigma\boldsymbol{\Phi}^\intercal\mathbf{t}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}
 		\end{align*}
 		we can express
 		\begin{align*}
@@ -848,7 +848,7 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
 		\end{align*}
 		Then
 		\begin{align*}
-			 \mathbf{w}_{RLS}=\argmin_{\mathbf{w}}E_{RLS}(\mathbf{w})=\boldsymbol{\mu}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}^\intercal+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t} 
+			 \mathbf{w}_{RLS}=\argmin_{\mathbf{w}}E_{RLS}(\mathbf{w})=\boldsymbol{\mu}=\left(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi}+\lambda\mathbf{I}_M\right)^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t} 
 		\end{align*}
 		\end{proof}
 	\normalsize
@@ -896,14 +896,14 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
     We seek the parameter $\mathbf{w}_{ML}$ and $\beta_{ML}$ that maximised the following likelihood function
 
     \begin{align}
-        \mathcal{L}(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)=\prod_{n=1}^N\mathcal{N}(t_n|\boldsymbol{\phi}^\intercal(x_n)\mathbf{w},\beta^{-1})\label{eq:likelihoodLinearRegression}
+        \mathcal{L}(\mathbf{w},\beta)=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}I_N)\label{eq:likelihoodLinearRegression}
     \end{align}
 
     They are
 
     \begin{align}
         \mathbf{w}_{ML}&=(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}\label{eq:wML}\\
-        \frac{1}{\beta_{ML}}&=\frac{1}{N}\sum_{n=1}^N(t_n-\phi(\mathbf{x}_n)^\intercal\mathbf{w}_{ML})^2\label{eq:betaML}
+        \frac{1}{\beta_{ML}}&=\frac{1}{N}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}_{ML}||_2^2\label{eq:betaML}
     \end{align}
 
 	\begin{itemize}
@@ -920,8 +920,9 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Exercise}
+    \frametitle{Maximum likelihood: exercise}
 
+    \scriptsize
     \begin{probExercise}
         Derive the formulas for the maximum likelihood estimates of the
         coefficients, $\mathbf{w}$, and noise precision, $\beta$, of the basis
@@ -929,6 +930,20 @@ term corresponding to $\boldsymbol{\mu}$ will be the minimum.
         and~\ref{eq:betaML}.
     \end{probExercise}
 
+    \tiny
+    \begin{proof}[Solution]
+        \begin{align*}
+            \mathcal{L}(\mathbf{w},\beta)&=p(\mathbf{t}|\mathbf{w},\beta)=\mathcal{N}(\mathbf{t}|\boldsymbol{\Phi}\mathbf{w},\beta^{-1}\mathbf{I})\\
+                                         &=\frac{1}{(2\pi)^\frac{N}{2}|\beta^{-1}\mathbf{I}|^\frac{1}{2}}\exp\left(-\frac{\beta}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2\right)\\
+            \log\mathcal{L}(\mathbf{w},\beta)&=-\frac{N}{2}\log{2\pi}+\frac{N}{2}\log\beta-\frac{\beta}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2\\
+            \mathbf{w}_{ML}&=\argmax_{\mathbf{w}}\log\mathcal{L}(\mathbf{w},\beta)=\argmin_{\mathbf{w}}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2=(\boldsymbol{\Phi}^\intercal\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^\intercal\mathbf{t}\\
+            \frac{\partial}{\partial\beta}\log p(\mathbf{t}|\mathbf{w}_{ML},\beta)&=\frac{N}{2}\frac{1}{\beta}-\frac{1}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}_{ML}||_2^2\\
+            \frac{\partial}{\partial\beta}\log
+            p(\mathbf{t}|\mathbf{w}_{ML},\beta_{ML})&=0\quad\text{iff}\quad\frac{1}{\beta_{ML}}=\frac{1}{N}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}_{ML}||_2^2
+        \end{align*}
+		\phantom\qedhere
+    \end{proof}
+    \normalsize
 \end{frame}
 
 \subsection{Bayesian linear regression}
@@ -994,7 +1009,6 @@ of the basis function linear regression model.
         Show that
 
         \begin{align}
-            log
             \log p(\mathbf{w}|\boldsymbol{t})&=K-\frac{\beta}{2}||\mathbf{t}-\boldsymbol{\Phi}\mathbf{w}||_2^2-\frac{\alpha}{2}||\mathbf{w}||_2^2
         \end{align}
 
