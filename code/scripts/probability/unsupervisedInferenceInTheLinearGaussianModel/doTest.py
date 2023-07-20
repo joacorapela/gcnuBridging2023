@@ -113,8 +113,6 @@ def main(argv):
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
 
-    import pdb; pdb.set_trace()
-
 
 if __name__ == "__main__":
     main(sys.argv)
