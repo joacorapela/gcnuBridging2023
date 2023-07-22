@@ -1,7 +1,10 @@
 \documentclass[12pt]{article}
 
+\usepackage{natbib}
+\usepackage{apalike}
 \usepackage{amsmath,amssymb}
 \usepackage[colorlinks=true]{hyperref}
+\usepackage{url}
 \usepackage[shortlabels]{enumitem}
 \usepackage{verbatim}
 \usepackage{amsthm}
@@ -18,7 +21,7 @@
 \section{Inferring location of a static submarine from its sonar
 measurements}
 
-A static submarine is located in a 2D planar surfarce deep in the sea. A
+A static submarine is located in a 2D planar surface deep in the sea. A
 priori, we model its unknown location with a 2D random variable
 $\mathbf{z}$ with 
 
@@ -33,6 +36,14 @@ with
 \begin{align}
     p(\mathbf{y}_n|\mathbf{z})=\mathcal{N}(y_n|\mathbf{z}, \Sigma_y)
 \end{align}
+
+Note: this exercise is an Extension of Example 3.3.4 from another great book in
+machine learning, \citet{murphyIntro22}. See this 
+\href{https://github.com/probml/pml-book/issues/510}{discussion} and its
+\href{https://github.com/probml/pml-book/issues/512}{follow-up}, that
+illustrates the importance of behaving as Poppy or Chloe and always asking
+\textbf{why?}. It also shows that today the internet can be an excellent place
+for learning and interacting with smart people.
 
 \begin{enumerate}[(a)]
 
@@ -77,18 +88,18 @@ with
 
             \item The posterior of the submarine location given sonar
                 measurements is proportional to the joint distribution of
-                the submaring location and sonar measurements; i.e.,
+                the submarine location and sonar measurements; i.e.,
                 $p(\mathbf{z}|\mathbf{y}_1,\ldots\mathbf{y}_N)=\frac{p(\mathbf{y}_1,\ldots,\mathbf{y}_N,\mathbf{z})}{p(\mathbf{y}_1,\ldots,\mathbf{y}_N)}=K\,p(\mathbf{y}_1,\ldots,\mathbf{y}_N,\mathbf{z})$,
                 where $K$ is a value that does not depend on $\mathbf{z}$. Thus, to
                 obtain the posterior we can just keep the terms of the
-                joint that depend on $\mathbf{z}$ and normalize the
+                joint that depend on $\mathbf{z}$ and normalise the
                 resulting expression to integrate to one.
 
             \item The joint is the product of the likelihood and the prior;
                 i.e.,
                 $p(\mathbf{y}_1,\ldots\mathbf{y}_N,\mathbf{z})=p(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})p(\mathbf{z})$.
                 Thus, to keep the terms of the joint that depend on
-                $\mathbf{z}$, we should just keep the term of the
+                $\mathbf{z}$, we can just keep the term of the
                 likelihood that depend on $\mathbf{z}$ and combine the
                 result with the prior.
 
@@ -104,7 +115,7 @@ with
                 $\mathcal{N}(\bar{\mathbf{y}}|\mathbf{z},\frac{1}{N}\Sigma_y)$
                 with the prior
                 $p(\mathbf{z})=\mathcal{N}(\mathbf{z}|\mu_z,\Sigma_z)$ and
-                normalize the result. To do this we can use the expression
+                normalise the result. To do this we can use the expression
                 for the posterior of the linear Gaussian model described in
                 class.
 
@@ -136,7 +147,7 @@ with
                 posterior mean approaches the measurements sample mean.
                 That is, for an infinite number of measurements, the
                 posterior estimate becomes deterministic and the
-                contribution of the prior to this estimate dissappears.
+                contribution of the prior to this estimate disappears.
 
         \end{itemize}
 
@@ -239,7 +250,7 @@ source $\mathbf{X}$ is Gaussian with mean $\mathbf{\mu}=A \mathbf{X} +
 
 
 A priory, our guess is that the source of radiation is at location $\mu=(10,
--3)$ meters, with respect of the center of our parametrization of the deep
+-3)$ meters, with respect of the centre of our pasteurisation of the deep
 planar surface.  We are equally uncertain about the location of the source of
 radiation in the vertical and horizontal directions. The variance of our
 uncertainty in either direction is 2~$\text{meter}^2$. We know that the source
@@ -270,5 +281,8 @@ the horizontal and vertical source locations.
 
 \end{enumerate}
 \end{comment}
+
+\bibliographystyle{apalike}
+\bibliography{machineLearning}
 
 \end{document}
