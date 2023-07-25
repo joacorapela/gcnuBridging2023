@@ -838,59 +838,83 @@ For a more comprehensive overview of the tools available to deal with functions 
 \section{Dynamical Systems as Functions: A Fun Proof to Look at After the Course}
 
 \begin{frame}[fragile]{Tying Together the Modules in the Program}
-Want to test and expand your understanding of the course modules with an interesting problem? Come back to this section after you've covered ordinary differential equations (ODEs). I will update this section by then \emoji{blush}.
+This is a bonus section. It covers concepts from linear algebra, calculus, probability, and differential equations, but I don't expect anyone to grasp it immediately even after covering these modules. Treat it as a challenge \emoji{smirk}.
 
-% and see if you can make sense of it. Here we will use \(\bm{x}_t\) as shorthand for \(\bm{x}\left(t\right)\).
+Here we will use \(\bm{x}_t\) as shorthand for \(\bm{x}\left(t\right)\).
 
-% Say we have some stochastic process \(\left\{\bm{X}_t \;\middle|\; t \in \left[0,\infty\right)\right\}\). We know the PDF of \(\bm{X}_0\) as well as the ODE that determines \(\bm{X}_t\) at all times \(t > 0\). If we have \(\bm{X}_0 \sim f_0\) and ODE
-% \begin{equation*}
-%     \diff{\bm{X}_t}{t} = \bm{g}\left(\bm{X}_t\right),
-% \end{equation*}
-% then what is the PDF \(f_t\) of \(\bm{X}_t\)?
+Say we have some stochastic process \(\left\{\bm{X}_t \;\middle|\; t \in \left[0,\infty\right)\right\}\). We know the PDF of \(\bm{X}_0\) as well as the ODE that determines \(\bm{X}_t\) at all times \(t > 0\). If we have \(\bm{X}_0 \sim f_0\) and ODE
+\begin{equation*}
+    \diff{\bm{X}_t}{t} = \bm{g}\left(\bm{X}_t\right),
+\end{equation*}
+then what is the PDF \(f_t\) of \(\bm{X}_t\)?
 \end{frame}
 
-% \begin{frame}[fragile]{Prerequisite: Flow Functions}
-% If we have an ODE, an initial state \(\bm{x}_s\), and a length of time \(t\) to run the dynamics for, then \(\bm{x}_{s + t}\) is determined by a function of \(\bm{x}_s\) and \(t\). If
-% \begin{equation*}
-%     \diff{\bm{x}_t}{t} = \bm{g}\left(\bm{x}_t\right),
-% \end{equation*}
-%  then we define this function \(\bm{\varphi}: \mathcal{X}\times\mathbb{R} \rightarrow \mathcal{X}\) as
-%  \begin{equation*}
-%  \begin{aligned}
-%      \bm{\varphi}\left(\bm{x}_s, t\right) &= \bm{x}_s + \int_s^{s+t} \bm{g}\left(\bm{x}_\tau\right) \mathrm{d}\tau\\
-%      &= \bm{x}_{s+t}
-%  \end{aligned}
-%  \end{equation*}
-%  This function is called a flow, and is often written as \(\bm{\varphi}^t\left(\bm{x_s}\right)\). Take note that \(\bm{\varphi}^s \circ \bm{\varphi}^t = \bm{\varphi}^{s+t}\).
-% \end{frame}
+\begin{frame}[fragile]{Prerequisite: Flow Functions}
+If we have an ODE, an initial state \(\bm{x}_s\), and a length of time \(t\) to run the dynamics for, then \(\bm{x}_{s + t}\) is determined by a function of \(\bm{x}_s\) and \(t\). If
+\begin{equation*}
+    \diff{\bm{x}_t}{t} = \bm{g}\left(\bm{x}_t\right),
+\end{equation*}
+ then we define this function \(\bm{\varphi}: \mathcal{X}\times\mathbb{R} \rightarrow \mathcal{X}\) as
+ \begin{equation*}
+ \begin{aligned}
+     \bm{\varphi}\left(\bm{x}_s, t\right) &= \bm{x}_s + \int_s^{s+t} \bm{g}\left(\bm{x}_\tau\right) \mathrm{d}\tau\\
+     &= \bm{x}_{s+t}
+ \end{aligned}
+ \end{equation*}
+ This function is called a flow, and is often written as \(\bm{\varphi}^t\left(\bm{x_s}\right)\). Take note that \(\bm{\varphi}^s \circ \bm{\varphi}^t = \bm{\varphi}^{s+t}\).
+\end{frame}
 
-% \begin{frame}[fragile]{How the PDF Warps Over Time}
-% Back to our original question: What is the PDF \(f_t\) of \(\bm{X}_t\)? It is
-% \begin{equation*}
-%     f_t\left(\bm{x}_t\right) = f_t\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\exp\left(\int_t^0 \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\right)\,.
-% \end{equation*}
+\begin{frame}[fragile]{How the PDF Warps Over Time}
+Back to our original question: what is the PDF \(f_t\) of \(\bm{X}_t\)? It is given by
+\begin{equation*}
+    f_t\left(\bm{x}_t\right) = f_0\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\exp\left(\int_t^0 \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\right)\,.
+\end{equation*}
 
-% \textit{Proof}:
+\textit{Proof}:
 
-% Next, we derive the change in volume over the trajectory taken by the dynamics. Here \(D\varphi^t\) is the Jacobian of the flow \(\varphi\) of the dynamics at time \(t\). By Jacobi's formula:
-% \begin{align*}
-%     \diff{}{t}\det\left(\left(D\varphi^t\right)\left(\bm{x}_n\right)\right) &= \tr\left(\adj\left(\left(D\varphi^t\right)\left(\bm{x}_n\right)\right)\diff{}{t}\left(D\varphi^t\right)\left(\bm{x}_n\right)\right)\\
-%     &= \tr\left(\det\left(\left(D\varphi^t\right)\left(\bm{x}_n\right)\right)\left(D\varphi^t\right)^{-1}\left(\bm{x}_n\right)\left(D\diff{\varphi^t}{t}\right)\left(\bm{x}_n\right)\right)\\
-%     &= \det\left(\left(D\varphi^t\right)\left(\bm{x}_n\right)\right)\tr\left(\left(D\varphi^{-t}\right)\left(\varphi^t\left(\bm{x}_n\right)\right)\left(D\left(\bm{f}\circ\varphi^t\right)\right)\left(\bm{x}_n\right)\right)\,,
-% \end{align*}
-% therefore
-% \begin{align*}
-%     \diff{}{t}\log\left(\det\left(\left(D\varphi^t\right)\left(\bm{x}_n\right)\right)\right) &= \tr\left(\left(D\left(\bm{f}\circ\varphi^t\circ\varphi^{-t}\right)\right)\left(\varphi^t\left(\bm{x}_n\right)\right)\right)\\
-%     &= \tr\left(\left(D\bm{f}\right)\left(\varphi^t\left(\bm{x}_n\right)\right)\right)\\
-%     &= \left(\nabla\cdot \bm{f}\right)\left(\varphi^t\left(\bm{x}_n\right)\right)\\
-%     &= \nabla\cdot \bm{f}\left(\bm{x}\right)\,.
-% \end{align*}
-% Hence, the log Jacobian determinant of the flow over time \(\tau\) is given by
-% \begin{align}
-%     \log\left(\det\left(\left(D\varphi^\tau\right)\left(\bm{x}_n\right)\right)\right) &= \int_0^\tau\nabla\cdot \bm{f}\left(\bm{x}\left(t\right)\right)\mathrm{d}t \nonumber\\
-%     \det\left(\left(D\varphi^\tau\right)\left(\bm{x}_n\right)\right) &= \exp\left(\int_0^\tau\nabla\cdot \bm{f}\left(\bm{x}\left(t\right)\right)\mathrm{d}t\right)\,.
-% \end{align}
-% \end{frame}
+We need to find the change in volume over the trajectory taken by the dynamics. Here \(D\bm{\varphi}^t\) is the Jacobian of the flow \(\bm{\varphi}\) of the dynamics at time \(t\). Let's start with \href{https://en.wikipedia.org/wiki/Jacobi\%27s_formula}{\color{mLightBrown}{Jacobi's formula}}:
+\begin{equation*}\begin{aligned}
+    \diff{}{t}\det\left(D\bm{\varphi}^t\left(\bm{x}_0\right)\right) &= \det\left(D\bm{\varphi}^t\left(\bm{x}_0\right)\right) \tr\left(D\bm{\varphi}^t\left(\bm{x}_0\right)^{-1} \diff{}{t}D\bm{\varphi}^t\left(\bm{x}_0\right)\right)\,.
+\end{aligned}\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{How the PDF Warps Over Time}
+Therefore, considering the derivative of logarithms:
+\begin{equation*}\begin{aligned}
+    \diff{}{t}\log\left(\det\left(D\bm{\varphi}^t\left(\bm{x}_0\right)\right)\right) &= \tr\left(D\bm{\varphi}^t\left(\bm{x}_0\right)^{-1} \diff{}{t}D\bm{\varphi}^t\left(\bm{x}_0\right)\right)\\
+    &= \tr\left(D\bm{\varphi}^{-t}\left(\bm{\varphi}^t\left(\bm{x}_0\right)\right) D\diff{\bm{\varphi}^t}{t}\left(\bm{x}_0\right)\right)\\
+    &= \tr\left(D\bm{\varphi}^{-t}\left(\bm{\varphi}^t\left(\bm{x}_0\right)\right) D\left(\bm{g}\circ\bm{\varphi}^t\right)\left(\bm{x}_0\right)\right)\\
+    &= \tr\left(D\left(\bm{g}\circ\bm{\varphi}^t\circ\bm{\varphi}^{-t}\right)\left(\bm{\varphi}^t\left(\bm{x}_0\right)\right)\right)\\
+    &= \tr\left(D\bm{g}\left(\bm{x}_t\right)\right)\\
+    &= \nabla\cdot \bm{g}\left(\bm{x}_t\right)\,.
+\end{aligned}\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{How the PDF Warps Over Time}
+Hence, the log Jacobian determinant of the flow over time \(t\) is given by
+\begin{equation*}\begin{aligned}
+    \log\left(\det\left(D\bm{\varphi}^t\left(\bm{x}_0\right)\right)\right) &= \log\left(\det\left(D\bm{\varphi}^0\left(\bm{x}_0\right)\right)\right) + \int_0^t \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\\
+    &= \log\left(\det\left(I\right)\right) + \int_0^t \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\\
+    &= \int_0^t \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\,.
+\end{aligned}\end{equation*}
+Starting with \(\bm{x}_t\) and integrating backwards in time, we get
+\begin{equation*}\begin{aligned}
+    \log\left(\det\left(D\bm{\varphi}^t\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\right)\right) &= -\int_t^0 \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\\
+    \det\left(D\bm{\varphi}^t\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\right) &= \exp\left(-\int_t^0 \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\right)\,.
+\end{aligned}\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{How the PDF Warps Over Time}
+Finally, using the method of transformations, we have
+\begin{equation*}
+    \begin{aligned}
+        f_t\left(\bm{x}_t\right) &= f_0\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\left|\det\left(D\bm{\varphi}^t\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\right)\right|^{-1}\\&= f_0\left(\bm{\varphi}^{-t}\left(\bm{x}_t\right)\right)\exp\left(\int_t^0 \nabla\cdot\bm{g}\left(\bm{x}_\tau\right)\mathrm{d}\tau\right)\,.
+    \end{aligned}
+\end{equation*}
+\qed
+
+If we can sample from \(f_0\) and approximately simulate the given dynamics, we can get approximate samples from \(f_t\) for any length of time \(t\). Of equal importance, we can also approximately calculate \(f_t\left(\bm{x}_t\right)\) using the formula above. Notice how \(f_t\) starts at \(f_0\) and smoothly warps over time.
+\end{frame}
 
 \begin{frame}[standout]
 The End
