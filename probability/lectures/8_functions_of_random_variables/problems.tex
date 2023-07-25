@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, margin=1in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[thinc]{esdiff}
+
+\usepackage{bm}
+\usepackage{xfrac}
+
+\title{Probability: Functions of Random Variables Problem Set}
+\author{Cameron Stewart}
+\date{July 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{The CDF Method for One-Dimensional Codomains}
+
+\begin{enumerate}
+    \item Given \(X\sim \mathrm{Exp}\left(\lambda\right)\), what is the support and PDF of \(Y = X^2\)?
+    \item The log-normal distribution has support \(\left[0,\infty\right)\), parameters \(\mu \in \mathbb{R}, \sigma > 0\), PDF
+    \begin{equation*}
+        f\left(x\right) = \frac{1}{x\sqrt{2\pi\sigma^2}}\exp\left({-\frac{\left(\log\left(x\right) - \mu\right)^2}{2\sigma^2}}\right)\,,
+    \end{equation*}
+    and CDF
+    \begin{equation*}
+        F\left(x\right) = \frac{1}{2}\left(1 + \mathrm{erf}\left(\frac{\log\left(x\right) - \mu}{\sqrt{2}\sigma}\right)\right)\,.
+    \end{equation*}
+    Here we denote it by \(\mathcal{LN}\left(\mu,\sigma^2\right)\). Find the support and PDF of \(Y = X^a\), where \(X\sim \mathcal{LN}\left(\mu,\sigma^2\right)\) and \(a > 0\). What can we say about the distribution of \(Y\)?
+    \item Given \(X\sim \mathcal{U}\left[0,2\right]\), what is the support and PDF of \(Y = -(X-1)^2\)?
+    \item Use a convolution to find the PMF of \(X + Y\) given independent \(X\sim\mathrm{Bin}\left(n, p\right)\) and \(Y\sim\mathrm{Bin}\left(m, p\right)\). What is this distribution? You may use Vandermonde's identity:
+    \begin{equation*}
+        \sum_{x=0}^y \binom{n}{x}\binom{m}{y-x} = \binom{m+n}{y}\,.
+    \end{equation*}
+    \item What is the PDF for the sum of two i.i.d. exponential random variables?
+    \item Prove that the minimum of a set of independent exponential random variables is also exponential.
+\end{enumerate}
+
+\section{The Method of Transformations for Bijective Functions}
+
+\begin{enumerate}
+    \item \begin{equation*}
+        f\left(x\right) = \frac{\lambda e^{-x}}{\left(1+e^{-x}\right)^{\lambda+1}}
+    \end{equation*}
+    is the PDF for the skew-logistic distribution. It has support \(\mathbb{R}\) and a single parameter \(\lambda > 0\). Find the PDF for \(Y = \log\left(1 + e^{-X}\right)\), where \(X\) is skew-logistic. What is this distribution?
+    \item Use the method of transformations to solve question (1.2).
+    \item If \(X\sim\mathrm{Exp}\left(\lambda\right)\), \(Y\sim\mathrm{Exp}\left(\mu\right)\), and \(Y = g\left(X\right)\), what is \(g\)? \textit{Hint}: \(g\) takes the form \(g\left(x\right) = ax\) for some constant \(a\). What must \(a\) be?
+    \item Given \(X\sim\mathcal{N}\left(0,1\right)\) and \(Y = X^3\), what is the PDF of \(Y\)? Seriously consider how the domain and codomain of this function must be restricted for the PDF of \(Y\) to make sense.
+    \item Given a 2D standard Gaussian with PDF \(f_{\bm{X}}\left(\bm{x}\right) = \frac{1}{2\pi}\exp\left(-\frac{1}{2}\bm{x}^T\bm{x}\right)\), what is the PDF of
+    \begin{equation*}
+        \bm{Y} = \begin{bmatrix}\cos\left(\theta\right) & -\sin\left(\theta\right)\\\sin\left(\theta\right) & \cos\left(\theta\right)\end{bmatrix}\bm{X}\,?
+    \end{equation*}
+    What does this imply about rotating a 2D standard Gaussian about the origin?
+    \item Consider some arbitrary multivariate Gaussian random variable \(\bm{X}\in\mathbb{R}^n\) with PDF
+    \begin{equation*}
+        f_{\bm{X}}\left(\bm{x}\right) = \left(2\pi\right)^{-\sfrac{n}{2}}\det\left(\Sigma\right)^{-\sfrac{1}{2}}\exp\left(-\frac{1}{2}\left(\bm{x} - \bm{\mu}\right)^T\Sigma^{-1}\left(\bm{x} - \bm{\mu}\right)\right)\,.
+    \end{equation*}
+    What is the PDF of \(\bm{Y} = A\bm{X}\), where \(A\) is an orthogonal matrix? What are the mean and covariance for \(\bm{Y}\)?
+\end{enumerate}
+
+\end{document}
