@@ -59,8 +59,8 @@ def main(argv):
     # Please replace x.xx by appropriate values based on the exercise
     # description
     sigma_z_x = 1.0
-    sigma_z_y = 2.0
-    rho_z = 0.7
+    sigma_z_y = 1.0
+    rho_z = -0.8
     cov_z_11 = sigma_z_x**2
     cov_z_12 = rho_z*sigma_z_x*sigma_z_y
     cov_z_21 = rho_z*sigma_z_x*sigma_z_y
@@ -87,15 +87,15 @@ def main(argv):
                                marker_symbol=marker_samples,
                                marker_size=size_samples,
                                marker_color=color_submarine,
-                               name="samples")
+                               name="submarine loc")
     trace_mean = go.Scatter(x=[mean_z[0]], y=[mean_z[1]], mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_submarine,
-                            name="mean")
+                            name="mean of submarine locs")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_submarine,
-                               name="{:.0f}% CE".format(
+                               name="{:.0f}% PE for submarine locs".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
