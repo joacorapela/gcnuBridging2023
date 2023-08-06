@@ -25,6 +25,12 @@ def main(argv):
     parser.add_argument("--color_measurements",
                         help="color of measurement samples",
                         type=str, default="rgba(0, 0, 255, 1.0)")
+    parser.add_argument("--color_posterior",
+                        help="color of posterior mean and PE",
+                        type=str, default="rgba(255, 165, 0, 1.0)")
+    parser.add_argument("--color_sample_mean",
+                        help="color of sample mean and its PE",
+                        type=str, default="rgba(0, 255, 0, 1.0)")
     parser.add_argument("--marker_mean",
                         help="marker for mean",
                         type=str, default="x")
@@ -58,6 +64,8 @@ def main(argv):
     ellipse_quantile = args.ellipse_quantile
     color_submarine = args.color_submarine
     color_measurements = args.color_measurements
+    color_posterior = args.color_posterior
+    color_sample_mean = args.color_sample_mean
     marker_mean = args.marker_mean
     marker_samples = args.marker_samples
     size_mean = args.size_mean
@@ -112,22 +120,22 @@ def main(argv):
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
-                            marker_color=color_submarine,
+                            marker_color=color_posterior,
                             name=r"posterior mean")
     trace_post_ellipse = go.Scatter(x=post_ellipse_x, y=post_ellipse_y,
-                                    mode="lines", marker_color=color_submarine,
-                                    name="{:.0f}% posterior CE".format(
+                                    mode="lines", marker_color=color_posterior,
+                                    name="{:.0f}% posterior sample PE".format(
                                         ellipse_quantile*100))
     trace_yBar = go.Scatter(x=[sample_mean_y[0]], y=[sample_mean_y[1]],
                             mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
-                            marker_color=color_measurements,
+                            marker_color=color_sample_mean,
                             name="sample mean")
     trace_yBar_ellipse = go.Scatter(x=yBar_ellipse_x, y=yBar_ellipse_y,
                                     mode="lines",
-                                    marker_color=color_measurements,
-                                    name="95% sample mean CE"
+                                    marker_color=color_sample_mean,
+                                    name="95% sample mean PE"
                                    )
     fig.add_trace(trace_z)
     fig.add_trace(trace_mean)
@@ -137,7 +145,9 @@ def main(argv):
     fig.update_layout(
         xaxis_title="x",
         yaxis_title="y",
-        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": (0, 5.5)},
+        yaxis={"scaleanchor": "x", "scaleratio": 1, "range": (0, 5.5),
+               "dtick": 1.0},
+        xaxis={"range": (0, 5.5), "dtick": 1.0},
         font={"size": 18},
     )
 
