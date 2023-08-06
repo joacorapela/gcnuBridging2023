@@ -87,15 +87,15 @@ def main(argv):
                                marker_symbol=marker_samples,
                                marker_size=size_samples,
                                marker_color=color_submarine,
-                               name="samples")
+                               name="submarine loc")
     trace_mean = go.Scatter(x=[mean_z[0]], y=[mean_z[1]], mode="markers",
                             marker_symbol=marker_mean,
                             marker_size=size_mean,
                             marker_color=color_submarine,
-                            name="mean")
+                            name="mean of submarine locs")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_submarine,
-                               name="{:.0f}% RE".format(
+                               name="{:.0f}% PE for submarine locs".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
@@ -112,8 +112,6 @@ def main(argv):
     html_fig_filename = fig_filename_pattern.format(n_samples, "html")
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
-
-    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":
