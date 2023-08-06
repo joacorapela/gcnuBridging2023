@@ -78,7 +78,7 @@ def main(argv):
     # description
     sigma_y_x = 1.0
     sigma_y_y = 1.0
-    rho_y = 0.0
+    rho_y = 0.8
     cov_y_11 = sigma_y_x**2
     cov_y_12 = rho_y*sigma_y_x*sigma_y_y
     cov_y_21 = rho_y*sigma_y_x*sigma_y_y
@@ -113,15 +113,15 @@ def main(argv):
                                marker_symbol=marker_samples,
                                marker_size=size_samples,
                                marker_color=color_measurements,
-                               name="samples")
+                               name="measurements")
     trace_mean = go.Scatter(x=[mean_y[0]], y=[mean_y[1]], mode="markers",
-                               marker_symbol=marker_mean,
-                               marker_size=size_mean,
+                               marker_symbol=marker_samples,
+                               marker_size=size_samples,
                                marker_color=color_submarine,
-                            name="mean")
+                            name=r"$\text{submarine location}\ \mathbf{z}_1$")
     trace_ellipse = go.Scatter(x=ellipse_x, y=ellipse_y, mode="lines",
                                marker_color=color_measurements,
-                               name="{:.0f}% CE".format(
+                               name="{:.0f}% PE for measurments".format(
                                    ellipse_quantile*100))
     fig.add_trace(trace_samples)
     fig.add_trace(trace_mean)
@@ -139,7 +139,6 @@ def main(argv):
     html_fig_filename = fig_filename_pattern.format(n_samples, "html")
     fig.write_image(png_fig_filename)
     fig.write_html(html_fig_filename)
-
 
 if __name__ == "__main__":
     main(sys.argv)
