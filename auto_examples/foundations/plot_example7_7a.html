@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Example 7.7a: Chevalier de Mere to Blaise Pascal &#8212; gcnuBridging2023  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Example 7.9a: soccer teams in quarterfinal" href="plot_example7_9a.html" />
+    <link rel="prev" title="Example 7.1: John, Pedro and Rosita’s dice game" href="plot_example7_1.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-foundations-plot-example7-7a-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code or to run this example in your browser via Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="example-7-7a-chevalier-de-mere-to-blaise-pascal">
+<span id="sphx-glr-auto-examples-foundations-plot-example7-7a-py"></span><h1>Example 7.7a: Chevalier de Mere to Blaise Pascal<a class="headerlink" href="#example-7-7a-chevalier-de-mere-to-blaise-pascal" title="Link to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p>This function draws a sample from the sample space</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">n_draws</span><span class="p">):</span>
+    <span class="n">draws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_draws</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">draws</span>
+</pre></div>
+</div>
+<p>This function checks if the sample belong to the event</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_in_event</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+    <span class="n">index_six</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sample</span><span class="o">==</span><span class="mi">6</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index_six</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Below we draw many samples, check if each sample belongs to the event, and
+computes the probability of the event as the frequency of drawn samples
+belonging to the event.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">n_draws</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">n_samples_in_event</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+    <span class="n">draws</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="n">n_draws</span><span class="o">=</span><span class="n">n_draws</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sample_in_event</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">draws</span><span class="p">):</span>
+        <span class="n">n_samples_in_event</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">p_event</span> <span class="o">=</span> <span class="n">n_samples_in_event</span><span class="o">/</span><span class="n">n_samples</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;probability </span><span class="si">{</span><span class="n">p_event</span><span class="si">}</span><span class="s2">, &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;estimated from </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2"> simulations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>probability 0.5184, estimated from 10000 simulations
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.137 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-foundations-plot-example7-7a-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/joacorapela/gcnuBridging2023/gh-pages?filepath=notebooks/auto_examples/foundations/plot_example7_7a.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo2.svg" width="150px" /></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/45b67cf5ec72f37376927bfe6d18dc42/plot_example7_7a.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_example7_7a.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/dd514f37808a49efad9d7886a9c9a9b1/plot_example7_7a.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_example7_7a.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">gcnuBridging2023</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Probability and Statistical Inference Module of the 2023 GCNU Bridging Summer School</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#bayesian-linear-regression">Bayesian linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#continuous-random-variables">Continuous random variables</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#foundations-of-probability">Foundations of probability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bayesianLinearRegression/index.html">Bayesian linear regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuousRandomVariables/index.html">Continuous random variables</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Foundations of probability</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Probability and Statistical Inference Module of the 2023 GCNU Bridging Summer School</a><ul>
+  <li><a href="index.html">Foundations of probability</a><ul>
+      <li>Previous: <a href="plot_example7_1.html" title="previous chapter">Example 7.1: John, Pedro and Rosita’s dice game</a></li>
+      <li>Next: <a href="plot_example7_9a.html" title="next chapter">Example 7.9a: soccer teams in quarterfinal</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Joaquin Rapela.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../../_sources/auto_examples/foundations/plot_example7_7a.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

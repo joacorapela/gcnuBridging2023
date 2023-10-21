@@ -1,0 +1,366 @@
+:orphan:
+
+Probability and Statistical Inference Module of the 2023 GCNU Bridging Summer School
+====================================================================================
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    </div>
+
+Bayesian linear regression
+==========================
+
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Calculate the root-mean-square error of a polynomial regression for train and test data.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotCrossValidationLeastSquares_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotCrossValidationLeastSquares.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cross-validation for least-squares regression</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the evidence of models of different polynomial order.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotModelsEvidences_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotModelsEvidences.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot model evidence</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The code below uses a batch algorithm to estimate the posterior of the weighs of a linear regre...">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotBatchBayesianLinearRegression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotBatchBayesianLinearRegression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Batch Bayesian linear regression</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The code below demonstrates the use of the predictive distribution in Bayesian linear regressio...">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotPredictiveDistribution_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotPredictiveDistribution.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Predictive distribution</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This code demonstrates how reguularized least squares deals with overfitting.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotRegularizedLeastSquares_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotRegularizedLeastSquares.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Regularized least-squares</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The code below uses an online algorithm to estimate the posterior of the weighs of a linear reg...">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotOnlineBayesianLinearRegression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotOnlineBayesianLinearRegression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Online Bayesian linear regression</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The code below demonstrates the lack of overfitting in least-squares regression for a larger da...">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotLackOfOverfittingInLeastSquaresForLargerDatasetSize_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotLackOfOverfittingInLeastSquaresForLargerDatasetSize.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Demonstration of lack of least-suares overfitting for a larger dataset size</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The code below demonstrates overfitting in least-squares regression.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bayesianLinearRegression/images/thumb/sphx_glr_plotOverfittingLeastSquares_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotOverfittingLeastSquares.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Overfitting demonstration in least squares regression</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+Continuous random variables
+===========================
+
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Below we illustrate how to derive this constant analytically and and how to approximate it by s...">
+
+.. only:: html
+
+  .. image:: /auto_examples/continuousRandomVariables/images/thumb/sphx_glr_plot_stdGaussianNormalizingConstant_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_continuousRandomVariables_plot_stdGaussianNormalizingConstant.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Derivation of the normalizing constant for the standard Normal distribution</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+Foundations of probability
+==========================
+
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.1: John, Pedro and Rosita&#x27;s dice game">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.1: John, Pedro and Rosita's dice game</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.7a: Chevalier de Mere to Blaise Pascal">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_7a_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_7a.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.7a: Chevalier de Mere to Blaise Pascal</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.9a: soccer teams in quarterfinal">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_9a_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_9a.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.9a: soccer teams in quarterfinal</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example p86: dice roll and coint tosses">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_exampleP86_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_exampleP86.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example p86: dice roll and coint tosses</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.1: conditional probability for two dice">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.1: conditional probability for two dice</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.3: stranded tourists">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_3_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_3.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.3: stranded tourists</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.13 (modified): medical treatment probability of success">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_13b_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_13b.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.13 (modified): medical treatment probability of success</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+
+
+   /auto_examples/bayesianLinearRegression/index.rst
+   /auto_examples/continuousRandomVariables/index.rst
+   /auto_examples/foundations/index.rst
+
+
+.. only:: html
+
+  .. container:: sphx-glr-footer sphx-glr-footer-gallery
+
+    .. container:: sphx-glr-download sphx-glr-download-python
+
+      :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
+
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

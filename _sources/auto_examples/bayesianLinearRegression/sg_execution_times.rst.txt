@@ -1,0 +1,27 @@
+
+:orphan:
+
+.. _sphx_glr_auto_examples_bayesianLinearRegression_sg_execution_times:
+
+
+Computation times
+=================
+**00:26.769** total execution time for **auto_examples_bayesianLinearRegression** files:
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotOnlineBayesianLinearRegression.py` (``plotOnlineBayesianLinearRegression.py``)                                           | 00:25.769 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotBatchBayesianLinearRegression.py` (``plotBatchBayesianLinearRegression.py``)                                             | 00:00.456 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotCrossValidationLeastSquares.py` (``plotCrossValidationLeastSquares.py``)                                                 | 00:00.147 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotLackOfOverfittingInLeastSquaresForLargerDatasetSize.py` (``plotLackOfOverfittingInLeastSquaresForLargerDatasetSize.py``) | 00:00.124 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotOverfittingLeastSquares.py` (``plotOverfittingLeastSquares.py``)                                                         | 00:00.121 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotRegularizedLeastSquares.py` (``plotRegularizedLeastSquares.py``)                                                         | 00:00.092 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotPredictiveDistribution.py` (``plotPredictiveDistribution.py``)                                                           | 00:00.049 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_bayesianLinearRegression_plotModelsEvidences.py` (``plotModelsEvidences.py``)                                                                         | 00:00.011 | 0.0 MB |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+--------+

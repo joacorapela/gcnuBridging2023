@@ -1,0 +1,43 @@
+
+
+.. _sphx_glr_auto_examples_continuousRandomVariables:
+
+Continuous random variables
+===========================
+
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Below we illustrate how to derive this constant analytically and and how to approximate it by s...">
+
+.. only:: html
+
+  .. image:: /auto_examples/continuousRandomVariables/images/thumb/sphx_glr_plot_stdGaussianNormalizingConstant_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_continuousRandomVariables_plot_stdGaussianNormalizingConstant.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Derivation of the normalizing constant for the standard Normal distribution</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/continuousRandomVariables/plot_stdGaussianNormalizingConstant
+

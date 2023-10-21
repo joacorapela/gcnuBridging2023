@@ -1,0 +1,151 @@
+
+
+.. _sphx_glr_auto_examples_foundations:
+
+Foundations of probability
+==========================
+
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.1: John, Pedro and Rosita&#x27;s dice game">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.1: John, Pedro and Rosita's dice game</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.7a: Chevalier de Mere to Blaise Pascal">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_7a_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_7a.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.7a: Chevalier de Mere to Blaise Pascal</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 7.9a: soccer teams in quarterfinal">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example7_9a_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example7_9a.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 7.9a: soccer teams in quarterfinal</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example p86: dice roll and coint tosses">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_exampleP86_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_exampleP86.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example p86: dice roll and coint tosses</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.1: conditional probability for two dice">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.1: conditional probability for two dice</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.3: stranded tourists">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_3_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_3.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.3: stranded tourists</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Example 8.13 (modified): medical treatment probability of success">
+
+.. only:: html
+
+  .. image:: /auto_examples/foundations/images/thumb/sphx_glr_plot_example8_13b_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_foundations_plot_example8_13b.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Example 8.13 (modified): medical treatment probability of success</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/foundations/plot_example7_1
+   /auto_examples/foundations/plot_example7_7a
+   /auto_examples/foundations/plot_example7_9a
+   /auto_examples/foundations/plot_exampleP86
+   /auto_examples/foundations/plot_example8_1
+   /auto_examples/foundations/plot_example8_3
+   /auto_examples/foundations/plot_example8_13b
+
