@@ -36,7 +36,7 @@ n_samples_to_plot = (1, 2, 20)
 x = np.random.uniform(low=-1, high=1, size=n_samples)
 y = a0 + a1 * x
 t = y + np.random.standard_normal(size=y.shape) * \
-        1.0/np.sqrt(likelihood_precision_coef)
+        np.sqrt(1.0/likelihood_precision_coef)
 
 #%%
 # Define plotting variables
@@ -92,8 +92,8 @@ fig.add_trace(trace_post, row=1, col=2)
 
 fig.add_trace(trace_true_coef, row=1, col=2)
 
-fig.update_xaxes(title_text="Intercept", row=1, col=2)
-fig.update_yaxes(title_text="Slope", row=1, col=2)
+fig.update_xaxes(title_text="Intercept", range=(-1, 1), row=1, col=2)
+fig.update_yaxes(title_text="Slope", range=(-1, 1), row=1, col=2)
 
 # sample from prior
 samples = rv.rvs(size=n_post_samples)
@@ -105,16 +105,16 @@ for a_sample in samples:
     trace = go.Scatter(x=x_dense, y=sample_y, mode="lines",
                        line_color="red", showlegend=False)
     fig.add_trace(trace, row=1, col=3)
-fig.update_xaxes(title_text="x", row=1, col=3)
-fig.update_yaxes(title_text="y", row=1, col=3)
+fig.update_xaxes(title_text="x", range=(-1, 1), row=1, col=3)
+fig.update_yaxes(title_text="y", range=(-1, 1), row=1, col=3)
 
 mn = m0
 Sn = S0
-for n, t in enumerate(y):
+for n, tn in enumerate(t):
     print(f"Processing {n}/({len(y)})")
     # update posterior
     mn, Sn = joacorapela_common.stats.bayesianLinearRegression.onlineUpdate(
-        mn=mn, Sn=Sn, phi=Phi[n, :], y=t, alpha=prior_precision_coef,
+        mn=mn, Sn=Sn, phi=Phi[n, :], y=tn, alpha=prior_precision_coef,
         beta=likelihood_precision_coef)
 
     if n+1 in n_samples_to_plot:
@@ -124,8 +124,8 @@ for n, t in enumerate(y):
         for i, w0 in enumerate(x_grid):
             for j, w1 in enumerate(y_grid):
                 rv = scipy.stats.norm(w0 + w1 * x[n],
-                                      1.0/np.sqrt(likelihood_precision_coef))
-                Z[j, i] = rv.pdf(t)
+                                      np.sqrt(1.0/likelihood_precision_coef))
+                Z[j, i] = rv.pdf(tn)
 
         # plot likelihood
         trace_like = go.Contour(x=x_grid, y=y_grid, z=Z, showscale=False)
@@ -133,8 +133,8 @@ for n, t in enumerate(y):
 
         fig.add_trace(trace_true_coef, row=index_sample+2, col=1)
 
-        fig.update_xaxes(title_text="Intercept", row=index_sample+2, col=1)
-        fig.update_yaxes(title_text="Slope", row=index_sample+2, col=1)
+        fig.update_xaxes(title_text="Intercept", range=(-1, 1), row=index_sample+2, col=1)
+        fig.update_yaxes(title_text="Slope", range=(-1, 1), row=index_sample+2, col=1)
 
         rv = scipy.stats.multivariate_normal(mn, Sn)
 
@@ -145,8 +145,8 @@ for n, t in enumerate(y):
 
         fig.add_trace(trace_true_coef, row=index_sample+2, col=2)
 
-        fig.update_xaxes(title_text="Intercept", row=index_sample+2, col=2)
-        fig.update_yaxes(title_text="Slope", row=index_sample+2, col=2)
+        fig.update_xaxes(title_text="Intercept", range=(-1, 1), row=index_sample+2, col=2)
+        fig.update_yaxes(title_text="Slope", range=(-1, 1), row=index_sample+2, col=2)
 
         # sample from posterior
         samples = rv.rvs(size=n_post_samples)
@@ -158,7 +158,7 @@ for n, t in enumerate(y):
             trace = go.Scatter(x=x_dense, y=sample_y, mode="lines",
                                line_color="red", showlegend=False)
             fig.add_trace(trace, row=index_sample+2, col=3)
-        trace_data = go.Scatter(x=x[:(n+1)], y=y[:(n+1)],
+        trace_data = go.Scatter(x=x[:(n+1)], y=t[:(n+1)],
                                 mode="markers",
                                 marker_symbol=marker_data,
                                 marker_size=size_data,
@@ -167,7 +167,8 @@ for n, t in enumerate(y):
                                 showlegend=False,
                                )
         fig.add_trace(trace_data, row=index_sample+2, col=3)
-        fig.update_xaxes(title_text="x", row=index_sample+2, col=3)
-        fig.update_yaxes(title_text="y", row=index_sample+2, col=3)
+        fig.update_xaxes(title_text="x", range=(-1, 1), row=index_sample+2, col=3)
+        fig.update_yaxes(title_text="y", range=(-1, 1), row=index_sample+2, col=3)
 
+# fig.show()
 fig
