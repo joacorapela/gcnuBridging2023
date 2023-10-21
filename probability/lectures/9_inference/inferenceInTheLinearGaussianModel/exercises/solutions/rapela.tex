@@ -13,14 +13,15 @@
 \usepackage{natbib}
 \usepackage{apalike}
 
-\def\figsdir{../../../../../../code/scripts/probability/multivariateGaussians/inferenceInTheLinearGaussianModel/figures/}
+\def\figsdir{../../../../../../code/scripts/probability/unsupervisedInferenceInTheLinearGaussianModel/figures/}
+\def\figsURLdir{http://www.gatsby.ucl.ac.uk/~rapela/gcnuBridging2023/lectures/9_inference/inferenceInTheLinearGaussianModel/exercises/figures/}
 
-\newcommand\nSamples{{3,10,50,100,1000}}
-\def\nNSamples{5}
+\newcommand\nSamples{{1,10,100,1000}}
+\def\nNSamples{4}
 
 \begin{document}
 
-\title{Exercises: inference in the linear Gaussian model}
+\title{Exercises: unsupervised inference with iid observations and the linear Gaussian model}
 \author{Joaqu\'{i}n Rapela\thanks{j.rapela@ucl.ac.uk}}
 
 \maketitle
@@ -29,13 +30,13 @@
 measurements}
 
 \subsection*{(a)} The modified code lines appear below and Fig.~\ref{fig:a}
-shows the generated submarine samples, and the mean and 95\% confidence ellipse
-of the samples probability density function.
+shows the generated submarine samples, and the mean and 95\% prediction ellipse
+of these samples.
 
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python,frame=single]
     sigma_zx = 1.0
-    sigma_zy = 2.0
-    rho_z = 0.7
+    sigma_zy = 1.0
+    rho_z = -0.8
     cov_z_11 = sigma_zx**2
     cov_z_12 = rho_z*sigma_zx*sigma_zy
     cov_z_21 = rho_z*sigma_zx*sigma_zy
@@ -44,24 +45,25 @@ of the samples probability density function.
 
 \begin{center}
     \begin{figure}[H]
-        \includegraphics[width=6in]{\figsdir /submarine_samples_N100.png}
+        \href{\figsURLdir/submarine_samples_N100.html}{\includegraphics[width=6in]{\figsdir /submarine_samples_N100.png}}
 
-        \caption{100 a-priori samples of the submarine location (dots), and the
-        mean (cross) and 95\% confidence ellipse (line) of the samples
-        probability density function.}
+        \caption{100 a-priori samples of the submarine location (dots), the
+        mean submarine location (cross) and 95\% prediction ellipse (line) for
+        samples of submarine locations. Click on the figure to get its
+        interactive version.}
 
         \label{fig:a}
     \end{figure}
 \end{center}
 
 \subsection*{(b)} The modified code lines appear below and Fig.~\ref{fig:b}
-shows the generated measurement samples, and the mean and 95\% confidence
-ellipse of the samples probability density function.
+shows the generated measurement samples, and the mean and 95\% prediction
+ellipse of these samples.
 
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python,frame=single]
     sigma_y_x = 1.0
     sigma_y_y = 1.0
-    rho_y = 0.0
+    rho_y = 0.8
     cov_y_11 = sigma_y_x**2
     cov_y_12 = rho_y*sigma_y_x*sigma_y_y
     cov_y_21 = rho_y*sigma_y_x*sigma_y_y
@@ -70,11 +72,12 @@ ellipse of the samples probability density function.
 
 \begin{center}
     \begin{figure}[H]
-        \includegraphics[width=6in]{\figsdir /measurements_samples_N5.png}
+        \href{\figsURLdir/measurements_samples_N5.html}{\includegraphics[width=6in]{\figsdir /measurements_samples_N5.png}}
 
         \caption{5 noisy measurements of of the submarine location (dots), and
-        the mean ($\mathbf{z}_1$, cross) and 95\% confidence ellipse (line) of
-        the measurements probability density function.}
+        the mean ($\mathbf{z}_1$, cross) and 95\% prediction ellipse (line) of
+        these measurements. Click on the figure to get its interactive
+        version.}
 
         \label{fig:b}
     \end{figure}
@@ -86,38 +89,86 @@ ellipse of the samples probability density function.
     p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=K_1\ p(\mathbf{z},\mathbf{y}_1,\ldots,\mathbf{y}_N)\nonumber\\
                                                   &=K_1\ p(\mathbf{y}_1,\ldots,\mathbf{y}_N|\mathbf{z})\ p(\mathbf{z})\nonumber\\
                                                   &=K_2\
-                                                  \mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\Sigma_y\right.\right)\mathcal{N}\left(\mathbf{z}|\mu_z,\Sigma_z\right)\label{eq:posZLine3}
-%                                                   &=K_2\ p(\bar{\mathbf{y}}|\mathbf{z})\ p(\mathbf{z})
+                                                  \mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\boldsymbol{\Sigma}_y\right.\right)\mathcal{N}\left(\mathbf{z}|\boldsymbol{\mu}_z,\boldsymbol{\Sigma}_z\right)\label{eq:posZLine3}
 \end{align}
 
-\noindent where $K_1$ is a constant that does not depend on $\mathbf{z}$ and
-Eq.~\ref{eq:posZLine3} follows from Claim~1 in the exercise statement. In the
-right-hand side of Eq.~\ref{eq:posZLine3} we recognize a linear Gaussian model
-(i.e., $\bar{\mathbf{y}}$ and $\mathbf{z}$ are Gaussian random variables and
-the mean of $\bar{\mathbf{y}}$ depends linearly on $\mathbf{z}$).
+\noindent where $K_1$ and $K_2$ are constants that do not depend on
+$\mathbf{z}$, and such that the integral of the corresponding right hand sides
+are one. The last line follows from the previous one by Claim~1 in the exercise
+statement.
 
-Defining
-$p(\bar{\mathbf{y}}|\mathbf{z})=\mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\Sigma_y\right.\right)$
-and $p(\mathbf{z})=\mathcal{N}\left(\mathbf{z}|\mu_z,\Sigma_z\right)$, because
-the right-hand side of Eq.~\ref{eq:posZLine3} equals a probability density
-function on $\mathbf{z}$, this right-hand side should be
-$p(\mathbf{z}|\bar{\mathbf{y}})$. To derive a mathematical expression for
-$p(\mathbf{z}|\bar{\mathbf{y}})$, we use Eq.~3.37 from~\citet{murphyIntro22}
-with $\mathbf{y}=\bar{\mathbf{y}}$, $\mathbf{W}=I$, $\mathbf{b}=\mathbf{0}$,
-$\Sigma_y=\frac{1}{N}\Sigma_y$, yielding
+We know that
+\begin{align}
+    p(\mathbf{z}|\bar{\mathbf{y}})=K_3\ p(\bar{\mathbf{y}},\mathbf{z})=K_3\ p(\bar{\mathbf{y}}|\mathbf{z})p(\mathbf{z})\label{eq:posZGivenYBarLine1}
+\end{align}
 
+\noindent where $K_3$ is a constant such that the integral of the right hand
+side of Eq.~\ref{eq:posZGivenYBarLine1} is one. Taking
 
 \begin{align}
-    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=p(\mathbf{z}|\bar{\mathbf{y}})=\mathcal{N}(\mathbf{z}|\mu_{z|\bar{y}},\Sigma_{z|\bar{y}})\nonumber\\
-    \Sigma^{-1}_{z|\bar{y}}&=\Sigma_z^{-1}+N\Sigma_y^{-1}\label{eq:postCov}\\
-    \mu_{z|\bar{y}}&=\Sigma_{z|\bar{y}}\left[N\Sigma_y^{-1}\bar{\mathbf{y}}+\Sigma_z^{-1}\mu_z\right]\label{eq:postMean}
+    p(\mathbf{z})&=\mathcal{N}\left(\mathbf{z}|\boldsymbol{\mu}_z,\boldsymbol{\Sigma}_z\right)\label{eq:priorZ}\\
+    p(\bar{\mathbf{y}}|\mathbf{z})&=\mathcal{N}\left(\bar{\mathbf{y}}\left|\mathbf{z},\frac{1}{N}\boldsymbol{\Sigma}_y\right.\right)\label{eq:posYBarGivenZ}
+\end{align}
+
+\noindent it
+follow that right hand side of Eq.~\ref{eq:posZLine3} equals that of
+Eq.~\ref{eq:posZGivenYBarLine1}, and both $K_2$ and $K_3$ are such that the
+right hand side of these equations integrate to one. Then $K_2$ equals
+$K_3$ and the left hand side of these equations are also equal (i.e.,
+$p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)=p(\mathbf{z}|\bar{\mathbf{y}}))$.
+
+To find a close-form expression of the $p(\mathbf{z}|\bar{\mathbf{y}})$ we use
+the following result from the Gaussian linear model, that we discussed in the
+lecture on linear regression\footnote{see Eqs.~2.166 and~2.167 in
+\citet{bishop06}}.
+%
+If
+
+\begin{align*}
+    p(\mathbf{x})&=\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Lambda}^{-1})\\
+    p(\mathbf{y}|\mathbf{x})&=\mathcal{N}(\mathbf{y}|\mathbf{A}\boldsymbol{\mu}+\mathbf{b},\mathbf{L}^{-1})
+\end{align*}
+
+\noindent then
+
+\begin{align}
+    p(\mathbf{x}|\mathbf{y})&=\mathcal{N}(\mathbf{x}|\boldsymbol{\Sigma}\left\{\mathbf{A}^\intercal\mathbf{L}(\mathbf{y}-\mathbf{b})+\boldsymbol{\Lambda}\boldsymbol{\mu}\right\},\boldsymbol{\Sigma})\label{eq:conditionalLGM}
+\end{align}
+
+\noindent where
+
+\begin{align*}
+    \boldsymbol{\Sigma}&=(\boldsymbol{\Lambda}+\mathbf{A}^\intercal\mathbf{L}\mathbf{A})^{-1}
+\end{align*}
+
+Setting $\mathbf{x}=\mathbf{z}$, $\mathbf{y}=\bar{\mathbf{y}}$, $\boldsymbol{\mu}=\boldsymbol{\mu}_z$,
+$\boldsymbol{\Lambda}^{-1}=\boldsymbol{\Sigma}_z$, $\mathbf{A}=\mathbf{I}$,
+$\mathbf{b}=\mathbf{0}$, and $\mathbf{L}^{-1}=\frac{1}{N}\boldsymbol{\Sigma}_y$
+in Eq.~\ref{eq:conditionalLGM}, we obtain
+
+\begin{align*}
+    p(\mathbf{z}|\bar{\mathbf{y}})&=\mathcal{N}(\mathbf{z}|\boldsymbol{\Sigma}\left\{N\boldsymbol{\Sigma}_y\bar{\mathbf{y}}+\boldsymbol{\Sigma}_z^{-1}\boldsymbol{\mu}_z\right\},\boldsymbol{\Sigma})
+\end{align*}
+
+\noindent where
+
+\begin{align*}
+    \boldsymbol{\Sigma}&=(\boldsymbol{\Sigma}_z^{-1}+N\mathbf{\Sigma}_y^{-1})^{-1}
+\end{align*}
+
+\noindent Therefore
+
+\begin{align}
+    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=p(\mathbf{z}|\bar{\mathbf{y}})=\mathcal{N}(\mathbf{z}|\boldsymbol{\mu}_{z|\bar{y}},\boldsymbol{\Sigma}_{z|\bar{y}})\nonumber\\
+    \boldsymbol{\Sigma}^{-1}_{z|\bar{y}}&=\boldsymbol{\Sigma}_z^{-1}+N\boldsymbol{\Sigma}_y^{-1}\label{eq:postCov}\\
+    \boldsymbol{\mu}_{z|\bar{y}}&=\boldsymbol{\Sigma}_{z|\bar{y}}\left[N\boldsymbol{\Sigma}_y^{-1}\bar{\mathbf{y}}+\boldsymbol{\Sigma}_z^{-1}\boldsymbol{\mu}_z\right]\label{eq:postMean}
 \end{align}
 
 \subsection*{(d)} The modified code lines appear below and Fig.~\ref{fig:d}
-plots the mean of the measurements, the mean of the posterior and its 95\%
-confidence ellipse.
+plots the mean of the measurements, the mean of the posterior and the 95\%
+prediction ellipse for samples of the posterior.
 
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python,frame=single]
     cov_y_inv = np.linalg.inv(cov_y)
     cov_z_inv = np.linalg.inv(cov_z)
     tmp1 = N * cov_y_inv + cov_z_inv
@@ -126,21 +177,22 @@ confidence ellipse.
     post_mean_z = np.linalg.solve(tmp1, tmp2)
     post_cov_z = np.linalg.inv(tmp1)
     yBar_mean = z
-    yBar_cov = 1.0/N*cov_y
+    yBar_cov = 1.0/N * cov_y
 \end{lstlisting}
 
 \begin{center}
     \begin{figure}[H]
-        \includegraphics[width=6in]{\figsdir /estimates_samples_N5.png}
-        \caption{Sample average of 5 noisy measurements (blue cross), 95\%
-        confidence ellipse of this average (blue line), mean of the posterior
-        distribution (red cross), its 95\% confidence ellipse (red line), and
-        submarine location ($\mathbf{z}_1$, red dot)}
+        \href{\figsURLdir/estimates_samples_N5.html}{\includegraphics[width=6in]{\figsdir /estimates_samples_N5.png}}
+        \caption{Sample mean of 5 noisy measurements (green cross), 95\%
+        prediction ellipse for sample means (green line), mean of the posterior
+        distribution (orange cross), 95\% prediction ellipse for samples from
+        the posterior (orange line), and submarine location ($\mathbf{z}_1$, red
+        dot). Click on the figure to get its interactive version.}
         \label{fig:d}
     \end{figure}
 \end{center}
 
-\subsection*{(e)} Figs.~\ref{fig:e_3}-\ref{fig:e_100} plot the posterior
+\subsection*{(e)} Figs.~\ref{fig:e_1}-\ref{fig:e_100} plot the posterior
 estimates computed from an increasing number of measurements.
 
 In these figures we observe that:
@@ -151,16 +203,19 @@ In these figures we observe that:
         the sample mean, and the sample mean approaches the submarine location
         $\mathbf{z}_1$,
 
-    \item as the number of measurements increases, the 95\% confidence ellipses
+    \item as the number of measurements increases, the 95\% prediction ellipses
         become smaller,
 
-    \item for three measurements (Fig.~\ref{fig:e_3}) the posterior 95\%
-        confidence ellipse is tilted, as that of the prior (Fig.~\ref{fig:a},
-        $\Sigma_z$ in Eq.~1 of the exercise statement).
-        As the number of measurments increases, the posterior 95\% confidence
-        ellipses become more and more spherical, as the 95\% confidence ellipse
-        of the measurements likelihood (Fig.~\ref{fig:b},
-        $\Sigma_y$ in Eq.~2 of the exercise statement).
+    \item for one measurement (Fig.~\ref{fig:e_1}) the posterior 95\%
+        prediction ellipse is the average between the that of the prior
+        (Fig.~\ref{fig:a}, $\boldsymbol{\Sigma}_z$ in Eq.~1 of the exercise
+        statement) and that of the likelihood (Fig.~\ref{fig:b},
+        $\boldsymbol{\Sigma}_y$ in Eq.~1 of the exercise statement).  As the
+        number of measurements increases, the posterior 95\% prediction ellipses
+        become tilted along the 45$^\circ$ orientation, as the 95\% prediction
+        ellipse of the measurements likelihood (Fig.~\ref{fig:b},
+        $\boldsymbol{\Sigma}_y$ in Eq.~2 of the exercise statement).
+
 \end{enumerate}
 
 \foreach \i in {1,...,\nNSamples} {
@@ -169,54 +224,56 @@ In these figures we observe that:
 
     \begin{center}
         \begin{figure}[H]
-            \includegraphics[width=6in]{\figsdir /estimates_samples_N\nSamplesL.png}
+            \href{\figsURLdir/estimates_samples_N\nSamplesL.html}{\includegraphics[width=6in]{\figsdir /estimates_samples_N\nSamplesL.png}}
 
-            \caption{Sample average of \nSamplesL\ noisy measurements (blue
-            cross), 95\% confidence ellipse of this average (blue line), mean
-            of the posterior distribution (red cross), its 95\% confidence
-            ellipse (red line), and submarine location
-            ($\mathbf{z}_1$, red dot)}
+            \caption{Sample mean of \nSamplesL\ noisy measurements (green
+            cross), 95\% prediction ellipse for sample means (green line), mean
+            of the posterior distribution (orange cross), 95\% prediction
+            ellipse for posterior samples (orange line), and submarine location
+            ($\mathbf{z}_1$, red dot). Click on the figure to get its
+            interactive version.}
 
             \label{fig:e_\nSamplesL}
         \end{figure}
     \end{center}
 }
 
-\subsection*{(f)} Eqs~\ref{eq:postMeanRewritten} and~\ref{eq:postCovRewritten}
-were obtained by re-arrenging Eqs.~\ref{eq:postMean} and~\ref{eq:postCov} to
-more clearly show the behavior of the posterior mean and covariance as $N$
+\subsection*{(f)} Eqs.~\ref{eq:postMeanRewritten} and~\ref{eq:postCovRewritten}
+were obtained by re-arranging Eqs.~\ref{eq:postMean} and~\ref{eq:postCov} to
+more clearly show the behaviour of the posterior mean and covariance as $N$
 increases to infinity.
 
 \begin{align}
-    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=\mathcal{N}(\mathbf{z}|\mu_{z|\bar{y}}(N),\Sigma_{z|\bar{y}}(N))\nonumber\\
-    \Sigma_{z|\bar{y}}(N)&=\frac{1}{N}\left(\Sigma_y^{-1}+\frac{1}{N}\Sigma_z^{-1}\right)^{-1}\label{eq:postCovRewritten}\\
-    \mu_{z|\bar{y}}(N)&=\left(\Sigma_y^{-1}+\frac{1}{N}\Sigma_z^{-1}\right)^{-1}\left[\Sigma_y^{-1}\bar{\mathbf{y}}_N+\frac{1}{N}\Sigma_z^{-1}\mu_z\right]\label{eq:postMeanRewritten}
+    p(\mathbf{z}|\mathbf{y}_1,\ldots,\mathbf{y}_N)&=\mathcal{N}(\mathbf{z}|\boldsymbol{\mu}_{z|\bar{y}}(N),\boldsymbol{\Sigma}_{z|\bar{y}}(N))\nonumber\\
+    \boldsymbol{\Sigma}_{z|\bar{y}}(N)&=\frac{1}{N}\left(\boldsymbol{\Sigma}_y^{-1}+\frac{1}{N}\boldsymbol{\Sigma}_z^{-1}\right)^{-1}\label{eq:postCovRewritten}\\
+    \boldsymbol{\mu}_{z|\bar{y}}(N)&=\left(\boldsymbol{\Sigma}_y^{-1}+\frac{1}{N}\boldsymbol{\Sigma}_z^{-1}\right)^{-1}\left[\boldsymbol{\Sigma}_y^{-1}\bar{\mathbf{y}}_N+\frac{1}{N}\boldsymbol{\Sigma}_z^{-1}\boldsymbol{\mu}_z\right]\label{eq:postMeanRewritten}
 \end{align}
 
 From Eq.~\ref{eq:postCovRewritten} we observe that as $N$ increases the
-contributions of the prior covariance, $\Sigma_z$, to the posterior covariance,
-$\Sigma_{z|\bar{y}}(N)$, becomes smaller and smaller, in comparison to the
-contribution from the likelihood covariance, $\frac{1}{N}\Sigma_y$. When $N$ is
-very large, the contribution of the prior covariance dissapears, the posterior
-covariance converges to the likelihood covariance, which becomes zero.
+contributions of the prior covariance, $\boldsymbol{\Sigma}_z$, to the posterior covariance,
+$\boldsymbol{\Sigma}_{z|\bar{y}}(N)$, becomes smaller, in comparison to the contribution
+from the likelihood covariance, $\boldsymbol{\Sigma}_y$. When $N$ is very large, the
+contribution of the prior covariance disappears, the posterior covariance
+converges to the sample mean covariance, $\frac{1}{N}\boldsymbol{\Sigma}_y$, which becomes
+zero.
 
 From Eq.~\ref{eq:postMeanRewritten} we observe 
 
-\begin{align}
-    \lim_{N\rightarrow\infty}\mu_{z|\bar{y}}(N)&=\Sigma_y\left[\Sigma_y^{-1}\bar{\mathbf{y}}_N\right]=\lim_{N\rightarrow\infty}\bar{\mathbf{y}}_N\label{eq:postMeanAtInfty}
-\end{align}
+\begin{align*}
+    \lim_{N\rightarrow\infty}\boldsymbol{\mu}_{z|\bar{y}}(N)&=\boldsymbol{\Sigma}_y\left[\boldsymbol{\Sigma}_y^{-1}\bar{\mathbf{y}}_N\right]=\lim_{N\rightarrow\infty}\bar{\mathbf{y}}_N
+\end{align*}
 
 In class we proved that
 
 \begin{align}
-    \bar{\mathbf{y}}_N\sim\mathcal{N}(\bar{\mathbf{y}}_N|\mathbf{z}_1,\frac{1}{N}\Sigma_y)\nonumber
+    \bar{\mathbf{y}}_N\sim\mathcal{N}(\bar{\mathbf{y}}_N|\mathbf{z}_1,\frac{1}{N}\boldsymbol{\Sigma}_y)\nonumber
 \end{align}
 
-\noindent Thus, as $N$ approaches infinity, the variance of $\bar{\mathbf{y}}_N$
-becomes zero, and $\bar{\mathbf{y}}_N$ collapses to its mean $\mathbf{z}_1$.
-Therefore, as $N$ approaches infinity, both the posterior mean,
-Eq.~\ref{eq:postMeanAtInfty}, and sample the mean, become deterministic and
-converge to the population mean of the observatons; i.e., $\mathbf{z}_1$.
+\noindent Thus, as $N$ approaches infinity, the covariance of
+$\bar{\mathbf{y}}_N$ becomes zero, and $\bar{\mathbf{y}}_N$ collapses to its
+mean $\mathbf{z}_1$.  Therefore, as $N$ approaches infinity, both the posterior
+mean and sample the mean, become deterministic and converge to the population
+mean of the observations; i.e., $\mathbf{z}_1$.
 
 \bibliographystyle{apalike}
 \bibliography{machineLearning}

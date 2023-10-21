@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Exercises: inference in the linear Gaussian model}
+\title{Exercises: unsupervised inference with iid observations and the linear Gaussian model}
 \author{Joaqu\'{i}n Rapela\thanks{j.rapela@ucl.ac.uk}}
 
 \maketitle
@@ -21,14 +21,11 @@
 \section{Inferring location of a static submarine from its sonar
 measurements}
 
-This exercise is an Extension of Example 3.3.4 from another great book in
-machine learning, \citet{murphyIntro22}. See this 
+This exercise is an extension of Example 3.3.4 from
+another great book in machine learning, \citet{murphyIntro22}\footnote{See this related
 \href{https://github.com/probml/pml-book/issues/510}{discussion} and its
-\href{https://github.com/probml/pml-book/issues/512}{follow-up}, that
-illustrates the importance of always asking
-\textbf{why?}. It also shows that today the internet can be an excellent place
-for learning and interacting with smart people.
-
+\href{https://github.com/probml/pml-book/issues/512}{follow-up}.}.
+%
 A static submarine is located in a 2D planar surface deep in the sea. A
 priori, we model its unknown location with a 2D random variable
 $\mathbf{z}$ with 
@@ -51,12 +48,14 @@ with
         (i.e., $\mathbf{z}_1,\ldots,\mathbf{z}_{100}$) using
         a mean $\mu_z=[2,3]^\intercal$, a standard deviation along the
         horizontal direction $\sigma_{\mathbf{z}x}=1.0$, a standard
-        deviation along the vertical direction $\sigma_{\mathbf{z}y}=2.0$,
+        deviation along the vertical direction $\sigma_{\mathbf{z}y}=1.0$,
         and a correlation coefficient between the vertical and horizontal
-        directions $\rho_{\mathbf{z}}=0.7$.
+        directions $\rho_{\mathbf{z}}=-0.8$.
 
         Plot $\mu_z$, the samples of the a-priori submarine location. and the
-        ellipse containing 95\% of samples of a-priori submarine locations.
+        ellipse containing 95\% of samples of a-priori submarine locations. We
+        call this ellipse the 95\% prediction ellipse for samples of the
+        a-priori submarine location.
 
         You may want to complete the script
         \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/unsupervisedInferenceInTheLinearGaussianModel/doExSubmarine_a.py}{doExSubmarine\_a.py}
@@ -68,11 +67,11 @@ with
         $p(\mathbf{y}|\mathbf{z}_1)$ to obtain
         $\mathbf{y}_1,\ldots,\mathbf{y}_N$). Use a standard deviation of
         1.0 for the measurement noise along the horizontal and vertical
-        directions, and assume that this noise is uncorrelated along these
-        directions.
+        directions, and a correlation coefficient between the vertical and
+        horizontal directions $\rho_{\mathbf{y}}=0.8$.
 
-        Plot $\mathbf{z}_1$, the sonar measurements samples. and the ellipse
-        containing 95\% of sonar measurement samples.
+        Plot $\mathbf{z}_1$, the sonar measurements samples. and the 95\%
+        prediction ellipse for sonar measurement samples.
 
         You may want to complete the script
         \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/unsupervisedInferenceInTheLinearGaussianModel/doExSubmarine_b.py}{doExSubmarine\_b.py}
@@ -121,16 +120,15 @@ with
 
         \end{itemize}
 
-    \item plot the mean of the measurements, its 95\% confidence
-        ellipse, the mean of the posterior, its 95\% confidence ellipse, and
-        check if the population mean of the measurements, $\mathbf{z}_1$, lies
-        within this ellipse.
+    \item plot the sample mean of the measurements, the 95\% prediction ellipse for
+        sample means of the measurements, the mean of the posterior distribution and the 95\%
+        prediction ellipse for samples from the posterior.
 
         You may want to complete the script
         \href{https://github.com/joacorapela/gcnuBridging2023/blob/master/code/scripts/probability/unsupervisedInferenceInTheLinearGaussianModel/doExSubmarine_d.py}{doExSubmarine\_d.py}
         to address this item.
 
-    \item repeat (b) and (d) with $N\in\{3,10,50,100,1000\}$ measurements, and show
+    \item repeat (b) and (d) with $N\in\{1,10,100,1000\}$ measurements, and show
         the plots generated in (d).  How do the posterior and sample mean
         estimates change as $N$ increases?
 
@@ -215,72 +213,6 @@ with
     \end{align*}
 
 \end{proof}
-
-\begin{comment}
-\section*{Radiation source}
-
-In a planar 2D surface 5.000 meters below the earth surface there is a source
-of radiation that we aim to discover. We can measure this source with $N=100$
-sensors located at distant points on the 3D earth surface. These measurements
-are noisy because our sensors are noisy. Geophysicist informed us that that the
-distribution of a set of surface measurements $\mathbf{Y}$ given a 2D radiation
-source $\mathbf{X}$ is Gaussian with mean $\mathbf{\mu}=A \mathbf{X} +
-\mathbf{b}$ and covariance $Q$.
-
-
-\begin{align*}
-    A &= \left[\begin{array}{cc}
-                   0.7 & 8.1\\
-                   1.05 & 2.5\\
-                   0.45 & 2.3
-               \end{array}
-         \right]\\
-    \mathbf{b} &= \left[\begin{array}{c}
-                            0.0\\
-                            0.0\\
-                            0.0
-                        \end{array}
-                  \right]\\
-    Q &= \left[\begin{array}{cc}
-                   0.7 & 0.1\\
-                   0.05 & 0.5
-               \end{array}
-         \right]
-\end{align*}
-
-
-A priory, our guess is that the source of radiation is at location $\mu=(10,
--3)$ meters, with respect of the centre of our pasteurisation of the deep
-planar surface.  We are equally uncertain about the location of the source of
-radiation in the vertical and horizontal directions. The variance of our
-uncertainty in either direction is 2~$\text{meter}^2$. We know that the source
-of radiation is in a rift, so we assume a correlation coefficient of 0.7 for
-the horizontal and vertical source locations.
-
-\begin{enumerate}[(a)]
-
-    \item sample $N=100$ instances of sources of radiation and surface
-        measurements ($\mathbf{x}_n, \mathbf{y}_n; n=1,\ldots,N$),
-
-    \item plot the mean of the sources of radiation and its 95\% confidence
-        ellipse. Verify that 95\% of the sampled sources lie within the 95\%
-        confidence ellipse,
-
-    \item for each sampled surface measurement, $\mathbf{y}_n$, infer the mean,
-        $\mu_{x|y;n}$, and covariance, $\Sigma_{x|y;n}$, of the the posterior
-        probability of the source given the observation,
-
-    \item plot the sampled sources of radiation $\mathbf{x}_{n}$, the estimated
-        means $\mu_{x|y;n}$ and $95\%$ confidence ellipses, of the posterior
-        distribution of the source of radiation given the surface
-        measurements,
-
-\item count how many times a sampled source of radiation, $\mathbf{x}_n$,
-    lies within the 95\% confidence ellipse of mean of the posterior
-    probability of the source given a measurement.
-
-\end{enumerate}
-\end{comment}
 
 \bibliographystyle{apalike}
 \bibliography{machineLearning}
