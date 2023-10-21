@@ -35,7 +35,8 @@ n_samples_to_plot = (1, 2, 20)
 
 x = np.random.uniform(low=-1, high=1, size=n_samples)
 y = a0 + a1 * x
-t = y + np.random.standard_normal(size=y.shape) * 1.0/likelihood_precision_coef
+t = y + np.random.standard_normal(size=y.shape) * \
+        1.0/np.sqrt(likelihood_precision_coef)
 
 #%%
 # Define plotting variables
@@ -123,7 +124,7 @@ for n, t in enumerate(y):
         for i, w0 in enumerate(x_grid):
             for j, w1 in enumerate(y_grid):
                 rv = scipy.stats.norm(w0 + w1 * x[n],
-                                      1.0/likelihood_precision_coef)
+                                      1.0/np.sqrt(likelihood_precision_coef))
                 Z[j, i] = rv.pdf(t)
 
         # plot likelihood
